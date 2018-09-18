@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>APP後台</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+	<link href="../assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
+	<link href="../assets/plugins/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../assets/plugins/font-awesome/5.0/css/fontawesome-all.min.css" rel="stylesheet" />
+	<link href="../assets/plugins/animate/animate.min.css" rel="stylesheet" />
+	<link href="../assets/css/material/style.min.css" rel="stylesheet" />
+	<link href="../assets/css/material/style-responsive.min.css" rel="stylesheet" />
+	<link href="../assets/css/material/theme/default.css" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	<link href="../assets/plugins/ionicons/css/ionicons.min.css" rel="stylesheet">
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="../assets/plugins/pace/pace.min.js"></script>
+	<!-- ================== END BASE JS ================== -->
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade show"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="page-container fade page-sidebar-fixed page-header-fixed">
+		<!-- begin #header -->
+		<div id="header" class="header navbar-default">
+			<!-- begin navbar-header -->
+			<div class="navbar-header">
+				<a href="role_setting.html" class="navbar-brand"><span class="navbar-logo"></span> <b>APP後台</b></a>
+				<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<!-- end navbar-header -->
+			
+			<!-- begin header-nav -->
+			<ul class="navbar-nav navbar-right">
+				<li class="dropdown navbar-user">
+					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+						<img src="../assets/img/user/user-13.jpg" alt="" /> 
+						<span class="d-none d-md-inline">測試頁面</span> <b class="caret"></b>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<a href="javascript:;" class="dropdown-item">Edit Profile</a>
+						<a href="javascript:;" class="dropdown-item"><span class="badge badge-danger pull-right">2</span> Inbox</a>
+						<div class="dropdown-divider"></div>
+						<a href="javascript:;" class="dropdown-item">Log Out</a>
+					</div>
+				</li>
+			</ul>
+			<!-- end header navigation right -->
+		</div>
+		<!-- end #header -->
+		
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<!-- begin sidebar scrollbar -->
+			<div data-scrollbar="true" data-height="100%">
+				<!-- begin sidebar user -->
+				<ul class="nav">
+					<li class="nav-profile">
+						<a href="javascript:;" data-toggle="nav-profile">
+							<div class="cover with-shadow"></div>
+							<div class="image">
+								<img src="../assets/img/user/user-13.jpg" alt="" />
+							</div>
+							<div class="info">
+								測試頁面
+								<small>天線寶寶的好朋友</small>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<!-- end sidebar user -->
+				<!-- begin sidebar nav -->
+				<ul class="nav">
+					<li class="has-sub">
+						<a href="javascript:;">
+					        <b class="caret"></b>
+						    <span>系統設置</span>
+					    </a>
+						<ul class="sub-menu">
+						    <!-- <li class="active"><a href="#">功能設定</a></li> -->
+						    <li><a href="role_setting.html">角色設定</a></li>
+						    <li><a href="account_manage.html">帳號管理</a></li>
+						</ul>
+					</li>
+					<li class="has-sub active">
+						<a href="app_manage.html">
+						    <span>APP管理</span>
+					    </a>
+					</li>
+					<li class="has-sub">
+						<a href="message_notify.html">
+						    <span>訊息推播</span>
+					    </a>
+					</li>
+			        <!-- end sidebar minify button -->
+				</ul>
+				<!-- end sidebar nav -->
+			</div>
+			<!-- end sidebar scrollbar -->
+		</div>
+		<div class="sidebar-bg"></div>
+		<!-- end #sidebar -->
+		
+		<!-- begin #content -->
+		<div id="content" class="content">
+			<!-- begin breadcrumb -->
+			<ol class="breadcrumb pull-right">
+				<li class="breadcrumb-item"><a href="javascript:;">系統設定</a></li>
+				<li class="breadcrumb-item"><a href="app_manage.html">APP管理</a></li>
+				<li class="breadcrumb-item active">新增/編輯</li>
+			</ol>
+			<!-- end breadcrumb -->
+			<!-- begin page-header -->
+			<h1 class="page-header">APP管理</h1>
+			<!-- end page-header -->
+			
+			<!-- begin panel -->
+			<div class="panel panel-inverse">
+				<div class="panel-heading">
+					<div class="panel-heading-btn">
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+					</div>
+					<h4 class="panel-title">新增/編輯</h4>
+				</div>
+				<div class="panel-body">
+					<table class="table table-editor">
+						<tbody>
+							<tr>
+								<td width=200>代碼</td>
+								<td><input type="text" class="form-control" value="account"/></td>
+							</tr>
+							<tr>
+								<td>名稱</td>
+								<td><input type="text" class="form-control" value="password"/></td>
+							</tr>
+							
+							<tr>
+								<td>類別</td>
+								<td>
+									<select class="form-control">
+										<option vlaue="Lottery">彩票</option>
+										<option value="futures">期貨</option>
+										<option value="sports">體育</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									跳轉開關
+								</td>
+								<td class="with-radio">
+									<div class="form-check form-check-inline">
+										<label class="form-check-label">
+									  		<input type="radio" class="form-check-input" name="redirect">啟用
+									  	</label>
+									</div>
+									<div class="form-check form-check-inline">
+									  	<label class="form-check-label">
+									  		<input type="radio" class="form-check-input" name="redirect" checked="">關閉
+									  	</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>跳轉網址</td>
+								<td><input type="text" class="form-control" value=""/></td>
+							</tr>
+							<tr>
+								<td>
+									更新開關
+								</td>
+								<td class="with-radio">
+									<div class="form-check form-check-inline">
+										<label class="form-check-label">
+									  		<input type="radio" class="form-check-input" name="update">啟用
+									  	</label>
+									</div>
+									<div class="form-check form-check-inline">
+									  	<label class="form-check-label">
+									  		<input type="radio" class="form-check-input" name="update" checked="">關閉
+									  	</label>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>更新網址</td>
+								<td><input type="text" class="form-control" value="url"/></td>
+							</tr>
+							<tr>
+								<td>更新文字</td>
+								<td><input type="text" class="form-control" value=""/></td>
+							</tr>
+							<tr>
+								<td>QQ ID</td>
+								<td><input type="text" class="form-control" value="qq"/></td>
+							</tr>
+							<tr>
+								<td>WeChat ID</td>
+								<td><input type="text" class="form-control" value="wechat"/></td>
+							</tr>
+							<tr>
+								<td>線上客服</td>
+								<td><input type="text" class="form-control" value="service online"/></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td>
+									<a href="#" class="btn btn-sm btn-primary">儲存</a>
+									<a href="#" class="btn btn-sm btn-danger">取消</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- end panel -->
+		</div>
+		<!-- end #content -->
+		
+		<!-- end scroll to top btn -->
+	</div>
+	<!-- end page container -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="../assets/plugins/jquery/jquery-3.2.1.min.js"></script>
+	<script src="../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+	<script src="../assets/plugins/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
+	<!--[if lt IE 9]>
+		<script src="../assets/crossbrowserjs/html5shiv.js"></script>
+		<script src="../assets/crossbrowserjs/respond.min.js"></script>
+		<script src="../assets/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+	<script src="../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="../assets/plugins/js-cookie/js.cookie.js"></script>
+	<script src="../assets/js/theme/default.min.js"></script>
+	<script src="../assets/js/apps.min.js"></script>
+	<!-- ================== END BASE JS ================== -->
+	
+	<script>
+		$(document).ready(function() {
+			App.init();
+		});
+	</script>
+
+	<style>
+		.table-editor tr td:first-child {
+			background: #111;
+			text-align: right;
+			color: #FFF;
+		}
+	</style>
+</body>
+</html>
