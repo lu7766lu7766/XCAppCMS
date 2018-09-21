@@ -13,16 +13,16 @@ export default {
   // 'getStatus': {
   //   uri: '/auth/status'
   // },
+  'getNodes': {
+    uri: '/node/map'
+  },
   'doLogin': {
     method: 'post',
     uri: '/passport/token',
     data: {
       'grant_type': 'password',
-      'client_id': '4dad2129-4b7f-435b-891f-fb87c324a47e',
-      'client_secret': 'BXgVuI8htWfe3U3vbRfX99zyw22FyZkpXsezRCpL'
+      'client_id': '67ef72fb-4f52-4c70-a6de-b97df731a9e3',
+      'client_secret': 'tZYsxU69xCifC8q9DUxz9hhC8P5F1ozKDSKTgwTv'
     }
-  },
-  'try': {
-    uri: '/account/maintain'
   }
 }

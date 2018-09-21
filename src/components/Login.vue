@@ -35,7 +35,6 @@
           </div>
           <div class="login-buttons">
             <button type="button" class="btn btn-success btn-block btn-lg" @click="doLogin()">Sign me in</button>
-            <button type="button" class="btn btn-success btn-block btn-lg" @click="tryApi()">try</button>
           </div>
           <div class="m-t-20">
             Not a member yet? Click
@@ -78,15 +77,6 @@ export default {
 	metaInfo: {
 		title: 'Login',
 		link: [
-			// { rel: 'favicon', href: 'favicon.ico' },
-			{ rel: 'stylesheet', href: 'http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' },
-			{ rel: 'stylesheet', href: '/resource/plugins/jquery-ui/jquery-ui.min.css' },
-			// { rel: 'stylesheet', href: '/resource/plugins/bootstrap/4.1.0/css/bootstrap.min.css' },
-			{ rel: 'stylesheet', href: '/resource/plugins/font-awesome/5.0/css/fontawesome-all.min.css' },
-			{ rel: 'stylesheet', href: '/resource/plugins/animate/animate.min.css' },
-			{ rel: 'stylesheet', href: '/resource/css/default/style.min.css' },
-			{ rel: 'stylesheet', href: '/resource/css/default/style-responsive.min.css' },
-			{ rel: 'stylesheet', href: '/resource/css/default/theme/default.css' },
 			{ rel: 'stylesheet', href: '/resource/plugins/jquery-jvectormap/jquery-jvectormap.css' },
 			{ rel: 'stylesheet', href: '/resource/assets/plugins/bootstrap-calendar/css/bootstrap_calendar.css' },
 			{ rel: 'stylesheet', href: '/resource/plugins/gritter/css/jquery.gritter.css' },
@@ -104,20 +94,17 @@ export default {
 			var res = await this.$callApi('doLogin', this.user)
 			if (res.success) {
 				this.$store.commit(LoginType.setAccessToken, res.data)
-				// this.$router.push()
+				this.$router.push({
+					name: 'welcome'
+				})
 			}
-		},
-		async tryApi() {
-			var res = await this.$callApi('try')
-			console.log(res)
 		}
 	},
-	created() {
-		$.getScript('/static/script/Login.js')
+	created() {},
+	mounted() {
+		$(document).ready(function() {
+			App.init()
+		})
 	}
 }
 </script>
-
-<style lang="stylus" scoped>
-@import '/resource/plugins/bootstrap/4.1.0/css/bootstrap.min.css'
-</style>

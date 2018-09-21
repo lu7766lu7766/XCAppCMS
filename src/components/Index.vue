@@ -13,7 +13,7 @@
 				<!-- begin navbar-header -->
 				<div class="navbar-header">
 					<router-link class="navbar-brand" :to="{
-							name: 'index'
+							name: 'welcome'
 						}">
 						<span class="navbar-logo"></span>
 						<b>APP后台</b>
@@ -39,7 +39,7 @@
 							<a href="javascript:;" class="dropdown-item">
 								<span class="badge badge-danger pull-right">2</span> Inbox</a>
 							<div class="dropdown-divider"></div>
-							<a href="javascript:;" class="dropdown-item">Log Out</a>
+							<a href="javascript:;" class="dropdown-item" @click="logout()">Log Out</a>
 						</div>
 					</li>
 				</ul>
@@ -70,7 +70,8 @@
 					<!-- begin sidebar nav -->
 
 					<ul class="nav">
-						<li class="has-sub" :class="{active: mainMenu == 'sys-setting'}">
+						<j-menu v-for="(node, index) in menus" :key="index" :node="node" />
+						<!-- <li class="has-sub" :class="{active: mainMenu == 'sys-setting'}">
 							<a href="javascript:;">
 								<b class="caret"></b>
 								<span>系统设置</span>
@@ -105,8 +106,7 @@
 								}">
 								<span>讯息推播</span>
 							</router-link>
-						</li>
-						<!-- end sidebar minify button -->
+						</li> -->
 					</ul>
 					<!-- end sidebar nav -->
 				</div>
@@ -125,28 +125,36 @@
 </template>
 
 <script>
+import CheckLoginMixins from 'mixins/common/CheckLogin'
+import { LoginType } from 'module/login'
+import { NodeType } from 'module/node'
+
 export default {
 	metaInfo: {
 		title: 'APP后台',
-		link: [
-			// { rel: 'favicon', href: 'favicon.ico' },
-			{ rel: 'stylesheet', href: 'http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' },
-			{ rel: 'stylesheet', href: '/resource/plugins/jquery-ui/jquery-ui.min.css' },
-			// { rel: 'stylesheet', href: '/resource/plugins/bootstrap/4.1.0/css/bootstrap.min.css' },
-			{ rel: 'stylesheet', href: '/resource/plugins/font-awesome/5.0/css/fontawesome-all.min.css' },
-			{ rel: 'stylesheet', href: '/resource/plugins/animate/animate.min.css' },
-			{ rel: 'stylesheet', href: '/resource/css/material/style.min.css' },
-			{ rel: 'stylesheet', href: '/resource/css/material/style-responsive.min.css' },
-			{ rel: 'stylesheet', href: '/resource/css/material/theme/default.css' },
-			{ rel: 'stylesheet', href: '/resource/plugins/ionicons/css/ionicons.min.css' }
-		]
+		link: [{ rel: 'stylesheet', href: '/resource/plugins/ionicons/css/ionicons.min.css' }]
+	},
+	mixins: [CheckLoginMixins],
+	components: {
+		JMenu: require('@/shared/Menu1').default
 	},
 	computed: {
-		mainMenu() {
-			return this.$route.matched[1].name
-		},
-		nowMenu() {
-			return this.$route.name
+		menus() {
+			return this.$store.getters[NodeType.menus]
+		}
+	},
+	methods: {
+		logout() {
+			this.$store.commit(LoginType.clearAccessToken)
+			this.$router.push({
+				name: 'login'
+			})
+		}
+	},
+	async created() {
+		var res = await this.$callApi('getNodes')
+		if (res.success) {
+			this.$store.commit(NodeType.setNodes, res.data)
 		}
 	},
 	mounted() {
@@ -158,8 +166,6 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '/resource/plugins/bootstrap/4.1.0/css/bootstrap.min.css'
-
 #page-container
 	th
 		&.with-checkbox, &.index
@@ -180,6 +186,12 @@ export default {
 
 .form-editor label.col-form-label
 	text-align right
+
+.modal-header
+	background #222
+
+	.modal-title
+		color #fff
 </style>
 
 

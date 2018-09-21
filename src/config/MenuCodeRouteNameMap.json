@@ -1,0 +1,11 @@
+{
+  "WEB_MG": {
+    "name": "sys-setting"
+  },
+  "ACC_ST": {
+    "name": "account-list"
+  },
+  "APP_MG": {
+    "name": "app-list"
+  }
+}

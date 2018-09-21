@@ -1,59 +1,35 @@
 <template>
-  <section>
-    <div class="panel panel-inverse">
-      <div class="panel-heading">
-        <div class="panel-heading-btn">
-          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
-            <i class="fa fa-expand"></i>
-          </a>
-          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse">
-            <i class="fa fa-minus"></i>
-          </a>
-        </div>
-        <h4 class="panel-title">新增/编辑</h4>
-      </div>
-      <div class="panel-body">
-        <table class="table table-editor">
-          <tbody>
-            <tr>
-              <td width=200>
-                角色名称
-              </td>
-              <td>
-                <input type="text" class="form-control" value="test" />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                状态
-              </td>
-              <td class="with-radio">
-                <div class="form-check form-check-inline">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="status" checked="">启用
-                  </label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="status">关闭
-                  </label>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>
-                <a href="#" class="btn btn-sm btn-primary">储存</a>
-                <router-link class="btn btn-sm btn-danger" :to="{
-                    name: 'role-list'
-                  }">
-                  取消
-                </router-link>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <b-modal id="modalDetail" size="lg" ok-title="储存" cancel-title="取消">
+
+    <div slot="modal-header">
+      <h5 class="modal-title">新增/编辑</h5>
     </div>
-  </section>
+
+    <form class="form-horizontal form-bordered form-editor">
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label">角色名称</label>
+        <div class="col-md-10">
+          <input type="text" class="form-control" value="test" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label">状态</label>
+        <div class="col-md-10">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="status" checked="">启用
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" name="status">关闭
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </b-modal>
 </template>
