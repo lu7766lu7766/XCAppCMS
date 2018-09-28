@@ -6,7 +6,7 @@ var resolve = (dir) => {
 }
 
 var env = require(resolve('env.json'))
-var apiHost = env.host[env.target].api.protocol + env.host[env.target].api.host
+// var apiHost = env.host[env.target].api.protocol + env.host[env.target].api.host
 
 // 設定請參考 https://github.com/vuejs/vue-cli/tree/dev/docs/config
 module.exports = {
@@ -53,15 +53,15 @@ module.exports = {
     https: false,
     hotOnly: false,
     // 查阅 https://github.com/vuejs/vue-doc-zh-cn/vue-cli/cli-service.md#配置代理
-    proxy:
-    {
-      [env.host[env.target].api.postfix]: { //'/api'
-        target: apiHost,
-        changeOrigin: true,
-        pathRewrite: { [`^${env.host[env.target].api.postfix}`]: '' },
-        // logLevel: 'debug'
-      }
-    }, // string | Object
+    // proxy:
+    // {
+    //   [env.host[env.target].api.postfix]: { //'/api'
+    //     target: apiHost,
+    //     changeOrigin: true,
+    //     pathRewrite: { [`^${env.host[env.target].api.postfix}`]: '' },
+    //     // logLevel: 'debug'
+    //   }
+    // }, // string | Object
     before: app => {
       // 加入靜態資源
       var express = require('express') // vue-cli-service 自帶 express

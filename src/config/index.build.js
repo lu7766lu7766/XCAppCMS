@@ -1,6 +1,6 @@
 var _ = require('lodash')
 
-var baseConfig = require('./index.base')
+var baseConfig = require('./index.base').default
 var devConfig = require('./index.dev')
 var devMobileConfig = require('./index.dev.mobile')
 var prodConfig = require('./index.prod')

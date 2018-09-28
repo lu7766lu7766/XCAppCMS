@@ -1,5 +1,5 @@
 <template>
-	<div v-if="account">
+	<div>
 		<!-- begin #page-loader -->
 		<div id="page-loader" class="fade show">
 			<span class="spinner"></span>
@@ -31,7 +31,7 @@
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="/resource/img/user/user-13.jpg" alt="" />
-							<span class="d-none d-md-inline">{{ account.display_name }}</span>
+							<span class="d-none d-md-inline" v-if="account">{{ account.display_name }}</span>
 							<b class="caret"></b>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right">
@@ -56,9 +56,9 @@
 								<div class="image">
 									<img src="/resource/img/user/user-13.jpg" alt="" />
 								</div>
-								<div class="info">
-									{{ account.display_name }}
-								</div>
+									<div class="info" v-if="account">
+										{{ account.display_name }}
+									</div>
 							</a>
 						</li>
 					</ul>

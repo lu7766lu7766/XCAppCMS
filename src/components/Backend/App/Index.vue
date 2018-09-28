@@ -28,9 +28,9 @@
           </select>
           <select class="form-control" v-model="body.mobile_device">
             <option value="">裝置</option>
-            <option v-for="(name, index) in AppMobileDeviceConf" :key="name" :value="name" >{{ name }}</option>
+            <option v-for="(name, index) in AppMobileDeviceConf" :key="index" :value="name">{{ name }}</option>
           </select>
-          <input type="text" class="form-control" placeholder="关键字" v-model="body.name" />
+          <input type="text" class="form-control" placeholder="关键字" v-model="body.name" @keyup.13="mGetList()"/>
           <button type="button" class="btn btn-sm btn-default" @click="mGetList()">搜索</button>
         </div>
       </div>
@@ -105,16 +105,7 @@
       </div>
     </div>
 
-    <detail 
-      :data.sync="data" 
-      :AppStatusConf="AppStatusConf" 
-      :AppUpdateSwitchConf="AppUpdateSwitchConf" 
-      :AppRedirectSwitchConf="AppRedirectSwitchConf" 
-      :AppMobileDeviceConf="AppMobileDeviceConf" 
-      :AppCategoryConf="AppCategoryConf" 
-      @post="post" 
-      @put="put" 
-      :method="method" />
+    <detail :data.sync="data" :AppStatusConf="AppStatusConf" :AppUpdateSwitchConf="AppUpdateSwitchConf" :AppRedirectSwitchConf="AppRedirectSwitchConf" :AppMobileDeviceConf="AppMobileDeviceConf" :AppCategoryConf="AppCategoryConf" @post="post" @put="put" :method="method" />
 
   </div>
 </template>
@@ -164,12 +155,12 @@ export default {
 			customer_service: '',
 			status: 'unpublished',
 			topic_id: ''
-    },
-    body: {
-      category: '',
-      mobile_device: '',
-      name: ''
-    }
+		},
+		body: {
+			category: '',
+			mobile_device: '',
+			name: ''
+		}
 	}),
 	methods: {
 		async mGetList() {
@@ -187,8 +178,8 @@ export default {
 			if (res.success) {
 				this.paginate.total = res.data
 			}
-    },
-    post() {
+		},
+		post() {
 			this.mRequestProccess('postAppDetail')
 		},
 		put() {
@@ -198,24 +189,24 @@ export default {
 			const data = this.data
 			return await this.requestProccess(key, {
 				id: data.id,
-        code: data.code,
-        name: data.name,
-        category: data.category,
-        mobile_device: data.mobile_device,
-        redirect_switch: data.redirect_switch,
-        redirect_url: data.redirect_url,
-        update_switch: data.update_switch,
-        update_url: data.update_url,
-        update_content: data.update_content,
-        qq_id: data.qq_id,
-        wechat_id: data.wechat_id,
-        customer_service: data.customer_service,
-        status: data.status,
-        topic_id: data.topic_id
+				code: data.code,
+				name: data.name,
+				category: data.category,
+				mobile_device: data.mobile_device,
+				redirect_switch: data.redirect_switch,
+				redirect_url: data.redirect_url,
+				update_switch: data.update_switch,
+				update_url: data.update_url,
+				update_content: data.update_content,
+				qq_id: data.qq_id,
+				wechat_id: data.wechat_id,
+				customer_service: data.customer_service,
+				status: data.status,
+				topic_id: data.topic_id
 			})
-    },
-    mDeleteDatas() {
-      this.deleteDatas('deleteAppList')
+		},
+		mDeleteDatas() {
+			this.deleteDatas('deleteAppList')
 		}
 	},
 	created() {
