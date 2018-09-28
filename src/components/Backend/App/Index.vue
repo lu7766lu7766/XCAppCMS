@@ -11,24 +11,27 @@
     </ol>
     <h1 class="page-header">APP管理</h1>
 
-    <alert :show.sync="isShowAlert" styleType="danger">刪除失敗</alert>
+    <b-alert :variant="request.result" :show="!!request.result">{{ request.message }}</b-alert>
 
     <div class="row form-group">
       <div class="col-md-6">
-        <button type="button" class="btn btn-sm btn-primary" v-b-modal.modalDetail>
+        <button type="button" class="btn btn-sm btn-primary" v-b-modal.modalDetail @click="setData()">
           新增
         </button>
-        <button type="button" class="btn btn-sm btn-danger" @click="isShowAlert = !isShowAlert">删除</button>
+        <button type="button" class="btn btn-sm btn-danger" @click="mDeleteDatas()">删除</button>
       </div>
       <div class="col-md-6" style="text-align: right;">
         <div class="form-inline" style="display: block;">
-          <select class="form-control">
-            <option>全部</option>
-            <option>系统管理员</option>
-            <option>网站管理员</option>
+          <select class="form-control" v-model="body.category">
+            <option value="">类别</option>
+            <option v-for="(name, conf) in AppCategoryConf" :key="name" :value="conf">{{ name }}</option>
           </select>
-          <input type="text" class="form-control" placeholder="关键字" />
-          <a href="javascript:;" class="btn btn-sm btn-default">搜索</a>
+          <select class="form-control" v-model="body.mobile_device">
+            <option value="">裝置</option>
+            <option v-for="(name, index) in AppMobileDeviceConf" :key="name" :value="name" >{{ name }}</option>
+          </select>
+          <input type="text" class="form-control" placeholder="关键字" v-model="body.name" />
+          <button type="button" class="btn btn-sm btn-default" @click="mGetList()">搜索</button>
         </div>
       </div>
     </div>
@@ -51,13 +54,14 @@
             <tr>
               <th class="with-checkbox">
                 <div class="checkbox checkbox-css">
-                  <input type="checkbox" value="" id="table_checkbox_1">
-                  <label for="table_checkbox_1">&nbsp;</label>
+                  <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
+                  <label for="checkbox_all">&nbsp;</label>
                 </div>
               </th>
               <th class="index">#</th>
               <th>代码</th>
               <th>名称</th>
+              <th>裝置</th>
               <th>类别</th>
               <th>跳转开关</th>
               <th>更新开关</th>
@@ -65,72 +69,158 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+
+            <tr v-for="(d, index) in datas" :key="index">
               <td class="with-checkbox">
                 <div class="checkbox checkbox-css">
-                  <input type="checkbox" value="" id="table_checkbox_2">
-                  <label for="table_checkbox_2">&nbsp;</label>
+                  <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
+                  <label :for="'checkbox_'+d.id">&nbsp;</label>
                 </div>
               </td>
-              <td>1</td>
-              <td>ABC</td>
-              <td>期货原油投资</td>
-              <td>期货</td>
+              <td>{{ d.id }}</td>
+              <td>{{ d.code }}</td>
+              <td>{{ d.name }}</td>
+              <td>{{ d.category }}</td>
+              <td>{{ d.mobile_device.toUpperCase() }}</td>
               <td>
-                <i class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
+                <i v-if="d.redirect_switch == 'on'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
+                <i v-else-if="d.redirect_switch == 'off'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
               </td>
               <td>
-                <i class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
+                <i v-if="d.update_switch == 'on'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
+                <i v-if="d.update_switch == 'off'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
               </td>
               <td class="action">
-                <button class="btn btn-sm btn-info" v-b-modal.modalDetail>
+                <button class="btn btn-sm btn-info" v-b-modal.modalDetail @click="setData(d)">
                   编辑
                 </button>
               </td>
             </tr>
-            <tr>
-              <td class="with-checkbox">
-                <div class="checkbox checkbox-css">
-                  <input type="checkbox" value="" id="table_checkbox_2" checked="">
-                  <label for="table_checkbox_2">&nbsp;</label>
-                </div>
-              </td>
-              <td>2</td>
-              <td>LLL</td>
-              <td>彩票互动教学</td>
-              <td>彩票</td>
-              <td>
-                <i class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
-              </td>
-              <td>
-                <i class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
-              </td>
-              <td class="action">
-                <button class="btn btn-sm btn-info" v-b-modal.modalDetail>
-                  编辑
-                </button>
-              </td>
-            </tr>
+
           </tbody>
         </table>
 
-        <paginate />
+        <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
 
       </div>
     </div>
 
-    <detail />
+    <detail 
+      :data.sync="data" 
+      :AppStatusConf="AppStatusConf" 
+      :AppUpdateSwitchConf="AppUpdateSwitchConf" 
+      :AppRedirectSwitchConf="AppRedirectSwitchConf" 
+      :AppMobileDeviceConf="AppMobileDeviceConf" 
+      :AppCategoryConf="AppCategoryConf" 
+      @post="post" 
+      @put="put" 
+      :method="method" />
 
   </div>
 </template>
 
 <script>
+import ListMixins from 'mixins/common/List'
+
 export default {
+	mixins: [ListMixins],
 	components: {
 		detail: require('./Detail.vue').default
 	},
 	data: () => ({
-		isShowAlert: false
-	})
+		AppStatusConf: {
+			unpublished: '未上架',
+			verifying: '审核中',
+			published: '已上架',
+			removed: '已下架'
+		},
+		AppCategoryConf: {
+			lottery: '彩票',
+			futures: '期货',
+			sports: '体育'
+		},
+		AppUpdateSwitchConf: {
+			on: '开启',
+			off: '关闭'
+		},
+		AppRedirectSwitchConf: {
+			on: '开启',
+			off: '关闭'
+		},
+		AppMobileDeviceConf: ['ios', 'android'],
+		model: {
+			id: '',
+			code: '',
+			name: '',
+			category: '',
+			mobile_device: 'ios',
+			redirect_switch: 'off',
+			redirect_url: [],
+			update_switch: 'off',
+			update_url: '',
+			update_content: '',
+			qq_id: '',
+			wechat_id: '',
+			customer_service: '',
+			status: 'unpublished',
+			topic_id: ''
+    },
+    body: {
+      category: '',
+      mobile_device: '',
+      name: ''
+    }
+	}),
+	methods: {
+		async mGetList() {
+			var res = await this.getList('getAppList')
+			if (res.success) {
+				_.forEach(res.data, data => {
+					data.checked = false
+					data.redirect_url = $.parseJSON(data.redirect_url)
+				})
+				this.datas = res.data
+			}
+		},
+		async dataInit() {
+			var res = await this.$callApi('getAppTotal')
+			if (res.success) {
+				this.paginate.total = res.data
+			}
+    },
+    post() {
+			this.mRequestProccess('postAppDetail')
+		},
+		put() {
+			this.mRequestProccess('putAppDetail')
+		},
+		async mRequestProccess(key) {
+			const data = this.data
+			return await this.requestProccess(key, {
+				id: data.id,
+        code: data.code,
+        name: data.name,
+        category: data.category,
+        mobile_device: data.mobile_device,
+        redirect_switch: data.redirect_switch,
+        redirect_url: data.redirect_url,
+        update_switch: data.update_switch,
+        update_url: data.update_url,
+        update_content: data.update_content,
+        qq_id: data.qq_id,
+        wechat_id: data.wechat_id,
+        customer_service: data.customer_service,
+        status: data.status,
+        topic_id: data.topic_id
+			})
+    },
+    mDeleteDatas() {
+      this.deleteDatas('deleteAppList')
+		}
+	},
+	created() {
+		this.mGetList()
+		this.dataInit()
+	}
 }
 </script>

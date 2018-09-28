@@ -1,16 +1,16 @@
 export default [
   {
-    path: "/login",
-    name: "login",
+    path: '/login',
+    name: 'login',
     component: () => import('@/Login')
   },
   {
-    path: "",
+    path: '',
     component: () => import('@/Index'),
     children: [
       {
         path: '',
-        name: "welcome",
+        name: 'welcome',
         component: () => import('@/Backend/Welcome')
       },
       {
@@ -20,25 +20,25 @@ export default [
         children: [
           {
             path: 'role',
-            component: () => import('@/Backend/SysSetting/Role/Index'),
-            name: "role-list"
+            name: 'role-list',
+            component: () => import('@/Backend/SysSetting/Role/Index')
           },
           {
             path: 'account',
-            component: () => import('@/Backend/SysSetting/Account/Index'),
-            name: "account-list"
+            name: 'account-list',
+            component: () => import('@/Backend/SysSetting/Account/Index')
           }
         ]
       },
       {
         path: 'app',
-        component: () => import('@/Backend/App/Index'),
-        name: "app-list"
+        name: 'app-list',
+        component: () => import('@/Backend/App/Index')
       },
       {
         path: 'message',
-        component: () => import('@/Backend/Message/Index'),
-        name: "message-list"
+        name: 'message-list',
+        component: () => import('@/Backend/Message/Index')
       }
     ]
   },

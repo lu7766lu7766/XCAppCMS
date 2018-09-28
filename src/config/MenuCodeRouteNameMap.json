@@ -7,5 +7,8 @@
   },
   "APP_MG": {
     "name": "app-list"
+  },
+  "PSH_NOTI": {
+    "name": "message-list"
   }
 }

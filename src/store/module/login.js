@@ -4,6 +4,7 @@ const type = {
   // mutation
   setAccessToken: 'Login/setAccessToken',
   clearAccessToken: 'Login/clearAccessToken',
+  setAccount: 'Login/setAccount',
   // action
   // 
   // getters
@@ -15,7 +16,8 @@ export { type as LoginType }
 export default {
   namespaced: true,
   state: {
-    access: null
+    access: null,
+    account: null
   },
   mutations: {
     setAccessToken(state, context) {
@@ -24,6 +26,9 @@ export default {
     clearAccessToken(state) {
       state.access = null
       router.replace({ name: 'login' })
+    },
+    setAccount(state, context) {
+      state.account = context
     }
   },
   actions: {

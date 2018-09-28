@@ -17,8 +17,7 @@
         <div class="login-header">
           <div class="brand">
             <span class="logo"></span>
-            <b>Color</b> Admin
-            <small>responsive bootstrap 3 admin template</small>
+            <b>APP</b> CMS
           </div>
           <div class="icon">
             <i class="fa fa-lock"></i>
@@ -33,13 +32,12 @@
           <div class="form-group m-b-20">
             <input type="password" class="form-control form-control-lg" placeholder="Password" required v-model="user.password" />
           </div>
-          <div class="login-buttons">
-            <button type="button" class="btn btn-success btn-block btn-lg" @click="doLogin()">Sign me in</button>
+          <div class="form-group login-buttons">
+            <button type="button" class="btn btn-success btn-block btn-lg" @click="doLogin()">登入</button>
           </div>
-          <div class="m-t-20">
-            Not a member yet? Click
-            <a href="javascript:;">here</a> to register.
-          </div>
+
+          <b-alert variant="danger" :show="!request.result">登入失敗</b-alert>
+
         </div>
         <!-- end login-content -->
       </div>
@@ -87,6 +85,9 @@ export default {
 		user: {
 			username: 'jacc',
 			password: 'jaccis666'
+		},
+		request: {
+			result: true
 		}
 	}),
 	methods: {
@@ -97,6 +98,8 @@ export default {
 				this.$router.push({
 					name: 'welcome'
 				})
+			} else {
+				this.request.result = false
 			}
 		}
 	},

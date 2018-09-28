@@ -1,10 +1,10 @@
 <template>
   <li :class="{
-      active: routeName == CodeMap[node.code].name,
-      'has-sub': hasSubRoute(CodeMap[node.code])
+      active: routeName == getRouteByCode(node.code).name,
+      'has-sub': hasSubRoute(getRouteByCode(node.code))
     }">
 
-    <router-link v-if="!hasSubRoute(CodeMap[node.code])" :to="CodeMap[node.code]">
+    <router-link v-if="!hasSubRoute(getRouteByCode(node.code))" :to="getRouteByCode(node.code)">
       <span>{{ node.display_name }}</span>
     </router-link>
     <a href="javascript:;" v-else>

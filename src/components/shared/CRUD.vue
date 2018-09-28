@@ -24,11 +24,4 @@
 </template>
 
 <script>
-export default {
-	methods: {
-		test(e) {
-			console.log(e)
-		}
-	}
-}
 </script>

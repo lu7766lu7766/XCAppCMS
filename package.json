@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && npm run uProject",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:e2e": "vue-cli-service test:e2e",
+    "uProject": "node build/script/upload_project.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -31,6 +32,9 @@
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-uglify": "^3.0.1",
+    "jac-s3-sync-aws": "^1.2.4",
+    "level": "^4.0.0",
+    "readdirp": "^2.2.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.5.17"

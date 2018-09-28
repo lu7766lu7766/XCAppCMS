@@ -14,25 +14,23 @@
     </ol>
     <h1 class="page-header">帐号管理</h1>
 
-    <b-alert show variant="success">新增成功</b-alert>
+    <b-alert :variant="request.result" :show="!!request.result">{{ request.message }}</b-alert>
 
     <div class="row form-group">
       <div class="col-md-6">
-        <button class="btn btn-sm btn-primary" v-b-modal.modalDetail>
+        <button class="btn btn-sm btn-primary" v-b-modal.modalDetail @click="setData()">
           新增
         </button>
-
-        <a href="javascript:;" class="btn btn-sm btn-danger">删除</a>
+        <button class="btn btn-sm btn-danger" @click="mDeleteDatas()">删除</button>
       </div>
       <div class="col-md-6" style="text-align: right;">
         <div class="form-inline" style="display: block;">
-          <select class="form-control">
-            <option>全部</option>
-            <option>系统管理员</option>
-            <option>网站管理员</option>
+          <select class="form-control" v-model="body.role_id">
+            <option value="">全部</option>
+            <option v-for="(role_id, name) in roles" :value="role_id">{{ name }}</option>
           </select>
-          <input type="text" class="form-control" placeholder="关键字" />
-          <a href="javascript:;" class="btn btn-sm btn-default">搜索</a>
+          <input type="text" class="form-control" placeholder="关键字" v-model="body.account"/>
+          <button type="button" class="btn btn-sm btn-default" @click="mGetList()">搜索</button>
         </div>
       </div>
     </div>
@@ -55,8 +53,8 @@
             <tr>
               <th class="with-checkbox" width=100>
                 <div class="checkbox checkbox-css">
-                  <input type="checkbox" value="" id="table_checkbox_1">
-                  <label for="table_checkbox_1">&nbsp;</label>
+                  <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
+                  <label for="checkbox_all">&nbsp;</label>
                 </div>
               </th>
               <th class="index">#</th>
@@ -69,65 +67,112 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+
+            <tr v-for="(d, index) in datas" :key="index">
               <td class="with-checkbox">
                 <div class="checkbox checkbox-css">
-                  <input type="checkbox" value="" id="table_checkbox_2">
-                  <label for="table_checkbox_2">&nbsp;</label>
+                  <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
+                  <label :for="'checkbox_'+d.id">&nbsp;</label>
                 </div>
               </td>
-              <td>1</td>
-              <td>admin</td>
-              <td>管理员</td>
-              <td>系统管理员</td>
+              <td>{{ d.id }}</td>
+              <td>{{ d.account }}</td>
+              <td>{{ d.display_name }}</td>
+              <td>{{ d.roles[0].display_name }}</td>
               <td>
-                <i class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
+                <i v-if="d.status == 'enable'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
+                <i v-else-if="d.status == 'disable'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
               </td>
-              <td>127.0.0.1</td>
+              <td>{{ d.login_ip }}</td>
               <td class="action">
-                <button class="btn btn-sm btn-info" v-b-modal.modalDetail>
+                <button class="btn btn-sm btn-info" v-b-modal.modalDetail @click="setData(d)">
                   编辑
                 </button>
               </td>
             </tr>
-            <tr>
-              <td class="with-checkbox">
-                <div class="checkbox checkbox-css">
-                  <input type="checkbox" value="" id="table_checkbox_2" checked="">
-                  <label for="table_checkbox_2">&nbsp;</label>
-                </div>
-              </td>
-              <td>2</td>
-              <td>arron</td>
-              <td>管理员</td>
-              <td>系统管理员</td>
-              <td>
-                <i class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
-              </td>
-              <td>10.10.1.3</td>
-              <td class="action">
-                <button class="btn btn-sm btn-info" v-b-modal.modalDetail>
-                  编辑
-                </button>
-              </td>
-            </tr>
+
           </tbody>
         </table>
 
-        <paginate />
+        <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
 
       </div>
     </div>
 
-    <detail />
+    <detail :data.sync="data" :status="status" :roles="roles" @post="post" @put="put" :method="method" />
 
   </div>
 </template>
 
 <script>
+import ListMixins from 'mixins/common/List'
+
 export default {
+	mixins: [ListMixins],
 	components: {
 		detail: require('./Detail.vue').default
+	},
+	data: () => ({
+		model: {
+			account: '',
+			password: '',
+			confirm_password: '',
+			display_name: '',
+			roles: [
+				{
+					display_name: ''
+				}
+			]
+		},
+		roles: {},
+    status: {},
+    body: {
+      account: '',
+      role_id: ''
+    }
+	}),
+	methods: {
+		async mGetList() {
+			var res = await this.getList('getMemberList')
+			if (res.success) {
+				this.datas = _.keyBy(
+					_.mapValues(res.data.account_list, res => ({
+						password: '',
+						confirm_password: '',
+						checked: false,
+						...res
+					})),
+					'id'
+				)
+				this.paginate.total = res.data.total
+				this.roles = res.data.role_menu
+				this.status = res.data.status_menu
+			}
+		},
+		post() {
+			this.mRequestProccess('postMember')
+		},
+		put() {
+			this.mRequestProccess('putMember')
+		},
+		async mRequestProccess(key) {
+			const data = this.data
+			return await this.requestProccess(key, {
+				id: data.id,
+				account: data.account,
+				password: data.password,
+				confirm_password: data.confirm_password,
+				display_name: data.display_name,
+				role_id: data.roles[0].id,
+				status: data.status
+			})
+		},
+		mDeleteDatas() {
+      this.deleteDatas('deleteAppList')
+		}
+	},
+	created() {
+		this.mGetList()
 	}
 }
 </script>

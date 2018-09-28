@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="account">
 		<!-- begin #page-loader -->
 		<div id="page-loader" class="fade show">
 			<span class="spinner"></span>
@@ -16,7 +16,7 @@
 							name: 'welcome'
 						}">
 						<span class="navbar-logo"></span>
-						<b>APP后台</b>
+						<b>APP</b> CMS
 					</router-link>
 					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
 						<span class="icon-bar"></span>
@@ -31,13 +31,10 @@
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="/resource/img/user/user-13.jpg" alt="" />
-							<span class="d-none d-md-inline">测试页面</span>
+							<span class="d-none d-md-inline">{{ account.display_name }}</span>
 							<b class="caret"></b>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right">
-							<a href="javascript:;" class="dropdown-item">Edit Profile</a>
-							<a href="javascript:;" class="dropdown-item">
-								<span class="badge badge-danger pull-right">2</span> Inbox</a>
 							<div class="dropdown-divider"></div>
 							<a href="javascript:;" class="dropdown-item" @click="logout()">Log Out</a>
 						</div>
@@ -60,8 +57,7 @@
 									<img src="/resource/img/user/user-13.jpg" alt="" />
 								</div>
 								<div class="info">
-									测试页面
-									<small>天线宝宝的好朋友</small>
+									{{ account.display_name }}
 								</div>
 							</a>
 						</li>
@@ -141,6 +137,9 @@ export default {
 	computed: {
 		menus() {
 			return this.$store.getters[NodeType.menus]
+		},
+		account() {
+			return this.$store.state.Login.account
 		}
 	},
 	methods: {
@@ -149,13 +148,25 @@ export default {
 			this.$router.push({
 				name: 'login'
 			})
+		},
+		dataInit() {
+			this.getNodes(), this.getAccount()
+		},
+		async getNodes() {
+			var res = await this.$callApi('getNodes')
+			if (res.success) {
+				this.$store.commit(NodeType.setNodes, res.data)
+			}
+		},
+		async getAccount() {
+			var res = await this.$callApi('getAccount')
+			if (res.success) {
+				this.$store.commit(LoginType.setAccount, res.data.account_info)
+			}
 		}
 	},
-	async created() {
-		var res = await this.$callApi('getNodes')
-		if (res.success) {
-			this.$store.commit(NodeType.setNodes, res.data)
-		}
+	created() {
+		this.dataInit()
 	},
 	mounted() {
 		$(document).ready(function() {

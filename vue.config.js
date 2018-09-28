@@ -58,7 +58,8 @@ module.exports = {
       [env.host[env.target].api.postfix]: { //'/api'
         target: apiHost,
         changeOrigin: true,
-        pathRewrite: { [`^${env.host[env.target].api.postfix}`]: '' }
+        pathRewrite: { [`^${env.host[env.target].api.postfix}`]: '' },
+        // logLevel: 'debug'
       }
     }, // string | Object
     before: app => {

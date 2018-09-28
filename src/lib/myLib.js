@@ -1,5 +1,6 @@
 import qs from 'qs'
 import store from 'src/store'
+import { PUT, POST } from 'src/config/api'
 
 export function createApiBody(method = 'get', uri = '', data = {}, header = {}) {
   let apiHeader = {}
@@ -9,12 +10,25 @@ export function createApiBody(method = 'get', uri = '', data = {}, header = {}) 
   apiHeader = _.merge(apiHeader, header)
 
   let res = {
-    url: config.apiHost + uri,
+    url: config.apiHost + replaceMatchData(uri, data),
     headers: apiHeader,
     method,
     responseType: 'json',
     withCredentials: true
   }
-  res[method == 'get' ? 'params' : 'data'] = qs.stringify(data)
+  const isSendData = method == PUT || method == POST
+  res[isSendData ? 'data' : 'params'] = isSendData ? qs.stringify(data) : data
   return res
+}
+
+function replaceMatchData(uri, data) {
+  var ts = uri.match(/({[\w]+})/g)
+  ts ? ts.forEach(key => {
+    key = key.replace(/[{}]/g, '')
+    if (data[key]) {
+      uri = uri.replace(`{${key}}`, data[key])
+      delete data[key]
+    }
+  }) : ''
+  return uri
 }
