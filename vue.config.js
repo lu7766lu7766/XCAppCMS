@@ -1,5 +1,5 @@
-var webpack = require("webpack")
 var path = require('path')
+var webpackConfig = require('./webpack.config')
 
 var resolve = (dir) => {
   return path.join(__dirname, dir)
@@ -17,38 +17,14 @@ module.exports = {
   // compiler: true,
   // 调整内部的 webpack 配置。
   // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/webpack.md
-  chainWebpack: () => { },
-  configureWebpack: {
-    resolve: {
-      extensions: ['.ts', '.js', '.vue', '.json'],
-      modules: [resolve('src'), resolve('node_modules')],
-      alias: {
-        '~': resolve('node_modules'),
-        src: resolve('src'),
-        lib: resolve('src/lib'),
-        mixins: resolve('src/mixins'),
-        module: resolve('src/store/module'),
-        interface: resolve('src/interface'),
-        resource: resolve('resource'),
-        '@': resolve('src/components'),
-        config: resolve('src/config/index.build.js')
-      }
-    },
-    plugins: [
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        _: 'lodash',
-        axios: 'axios',
-        moment: 'moment',
-        config: 'config'
-      })
-    ]
+  chainWebpack: () => {
   },
+  configureWebpack: webpackConfig,
   // 配置 webpack-dev-server 行为。
   devServer: {
+    disableHostCheck: true,
     open: process.platform === 'darwin',
-    host: '0.0.0.0',
+    host: 'jac.xing99.cc', //'0.0.0.0',
     port: 8088,
     https: false,
     hotOnly: false,

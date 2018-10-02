@@ -29,7 +29,8 @@
 
           <div class="form-check form-check-inline" v-for="(topic, index) in topics" :key="index">
             <label class="form-check-label">
-              <input type="checkbox" class="form-check-input" v-model="data.app_managements" :value="topic" />{{ topic.name }}
+              <input type="checkbox" class="form-check-input" v-model="data.app_managements" :value="topic" />{{
+              topic.name }}
             </label>
           </div>
 
@@ -42,24 +43,27 @@
 </template>
 
 <script>
-import DetailMixins from 'mixins/common/Detail'
-export default {
-	mixins: [DetailMixins],
-	props: {
-		topics: {
-			type: Array,
-			required: true
-		}
-	},
-	computed: {
-		isAllChecked: {
-			set(newValue) {
-				this.data.app_managements = newValue ? this.topics : []
-			},
-			get() {
-				return this.data.app_managements && this.data.app_managements.length == this.topics.length
-			}
-		}
-	}
-}
+  import DetailMixins from 'mixins/common/Detail'
+
+  export default {
+    mixins: [DetailMixins],
+    props: {
+      topics: {
+        type: Array,
+        required: true
+      }
+    },
+    computed: {
+      isAllChecked: {
+        set(newValue) {
+          this.data.app_managements = newValue
+            ? this.topics
+            : []
+        },
+        get() {
+          return this.data.app_managements && this.data.app_managements.length == this.topics.length
+        }
+      }
+    }
+  }
 </script>

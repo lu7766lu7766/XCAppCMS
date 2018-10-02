@@ -1,13 +1,21 @@
 export default {
+  'test': {
+    method: 'get',
+    uri: '/web_test'
+  },
   // login
   'doLogin': {
     method: 'post',
-    uri: '/passport/token',
+    uri: '/passport/login',
     data: {
       'grant_type': 'password',
       'client_id': 'cd42865e-1026-4875-86c3-afa6ac15d4fd',
       'client_secret': 'h3Cbzy7fRIioogCoEzhKUt3yPlJDiBytPgXnOuZN'
     }
+  },
+  'persionTokenGenerate': {
+    method: 'post',
+    uri: '/passport/token/personal/generate'
   },
   // menu
   'getNodes': {
@@ -16,7 +24,8 @@ export default {
   // app
   'getAppList': {
     method: 'post',
-    uri: '/app_management'
+    uri: '/app_management',
+    middleware: ['app']
   },
   // 'getAppDetail': {
   //   uri: '/app_management/data_manipulation/{id}'
@@ -40,7 +49,8 @@ export default {
   // message 
   'getMessageList': {
     method: 'post',
-    uri: '/pushnotification/message'
+    uri: '/pushnotification/message',
+    middleware: ['message']
   },
   'getMessageTopic': {
     uri: '/pushnotification/message/topic'
@@ -63,7 +73,8 @@ export default {
   },
   // account 
   'getMemberList': {
-    uri: '/account/maintain'
+    uri: '/account/maintain',
+    middleware: ['account']
   },
   'postMember': {
     uri: '/account/maintain'
@@ -85,3 +96,23 @@ export const PUT = 'put'
 export const DELETE = 'delete'
 export const SuccessCodes = [0, 200, 201]
 export const UnLoginCode = 401
+export const hosts = {
+  target: 'test',
+  host: {
+    test: {
+      host: 'xing99.cc',
+      api: 'test-app-api',
+      web: 'test-app-cms'
+    },
+    formal: {
+      host: 'apps99.cc',
+      api: 'api',
+      web: 'admin'
+    },
+    local: {
+      host: '192.168.1.21',
+      api: '',
+      web: ''
+    }
+  }
+}

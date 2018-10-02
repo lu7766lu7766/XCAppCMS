@@ -39,8 +39,13 @@ export default [
         path: 'message',
         name: 'message-list',
         component: () => import('@/Backend/Message/Index')
+      },
+      {
+        path: 'person-token',
+        name: 'person-token-generate',
+        component: () => import('@/Backend/Token/Index')
       }
     ]
   },
-  { path: '*', redirect: '/login' }
+  {path: '*', redirect: '/login'}
 ]
