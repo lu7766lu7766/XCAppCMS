@@ -1,120 +1,138 @@
 <template>
-  <div id="content" class="content">
-    <ol class="breadcrumb pull-right">
-      <li class="breadcrumb-item">
-        <a href="javascript:;">系统设定</a>
-      </li>
-      <li class="breadcrumb-item active">
-        <router-link :to="{
+  <container>
+
+    <template slot="header">
+      <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item">
+          <a href="javascript:;">系统设定</a>
+        </li>
+        <li class="breadcrumb-item active">
+          <router-link :to="{
             name: 'role-list'
           }">
-          角色设定
-        </router-link>
-      </li>
-    </ol>
-    <h1 class="page-header">角色设定</h1>
+            角色设定
+          </router-link>
+        </li>
+      </ol>
+      <h1 class="page-header">角色设定</h1>
 
-    <b-alert show variant="success">編輯成功</b-alert>
+      <b-alert :variant="request.result"
+               :show="!!request.result">
+        {{ request.message }}
+      </b-alert>
 
-    <div class="row form-group">
-      <div class="col-md-12">
-        <button class="btn btn-sm btn-primary" v-b-modal.modalDetail>
-          新增
-        </button>
-        <a href="javascript:;" class="btn btn-sm btn-danger">删除</a>
-      </div>
-    </div>
-    <!-- begin panel -->
-    <div class="panel panel-inverse">
-      <div class="panel-heading">
-        <div class="panel-heading-btn">
-          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
-            <i class="fa fa-expand"></i>
-          </a>
-          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse">
-            <i class="fa fa-minus"></i>
-          </a>
+
+      <div class="row form-group">
+        <div class="col-md-12">
+          <button class="btn btn-sm btn-primary"
+                  v-b-modal.modalDetail
+                  @click="setData()">
+            新增
+          </button>
         </div>
-        <h4 class="panel-title">列表</h4>
       </div>
-      <div class="panel-body">
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th class="with-checkbox">
-                <div class="checkbox checkbox-css">
-                  <input type="checkbox" value="" id="table_checkbox_1">
-                  <label for="table_checkbox_1">&nbsp;</label>
-                </div>
-              </th>
-              <th class="index">#</th>
-              <th>角色名称</th>
-              <th>状态</th>
-              <th class="action">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="with-checkbox">
-                <div class="checkbox checkbox-css">
-                  <input type="checkbox" value="" id="table_checkbox_2">
-                  <label for="table_checkbox_2">&nbsp;</label>
-                </div>
-              </td>
-              <td>1</td>
-              <td>角色管理员</td>
-              <td>
-                <i class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
-              </td>
-              <td class="action">
-                <button class="btn btn-sm btn-warning" v-b-modal.modalPermission>
-                  权限
-                </button>
-                <button class="btn btn-sm btn-info" v-b-modal.modalDetail>
-                  编辑
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="with-checkbox">
-                <div class="checkbox checkbox-css">
-                  <input type="checkbox" value="" id="table_checkbox_2" checked="">
-                  <label for="table_checkbox_2">&nbsp;</label>
-                </div>
-              </td>
-              <td>2</td>
-              <td>客服人员</td>
-              <td>
-                <i class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
-              </td>
-              <td class="action">
-                <button class="btn btn-sm btn-warning" v-b-modal.modalPermission>
-                  权限
-                </button>
-                <button class="btn btn-sm btn-info" v-b-modal.modalDetail>
-                  编辑
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    </template>
 
-        <paginate />
+    <template slot="detail">
+      <detail :data.sync="data"
+              :RoleEnableConf="RoleEnableConf"
+              @post="post"
+              @put="put"
+              :method="method" />
+      <permission />
 
-      </div>
-    </div>
+    </template>
 
-    <detail />
-    <permission />
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th class="index">#</th>
+        <th>角色名称</th>
+        <th>状态</th>
+        <th class="action">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(d, index) in datas" :key="index">
+        <td>{{ d.id }}</td>
+        <td>{{ d.display_name }}</td>
+        <td>
+          <i v-if="d.enable == 'Y'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
+          <i v-else-if="d.enable == 'N'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
+        </td>
+        <td class="action">
+          <button class="btn btn-sm btn-warning" v-b-modal.modalPermission>
+            权限
+          </button>
+          <button class="btn btn-sm btn-info" v-b-modal.modalDetail @click="setData(d)">
+            编辑
+          </button>
+          <button class="btn btn-sm btn-danger" @click="deleteData('deleteRole', d)">
+            删除
+          </button>
+        </td>
+      </tr>
 
-  </div>
+      </tbody>
+    </table>
+
+    <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
+
+  </container>
 </template>
 
 <script>
-export default {
-	components: {
-		detail: require('./Detail').default,
-		permission: require('./Permission').default
-	}
-}
+  import ListMixins from 'mixins/common/List'
+
+  export default {
+    mixins: [ListMixins],
+    components: {
+      detail: require('./Detail').default,
+      permission: require('./Permission').default
+    },
+    data: () => ({
+      RoleEnableConf: {
+        Y: '开启',
+        N: '关闭'
+      },
+      model: {
+        display_name: '',
+        enable: 'N'
+      }
+    }),
+    methods: {
+
+      async mGetList() {
+        var res = await this.getList('getRoleList')
+        if (res.success)
+        {
+          this.datas = res.data
+        }
+      },
+      async mGetToal() {
+        var res = await this.getTotal('getRoleTotal')
+        if (res.success)
+        {
+          this.paginate.total = res.data
+        }
+      },
+      post() {
+        this.mRequestProccess('postRole')
+      },
+      put() {
+        this.mRequestProccess('postRole')
+      },
+      async mRequestProccess(key) {
+        const data = this.data
+        return await this.requestProccess(key, {
+          id: data.id,
+          name: data.display_name,
+          enable: data.enable
+        })
+      },
+      mDeleteDatas() {
+        this.deleteDatas('deleteAppList')
+      }
+    }
+  }
 </script>

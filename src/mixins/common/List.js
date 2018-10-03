@@ -55,19 +55,53 @@ export default {
      */
     dataInit() { },
     mGetList() { },
+    mGetTotal() {},
     post() { },
     put() { },
     mRequestProccess() { },
     mDeleteDatas() { },
-    // 
+    //
+    /**
+     * delete confirm
+     */
+    async deleteConfirm() {
+      return !!(await this.$swal({
+        title: '再次确认',
+        text: '是否确定删除资料',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '是',
+        cancelButtonText: '否',
+        reverseButtons: true
+      })).value
+    },
     /**
      * it will defined mDeleteDatas() in owner component, then call this func
      * basic delete data list
      * @param {*} key
      */
     async deleteDatas(key) {
+      var confirmResult = await this.deleteConfirm()
+      if (!confirmResult) return
+
       var res = await this.$callApi(key, {
         id: this.dataCheckedIDs
+      })
+      if (res.success)
+      {
+        this.mGetList()
+      }
+      return res
+    },
+    /**
+     *
+     */
+    async deleteData(key, data) {
+      var confirmResult = await this.deleteConfirm()
+      if (!confirmResult) return
+
+      var res = await this.$callApi(key, {
+        id: data.id
       })
       if (res.success)
       {
@@ -85,6 +119,24 @@ export default {
       return await this.$callApi(key, _.assign({}, data, this.paginate, this.body))
     },
     /**
+     * it will defined mGetList() in owner component, then call this func
+     * basic get data list
+     * @param {*} key
+     * @param {*} data
+     */
+    async getTotal(key, data = {}) {
+      return await this.$callApi(key, _.assign({}, data, this.body))
+    },
+    getNewPageData() {
+      this.mGetList()
+      this.mGetTotal()
+      this.dataInit()
+    },
+    getSearchData() {
+      this.mGetList()
+      this.mGetTotal()
+    },
+    /**
      * it will defined mRequestProccess() in owner component, then call this func
      * basic add or edit's data proccess
      * @param {*} key
@@ -97,7 +149,10 @@ export default {
         // this.datas[res.data.id] = res.data
         this.mGetList()
       }
-      this.request = this.getRequest(res.success)
+      let message = (this.method == 'post'
+        ? '新增'
+        : '更新')
+      this.request = this.getRequestResult(res.success, message)
       return res
     },
     /**
@@ -109,17 +164,15 @@ export default {
         ? 'post'
         : 'put'
       const copyModel = data || this.model
-      if (this.data.id === copyModel.id) return
+      if (!this.data && this.data.id === copyModel.id) return
       this.data = _.cloneDeep(copyModel)
     },
     /**
      * get alert style and word
      * @param {*} request.success
      */
-    getRequest(result) {
-      const message = (this.method == 'post'
-        ? '新增'
-        : '更新') + (result
+    getRequestResult(result, message) {
+      message = message + (result
         ? '成功'
         : '失败')
       return {
@@ -159,5 +212,8 @@ export default {
         ? data.id
         : '')))
     }
+  },
+  created() {
+    this.getNewPageData()
   }
 }

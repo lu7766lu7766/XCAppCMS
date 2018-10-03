@@ -10,5 +10,8 @@
   },
   "PSH_NOTI": {
     "name": "message-list"
+  },
+  "ROLE_SETTING": {
+    "name": "role-list"
   }
 }

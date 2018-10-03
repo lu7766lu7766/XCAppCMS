@@ -4,7 +4,8 @@ import { hosts as hostsConf, POST, PUT } from 'src/config/api'
 
 var host = location.host.split('.').splice(-2).join('.')
 var target = hostsConf.target
-Object.keys(hostsConf.host).forEach(key => {
+Object.keys(hostsConf.host).forEach(key =>
+{
   target = hostsConf.host[key].host === host
     ? key
     : target
@@ -18,13 +19,14 @@ export function createApiBody(method = 'get', uri = '', data = {}, header = {}) 
   let apiHeader = {}
   // apiHeader['Content-Type'] = 'application/json'
   const access = store.state.Login.access
-  if (access) {
+  if (access)
+  {
     apiHeader['Authorization'] = access.token_type + ' ' + access.access_token
   }
   apiHeader = _.merge(apiHeader, header)
 
   let res = {
-    url: apiHost + replaceMatchData(uri, data),
+    url: apiHost + replaceMatchData(uri, data), //.replace(/\/{[\w]+}/g, ''),
     headers: apiHeader,
     method,
     responseType: 'json',
@@ -42,10 +44,13 @@ export function createApiBody(method = 'get', uri = '', data = {}, header = {}) 
 
 function replaceMatchData(uri, data) {
   var ts = uri.match(/({[\w]+})/g)
-  if (ts) {
-    ts.forEach(key => {
+  if (ts)
+  {
+    ts.forEach(key =>
+    {
       key = key.replace(/[{}]/g, '')
-      if (data[key]) {
+      if (data[key])
+      {
         uri = uri.replace(`{${key}}`, data[key])
         delete data[key]
       }

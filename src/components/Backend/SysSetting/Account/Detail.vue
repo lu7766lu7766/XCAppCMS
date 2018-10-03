@@ -34,12 +34,20 @@
         </div>
       </div>
 
-      <div class="form-group row" v-if="data.roles">
+      <div class="form-group row">
         <label class="col-md-2 col-form-label">角色</label>
         <div class="col-md-10">
-          <select class="form-control" v-model="data.roles[0].id">
-            <option v-for="(id, name) in roles" :key="id" :value="id">{{ name }}</option>
-          </select>
+          <!--<select class="form-control" multiple v-model="data.roles">-->
+          <!--<option v-for="(id, name) in roles" :key="id" :value="{ id, display_name: name}">{{ name }}</option>-->
+          <!--</select>-->
+          <multi-select v-model="data.roles"
+                        :options="roleOptions"
+                        :multiple="true"
+                        :close-on-select="false"
+                        :clear-on-select="false"
+                        label="display_name"
+                        track-by="id"
+                        placeholder="请选择角色"></multi-select>
         </div>
       </div>
 
@@ -61,18 +69,30 @@
 </template>
 
 <script>
-import DetailMixins from 'mixins/common/Detail'
-export default {
-	mixins: [DetailMixins],
-	props: {
-		roles: {
-			type: Object,
-			required: true
-		},
-		status: {
-			type: Object,
-			required: true
-		}
-	}
-}
+  import DetailMixins from 'mixins/common/Detail'
+
+  export default {
+    mixins: [DetailMixins],
+    props: {
+      roles: {
+        type: Object,
+        required: true
+      },
+      status: {
+        type: Object,
+        required: true
+      }
+    },
+    computed: {
+      roleOptions() {
+        return _.reduce(this.roles, (result, id, display_name) =>
+        {
+          result.push({
+            id, display_name
+          })
+          return result
+        }, [])
+      }
+    }
+  }
 </script>

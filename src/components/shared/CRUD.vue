@@ -7,7 +7,7 @@
     </div>
     <div class="form-check form-check-inline">
       <label class="form-check-label">
-        增<input class="form-check-input" type="checkbox" @click="test">
+        增<input class="form-check-input" type="checkbox">
       </label>
     </div>
     <div class="form-check form-check-inline">

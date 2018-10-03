@@ -1,121 +1,110 @@
 <template>
-  <div id="content" class="content">
-    <ol class="breadcrumb pull-right">
-      <li class="breadcrumb-item active">
-        <router-link :to="{
+  <container>
+
+    <template slot="header">
+      <ol class="breadcrumb pull-right">
+        <li class="breadcrumb-item active">
+          <router-link :to="{
             name: 'message-list'
           }">
-          APP管理
-        </router-link>
-      </li>
-    </ol>
-    <h1 class="page-header">APP管理</h1>
+            APP管理
+          </router-link>
+        </li>
+      </ol>
+      <h1 class="page-header">APP管理</h1>
 
-    <b-alert :variant="request.result" :show="!!request.result">{{ request.message }}</b-alert>
+      <b-alert :variant="request.result" :show="!!request.result">{{ request.message }}</b-alert>
 
-    <div class="row form-group">
-      <div class="col-md-6">
-        <button type="button" class="btn btn-sm btn-primary" v-b-modal.modalDetail @click="setData()">
-          新增
-        </button>
-        <button type="button" class="btn btn-sm btn-danger" @click="mDeleteDatas()">删除</button>
-      </div>
-      <div class="col-md-6" style="text-align: right;">
-        <div class="form-inline" style="display: block;">
-          <select class="form-control" v-model="body.category">
-            <option value="">类别</option>
-            <option v-for="(name, conf) in AppCategoryConf" :key="name" :value="conf">{{ name }}</option>
-          </select>
-          <select class="form-control" v-model="body.mobile_device">
-            <option value="">裝置</option>
-            <option v-for="(name, index) in AppMobileDeviceConf" :key="index" :value="name">{{ name }}</option>
-          </select>
-          <input type="text" class="form-control" placeholder="关键字" v-model="body.name" @keyup.13="mGetList()" />
-          <button type="button" class="btn btn-sm btn-default" @click="mGetList()">搜索</button>
+      <div class="row form-group">
+        <div class="col-md-6">
+          <button type="button" class="btn btn-sm btn-primary" v-b-modal.modalDetail @click="setData()">
+            新增
+          </button>
+          <button type="button" class="btn btn-sm btn-danger" @click="mDeleteDatas()">删除</button>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <div class="form-inline" style="display: block;">
+            <select class="form-control" v-model="body.category">
+              <option value="">类别</option>
+              <option v-for="(name, conf) in AppCategoryConf" :key="name" :value="conf">{{ name }}</option>
+            </select>
+            <select class="form-control" v-model="body.mobile_device">
+              <option value="">裝置</option>
+              <option v-for="(name, index) in AppMobileDeviceConf" :key="index" :value="name">{{ name }}</option>
+            </select>
+            <input type="text" class="form-control" placeholder="关键字" v-model="body.name" @keyup.13="mGetList()" />
+            <button type="button" class="btn btn-sm btn-default" @click="mGetList()">搜索</button>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- begin panel -->
-    <div class="panel panel-inverse">
-      <div class="panel-heading">
-        <div class="panel-heading-btn">
-          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
-            <i class="fa fa-expand"></i>
-          </a>
-          <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse">
-            <i class="fa fa-minus"></i>
-          </a>
-        </div>
-        <h4 class="panel-title">列表</h4>
-      </div>
-      <div class="panel-body">
-        <table class="table table-striped table-hover">
-          <thead>
-          <tr>
-            <th class="with-checkbox">
-              <div class="checkbox checkbox-css">
-                <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
-                <label for="checkbox_all">&nbsp;</label>
-              </div>
-            </th>
-            <th class="index">#</th>
-            <th>代码</th>
-            <th>名称</th>
-            <th>裝置</th>
-            <th>类别</th>
-            <th>跳转开关</th>
-            <th>更新开关</th>
-            <th class="action">操作</th>
-          </tr>
-          </thead>
-          <tbody>
+    </template>
 
-          <tr v-for="(d, index) in datas" :key="index">
-            <td class="with-checkbox">
-              <div class="checkbox checkbox-css">
-                <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
-                <label :for="'checkbox_'+d.id">&nbsp;</label>
-              </div>
-            </td>
-            <td>{{ d.id }}</td>
-            <td>{{ d.code }}</td>
-            <td>{{ d.name }}</td>
-            <td>{{ d.category }}</td>
-            <td>{{ d.mobile_device.toUpperCase() }}</td>
-            <td>
-              <i v-if="d.redirect_switch == 'on'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
-              <i v-else-if="d.redirect_switch == 'off'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
-            </td>
-            <td>
-              <i v-if="d.update_switch == 'on'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
-              <i v-if="d.update_switch == 'off'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
-            </td>
-            <td class="action">
-              <button class="btn btn-sm btn-info" v-b-modal.modalDetail @click="setData(d)">
-                编辑
-              </button>
-            </td>
-          </tr>
+    <template slot="detail">
+      <detail :data.sync="data"
+              :AppStatusConf="AppStatusConf"
+              :AppUpdateSwitchConf="AppUpdateSwitchConf"
+              :AppRedirectSwitchConf="AppRedirectSwitchConf"
+              :AppMobileDeviceConf="AppMobileDeviceConf"
+              :AppCategoryConf="AppCategoryConf"
+              @post="post"
+              @put="put"
+              :method="method" />
+    </template>
 
-          </tbody>
-        </table>
+    <table class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th class="with-checkbox">
+          <div class="checkbox checkbox-css">
+            <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
+            <label for="checkbox_all">&nbsp;</label>
+          </div>
+        </th>
+        <th class="index">#</th>
+        <th>代码</th>
+        <th>名称</th>
+        <th>裝置</th>
+        <th>类别</th>
+        <th>跳转开关</th>
+        <th>更新开关</th>
+        <th class="action">操作</th>
+      </tr>
+      </thead>
+      <tbody>
 
-        <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
+      <tr v-for="(d, index) in datas" :key="index">
+        <td class="with-checkbox">
+          <div class="checkbox checkbox-css">
+            <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
+            <label :for="'checkbox_'+d.id">&nbsp;</label>
+          </div>
+        </td>
+        <td>{{ d.id }}</td>
+        <td>{{ d.code }}</td>
+        <td>{{ d.name }}</td>
+        <td>{{ d.mobile_device.toUpperCase() }}</td>
+        <td>{{ AppCategoryConf[d.category] }}</td>
+        <td>
+          <i v-if="d.redirect_switch == 'on'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
+          <i v-else-if="d.redirect_switch == 'off'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
+        </td>
+        <td>
+          <i v-if="d.update_switch == 'on'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
+          <i v-if="d.update_switch == 'off'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
+        </td>
+        <td class="action">
+          <button class="btn btn-sm btn-info" v-b-modal.modalDetail @click="setData(d)">
+            编辑
+          </button>
+        </td>
+      </tr>
 
-      </div>
-    </div>
+      </tbody>
+    </table>
 
-    <detail :data.sync="data"
-            :AppStatusConf="AppStatusConf"
-            :AppUpdateSwitchConf="AppUpdateSwitchConf"
-            :AppRedirectSwitchConf="AppRedirectSwitchConf"
-            :AppMobileDeviceConf="AppMobileDeviceConf"
-            :AppCategoryConf="AppCategoryConf"
-            @post="post"
-            @put="put"
-            :method="method" />
+    <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
 
-  </div>
+  </container>
 </template>
 
 <script>
@@ -154,7 +143,7 @@
         category: '',
         mobile_device: 'ios',
         redirect_switch: 'off',
-        redirect_url: [],
+        redirect_url: [''],
         update_switch: 'off',
         update_url: '',
         update_content: '',
@@ -178,8 +167,8 @@
           this.datas = res.data
         }
       },
-      async dataInit() {
-        var res = await this.$callApi('getAppTotal')
+      async mGetToal() {
+        var res = await this.getTotal('getAppTotal')
         if (res.success)
         {
           this.paginate.total = res.data
@@ -214,10 +203,6 @@
       mDeleteDatas() {
         this.deleteDatas('deleteAppList')
       }
-    },
-    created() {
-      this.mGetList()
-      this.dataInit()
     }
   }
 </script>

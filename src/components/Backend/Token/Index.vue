@@ -51,7 +51,7 @@
         </div>
         <div v-if="token">
           <label>Token: </label>
-          <span ref="copyTarget"> haha {{ token }}</span>
+          <span ref="copyTarget">{{ token }}</span>
         </div>
       </div>
     </div>
@@ -73,7 +73,8 @@
         var res = await this.$callApi('persionTokenGenerate', {
           description: this.description
         })
-        if (res.success) {
+        if (res.success)
+        {
           this.name = res.data.name
           this.token = res.data.token
         }

@@ -73,8 +73,13 @@ export default {
   },
   // account 
   'getMemberList': {
-    uri: '/account/maintain',
+    method: 'post',
+    uri: '/account/list',
     middleware: ['account']
+  },
+  'getMemberTotal': {
+    method: 'post',
+    uri: '/account/list/total'
   },
   'postMember': {
     uri: '/account/maintain'
@@ -87,6 +92,23 @@ export default {
   },
   'getAccount': {
     uri: '/account/self'
+  },
+  // roles
+  'getRoleList': {
+    method: 'post',
+    uri: '/role/index'
+  },
+  'getRoleTotal': {
+    uri: '/role/total'
+  },
+  'getRole': {
+    uri: '/role/maintain'
+  },
+  'postRole': {
+    uri: '/role/maintain'
+  },
+  'deleteRole': {
+    uri: '/role/maintain/{id}'
   }
 }
 

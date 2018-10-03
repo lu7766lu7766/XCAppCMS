@@ -4,15 +4,22 @@ import router from './router'
 import store from './store'
 
 import Meta from 'vue-meta'
+
 Vue.use(Meta)
 
 import BootstrapVue from 'bootstrap-vue'
-Vue.use(BootstrapVue);
+
+Vue.use(BootstrapVue)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 // import 'bootstrap'
 
+import VueSweetalert2 from 'vue-sweetalert2'
+
+Vue.use(VueSweetalert2)
+
 import MyPlugin from 'src/plugin'
+
 Vue.use(MyPlugin, {})
 
 Vue.config.productionTip = false
