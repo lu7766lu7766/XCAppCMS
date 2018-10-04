@@ -36,10 +36,17 @@
               <b class="caret"></b>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
+
+              <router-link class="dropdown-item" :to="{
+                  name: 'edit-profile'
+              }">个人设定
+              </router-link>
+
               <router-link class="dropdown-item" :to="{
                   name: 'person-token-generate'
               }">个人令牌申请
               </router-link>
+
               <div class="dropdown-divider"></div>
               <a href="javascript:;" class="dropdown-item" @click="logout()">Log Out</a>
             </div>
@@ -127,8 +134,8 @@
 
 <script>
   import CheckLoginMixins from 'mixins/common/CheckLogin'
+  import IndexMixins from 'mixins/common/Index'
   import { LoginType } from 'module/login'
-  import { NodeType } from 'module/node'
 
   export default {
     metaInfo: {
@@ -137,17 +144,9 @@
         {rel: 'stylesheet', href: '/resource/plugins/ionicons/css/ionicons.min.css'}
       ]
     },
-    mixins: [CheckLoginMixins],
+    mixins: [CheckLoginMixins, IndexMixins],
     components: {
       JMenu: require('@/shared/Menu1').default
-    },
-    computed: {
-      menus() {
-        return this.$store.getters[NodeType.menus]
-      },
-      account() {
-        return this.$store.state.Login.account
-      }
     },
     methods: {
       logout() {
@@ -157,23 +156,13 @@
         })
       },
       dataInit() {
-        axios.all([this.getNodes(), this.getAccount()]).then(() => {
-          this.$nextTick(() => {
+        axios.all([this.getNodes(), this.getAccount()]).then(() =>
+        {
+          this.$nextTick(() =>
+          {
             App.init()
           })
         })
-      },
-      async getNodes() {
-        var res = await this.$callApi('getNodes')
-        if (res.success) {
-          this.$store.commit(NodeType.setNodes, res.data)
-        }
-      },
-      async getAccount() {
-        var res = await this.$callApi('getAccount')
-        if (res.success) {
-          this.$store.commit(LoginType.setAccount, res.data.account_info)
-        }
       }
     },
     mounted() {
@@ -209,6 +198,15 @@
 
     .modal-title
       color #fff
+
+  // jstree
+  @import '/resource/plugins/jstree/dist/themes/default/style.min.css'
+
+  .jstree-default ul
+    padding-left 0px
+
+    li
+      list-style-type none
 </style>
 
 

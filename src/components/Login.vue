@@ -58,7 +58,7 @@
 
           <b-alert
               variant="danger"
-              :show="!request.result">
+              :show="!requestResult.result">
             登入失敗
           </b-alert>
 
@@ -143,9 +143,11 @@
     },
     watch: {
       request(newValue) {
-        if (newValue.result != null) {
-          setTimeout(() => {
-            this.request.result = null
+        if (newValue.result != null)
+        {
+          setTimeout(() =>
+          {
+            this.requestResult.result = null
           }, 3000)
         }
       }
@@ -155,7 +157,7 @@
           username: '', //'jacc',
           password: '' //'jaccis666'
         },
-        request: {
+        requestResult: {
           result: true
         }
       }
@@ -163,20 +165,23 @@
     methods: {
       async doLogin() {
         var res = await this.$callApi('doLogin', this.user)
-        if (res.success) {
+        if (res.success)
+        {
           this.$store.commit(LoginType.setAccessToken, res.data)
           this.$router.push({
             name: 'welcome'
           })
         }
-        else {
-          this.request.result = false
+        else
+        {
+          this.requestResult.result = false
         }
       }
     },
     created() {},
     mounted() {
-      $(document).ready(() => {
+      $(document).ready(() =>
+      {
         App.init()
       })
     }

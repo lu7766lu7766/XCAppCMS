@@ -10,30 +10,7 @@
 
       <div class="jstree-default">
         <ul>
-          <li>
-            系统设置
-            <crud />
-            <ul>
-              <li class="jstree-leaf">
-                <i class="jstree-icon jstree-ocl" role="presentation"></i>
-                角色設定
-                <crud />
-              </li>
-              <li class="jstree-leaf">
-                <i class="jstree-icon jstree-ocl" role="presentation"></i>
-                帳號管理
-                <crud />
-              </li>
-            </ul>
-          </li>
-          <li>
-            APP管理
-            <crud />
-          </li>
-          <li>
-            訊息推播
-            <crud />
-          </li>
+          <j-permission v-for="(node, index) in menus" :key="index" :node="node" />
         </ul>
       </div>
     </form>
@@ -42,19 +19,16 @@
 </template>
 
 <script>
-export default {
-	components: {
-		crud: require('@/shared/CRUD.vue').default
-	},
-	mounted() {}
-}
+  import { NodeType } from 'module/node'
+
+  export default {
+    components: {
+      JPermission: require('@/shared/Permission1').default
+    },
+    computed: {
+      menus() {
+        return this.$store.getters[NodeType.menus]
+      }
+    }
+  }
 </script>
-<style lang="stylus" scoped>
-@import '/resource/plugins/jstree/dist/themes/default/style.min.css'
-
-.jstree-default ul
-  padding-left 0px
-
-  li
-    list-style-type none
-</style>

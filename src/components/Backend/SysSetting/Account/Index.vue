@@ -16,19 +16,16 @@
       </ol>
       <h1 class="page-header">帐号管理</h1>
 
-      <b-alert :variant="request.result"
-               :show="!!request.result">
-        {{ request.message }}
-      </b-alert>
+      <request-result :requestResult="requestResult" />
 
       <div class="row form-group">
         <div class="col-md-6">
-          <button class="btn btn-sm btn-primary"
+          <button class="btn btn-sm btn-primary m-r-5 m-b-5"
                   v-b-modal.modalDetail
                   @click="setData()">
             新增
           </button>
-          <button class="btn btn-sm btn-danger"
+          <button class="btn btn-sm btn-danger m-r-5 m-b-5"
                   @click="mDeleteDatas()">
             删除
           </button>
@@ -106,7 +103,7 @@
         </td>
         <td>{{ d.login_ip }}</td>
         <td class="action">
-          <button class="btn btn-sm btn-info"
+          <button class="btn btn-sm btn-info m-r-5 m-b-5"
                   v-b-modal.modalDetail
                   @click="setData(d)">
             编辑

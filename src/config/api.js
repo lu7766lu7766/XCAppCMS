@@ -93,6 +93,9 @@ export default {
   'getAccount': {
     uri: '/account/self'
   },
+  'putAccount': {
+    uri: '/account/self'
+  },
   // roles
   'getRoleList': {
     method: 'post',

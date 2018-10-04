@@ -44,6 +44,11 @@ export default [
         path: 'person-token',
         name: 'person-token-generate',
         component: () => import('@/Backend/Token/Index')
+      },
+      {
+        path: 'edit-profile',
+        name: 'edit-profile',
+        component: () => import('@/Backend/Profile/Index')
       }
     ]
   },

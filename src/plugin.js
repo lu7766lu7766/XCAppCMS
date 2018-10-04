@@ -60,6 +60,7 @@ const install = (Vue, options) =>
   Vue.component('container', require('@/shared/Container').default)
   Vue.component('paginate', require('@/shared/Paginate').default)
   Vue.component('alert', require('@/shared/Alert').default)
+  Vue.component('request-result', require('@/shared/RequestResult').default)
   Vue.component('multi-select', require('vue-multiselect').default)
 }
 import 'vue-multiselect/dist/vue-multiselect.min.css'

@@ -13,14 +13,14 @@
       </ol>
       <h1 class="page-header">APP管理</h1>
 
-      <b-alert :variant="request.result" :show="!!request.result">{{ request.message }}</b-alert>
+      <request-result :requestResult="requestResult" />
 
       <div class="row form-group">
         <div class="col-md-6">
-          <button type="button" class="btn btn-sm btn-primary" v-b-modal.modalDetail @click="setData()">
+          <button type="button" class="btn btn-sm btn-primary m-r-5 m-b-5" v-b-modal.modalDetail @click="setData()">
             新增
           </button>
-          <button type="button" class="btn btn-sm btn-danger" @click="mDeleteDatas()">删除</button>
+          <button type="button" class="btn btn-sm btn-danger m-r-5 m-b-5" @click="mDeleteDatas()">删除</button>
         </div>
         <div class="col-md-6" style="text-align: right;">
           <div class="form-inline" style="display: block;">
@@ -93,7 +93,7 @@
           <i v-if="d.update_switch == 'off'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
         </td>
         <td class="action">
-          <button class="btn btn-sm btn-info" v-b-modal.modalDetail @click="setData(d)">
+          <button class="btn btn-sm btn-info m-r-5 m-b-5" v-b-modal.modalDetail @click="setData(d)">
             编辑
           </button>
         </td>

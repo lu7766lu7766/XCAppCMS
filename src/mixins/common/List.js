@@ -1,7 +1,8 @@
 import PaginateMixins from 'mixins/common/Paginate'
+import RequestResultMixins from 'mixins/common/RequestResult'
 
 export default {
-  mixins: [PaginateMixins],
+  mixins: [PaginateMixins, RequestResultMixins],
   data: () => ({
     /**
      * means what is doing now
@@ -15,13 +16,6 @@ export default {
      * editing data
      */
     data: {},
-    /**
-     * request result
-     */
-    request: {
-      result: null,
-      message: ''
-    },
     // override
     /**
      * empty model
@@ -36,15 +30,6 @@ export default {
   watch: {
     datas() {
       this.$forceUpdate()
-    },
-    request(newValue) {
-      if (newValue.result != null)
-      {
-        setTimeout(() =>
-        {
-          this.request.result = null
-        }, 3000)
-      }
     }
   },
   methods: {
@@ -152,7 +137,7 @@ export default {
       let message = (this.method == 'post'
         ? '新增'
         : '更新')
-      this.request = this.getRequestResult(res.success, message)
+      this.requestResult = this.getRequestResult(res.success, message)
       return res
     },
     /**
@@ -166,21 +151,6 @@ export default {
       const copyModel = data || this.model
       if (!this.data && this.data.id === copyModel.id) return
       this.data = _.cloneDeep(copyModel)
-    },
-    /**
-     * get alert style and word
-     * @param {*} request.success
-     */
-    getRequestResult(result, message) {
-      message = message + (result
-        ? '成功'
-        : '失败')
-      return {
-        result: result
-          ? 'success'
-          : 'danger',
-        message
-      }
     },
     /**
      * page change

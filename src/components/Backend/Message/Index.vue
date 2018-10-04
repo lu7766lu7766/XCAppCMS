@@ -13,14 +13,14 @@
       </ol>
       <h1 class="page-header">讯息管理</h1>
 
-      <b-alert :variant="request.result" :show="!!request.result">{{ request.message }}</b-alert>
+      <request-result :requestResult="requestResult" />
 
       <div class="row form-group">
         <div class="col-md-12">
-          <button class="btn btn-sm btn-primary" v-b-modal.modalDetail @click="setData()">
+          <button class="btn btn-sm btn-primary m-r-5 m-b-5" v-b-modal.modalDetail @click="setData()">
             新增
           </button>
-          <button class="btn btn-sm btn-danger" @click="mDeleteDatas()">删除</button>
+          <button class="btn btn-sm btn-danger m-r-5 m-b-5" @click="mDeleteDatas()">删除</button>
         </div>
       </div>
     </template>
@@ -57,10 +57,10 @@
         <td>{{ d.content }}</td>
         <td>{{ _.map(d.app_managements, 'name').join(', ') }}</td>
         <td class="action">
-          <button class="btn btn-sm btn-info" v-b-modal.modalDetail @click="setData(d)">
+          <button class="btn btn-sm btn-info m-r-5 m-b-5" v-b-modal.modalDetail @click="setData(d)">
             编辑
           </button>
-          <button class="btn btn-sm btn-warning" @click="pushMessage(d.id)">推播</button>
+          <button class="btn btn-sm btn-warning m-r-5 m-b-5" @click="pushMessage(d.id)">推播</button>
         </td>
       </tr>
 

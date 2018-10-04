@@ -16,15 +16,11 @@
       </ol>
       <h1 class="page-header">角色设定</h1>
 
-      <b-alert :variant="request.result"
-               :show="!!request.result">
-        {{ request.message }}
-      </b-alert>
-
+      <request-result :requestResult="requestResult" />
 
       <div class="row form-group">
         <div class="col-md-12">
-          <button class="btn btn-sm btn-primary"
+          <button class="btn btn-sm btn-primary m-r-5 m-b-5"
                   v-b-modal.modalDetail
                   @click="setData()">
             新增
@@ -61,13 +57,13 @@
           <i v-else-if="d.enable == 'N'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
         </td>
         <td class="action">
-          <button class="btn btn-sm btn-warning" v-b-modal.modalPermission>
+          <button class="btn btn-sm btn-warning m-r-5 m-b-5" v-b-modal.modalPermission>
             权限
           </button>
-          <button class="btn btn-sm btn-info" v-b-modal.modalDetail @click="setData(d)">
+          <button class="btn btn-sm btn-info m-r-5 m-b-5" v-b-modal.modalDetail @click="setData(d)">
             编辑
           </button>
-          <button class="btn btn-sm btn-danger" @click="deleteData('deleteRole', d)">
+          <button class="btn btn-sm btn-danger m-r-5 m-b-5" @click="deleteData('deleteRole', d)">
             删除
           </button>
         </td>

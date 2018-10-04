@@ -1,6 +1,6 @@
 {
-  "GET": 1,
-  "POST": 2,
-  "PUT": 4,
+  "READ": 1,
+  "CREATE": 2,
+  "UPDATE": 4,
   "DELETE": 8
 }

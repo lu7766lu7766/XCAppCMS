@@ -1,4 +1,3 @@
-
 const type = {
   // mutation
   setNodes: 'Node/setNodes',
@@ -20,21 +19,25 @@ export default {
       state.nodes = context
     }
   },
-  actions: {
-  },
+  actions: {},
   getters: {
-    menus: state => state.nodes ? proccessSubNode(state.nodes, getChildren(state.nodes)) : []
+    menus: state => state.nodes
+      ? proccessSubNode(state.nodes, getChildren(state.nodes))
+      : []
   }
 }
 
-var proccessSubNode = (allNodes, nodes) => {
-  _.forEach(nodes, node => {
+var proccessSubNode = (allNodes, nodes) =>
+{
+  _.forEach(nodes, node =>
+  {
     var children = getChildren(allNodes, node.id)
-    if (children.length) {
+    if (children.length)
+    {
       node.children = children
       proccessSubNode(allNodes, children)
     }
   })
   return nodes
 }
-var getChildren = (allNodes, id = null) => _.filter(allNodes, { parent_id: id, display: 'Y' })
+var getChildren = (allNodes, id = null) => _.filter(allNodes, {parent_id: id, display: 'Y'})
