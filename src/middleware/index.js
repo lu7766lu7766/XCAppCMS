@@ -1,50 +1,18 @@
 export const mapping = {
-  'api': require('./ApiProccess'),
-  'dataList': require('./DataListPreproccess'),
-  'account': require('./AccountPreproccess'),
-  'message': require('./MessagePreproccess'),
-  'app': require('./AppPreproccess')
+  'dataList': require('./DataList'),
+  'account': require('./Account'),
+  'message': require('./Message'),
+  'app': require('./App'),
+  'permission': require('./Permission')
 }
 
 class Middleware
 {
-  fns = []
-
-  callback(ctx) {
-    // console.log(ctx)
-  }
-
   use(fn) {
-    if (typeof fn === 'function')
-    {
-      this.fns.push(fn)
-    }
-    else if (typeof fn === 'string')
-    {
-      let instance = mapping[fn].default || mapping[fn]
-      if (typeof instance.handle === 'function')
-      {
-        this.fns.push(instance.handle)
-      }
-      else
-      {
-        throw `${fn} desen't register handle()!`
-      }
-    }
+    this.go = (stack => next => stack(fn.bind(this, next.bind(this))))(this.go)
   }
 
-  go(ctx) {
-    let index = 0
-    const next = () =>
-    {
-      index++
-    }
-    this.fns.map(async (fn, i) =>
-    {
-      if (index === i) await fn(ctx, next)
-    })
-    index === this.fns.length && this.callback(ctx)
-  }
+  go = next => next()
 }
 
 export default Middleware

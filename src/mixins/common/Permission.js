@@ -1,6 +1,10 @@
 export default {
   props: {
-    node: {
+    // menuNode: {
+    //   required: true,
+    //   type: Object
+    // },
+    roleNode: {
       required: true,
       type: Object
     },
@@ -18,13 +22,15 @@ export default {
     }
   },
   created() {
-    this.$watch(() => this.node.permission[0].permission, (newValue, oldValue) =>
-    {
-      this.node.children &&
-      changeChildrenPermission(this.node.children, newValue - oldValue)
+    // this.menuNode.children &&
+    // changeChildrenPermission(this.menuNode.children, newValue - oldValue)
 
-      // this.node.parent_id &&
-      // changeParentPermission(_.find(this.nodes, {id: this.node.parent_id}), newValue - oldValue)
+    // this.node.parent_id &&
+    // changeParentPermission(_.find(this.nodes, {id: this.node.parent_id}), newValue - oldValue)
+    this.$watch(() => this.roleNode.permission[0].permission, (newValue, oldValue) =>
+    {
+      this.roleNode.children &&
+      changeChildrenPermission(this.roleNode.children, newValue - oldValue)
     })
   }
 }

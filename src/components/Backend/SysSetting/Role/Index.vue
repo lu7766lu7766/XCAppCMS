@@ -35,7 +35,7 @@
               @post="post"
               @put="put"
               :method="method" />
-      <permission />
+      <permission :roleMenus="roleMenus" @putRoleNodes="putRoleNodes" />
 
     </template>
 
@@ -57,7 +57,7 @@
           <i v-else-if="d.enable == 'N'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
         </td>
         <td class="action">
-          <button class="btn btn-sm btn-warning m-r-5 m-b-5" v-b-modal.modalPermission>
+          <button class="btn btn-sm btn-warning m-r-5 m-b-5" v-b-modal.modalPermission @click="getRoleNodes(d.id)">
             权限
           </button>
           <button class="btn btn-sm btn-info m-r-5 m-b-5" v-b-modal.modalDetail @click="setData(d)">
@@ -79,9 +79,11 @@
 
 <script>
   import ListMixins from 'mixins/common/List'
+  import IndexMixins from 'mixins/common/Index'
+  import { getChildren, proccessSubNode } from 'src/store/module/node'
 
   export default {
-    mixins: [ListMixins],
+    mixins: [ListMixins, IndexMixins],
     components: {
       detail: require('./Detail').default,
       permission: require('./Permission').default
@@ -94,10 +96,11 @@
       model: {
         display_name: '',
         enable: 'N'
-      }
+      },
+      roleID: null,
+      roleNodes: []
     }),
     methods: {
-
       async mGetList() {
         var res = await this.getList('getRoleList')
         if (res.success)
@@ -105,7 +108,7 @@
           this.datas = res.data
         }
       },
-      async mGetToal() {
+      async mGetTotal() {
         var res = await this.getTotal('getRoleTotal')
         if (res.success)
         {
@@ -128,6 +131,26 @@
       },
       mDeleteDatas() {
         this.deleteDatas('deleteAppList')
+      },
+      async getRoleNodes(id) {
+        var res = await this.$callApi('getRoleNodes', {id})
+        res.success && (this.roleID = id) && (this.roleNodes = res.data)
+      },
+
+      // permission
+      async putRoleNodes() {
+        var res = await this.$callApi('putRoleNodes', {id: this.roleID, nodes: this.putData})
+        res.success && this.getNodes()
+      }
+    },
+    computed: {
+      roleMenus() {
+        return this.roleNodes.length
+          ? proccessSubNode(this.roleNodes, getChildren(this.roleNodes))
+          : []
+      },
+      putData() {
+        return _.map(this.roleNodes, node => ({id: node.id, permission: node.permission[0].permission}))
       }
     }
   }

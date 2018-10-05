@@ -58,3 +58,25 @@ function replaceMatchData(uri, data) {
   }
   return uri
 }
+
+export function roopParse(val) {
+  if (_.isObject(val) || _.isArray(val))
+  {
+    _.forEach(val, (v, k) =>
+    {
+      val[k] = roopParse(v)
+    })
+    return val
+  }
+  else
+  {
+    try
+    {
+      return JSON.parse(val)
+    }
+    catch (err)
+    {
+      return val
+    }
+  }
+}

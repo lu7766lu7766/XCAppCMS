@@ -95,7 +95,7 @@
           this.datas = res.data
         }
       },
-      async mGetToal() {
+      async mGetTotal() {
         var res = await this.getTotal('getMessageTotal')
         if (res.success)
         {

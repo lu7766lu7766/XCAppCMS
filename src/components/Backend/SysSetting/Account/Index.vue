@@ -153,7 +153,7 @@
           this.status = res.data.status_menu
         }
       },
-      async mGetToal() {
+      async mGetTotal() {
         var res = await this.getTotal('getMemberTotal')
         if (res.success)
         {

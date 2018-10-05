@@ -2,22 +2,22 @@
   <span class="right-content">
     <div class="form-check form-check-inline">
       <label class="form-check-label">
-        查<input class="form-check-input" type="checkbox" :value="PermissionConf.READ" v-model="mRead">
+        查<input class="form-check-input" type="checkbox" :value="PermissionConf.READ" v-model="roleRead">
       </label>
     </div>
     <div class="form-check form-check-inline">
       <label class="form-check-label">
-        增<input class="form-check-input" type="checkbox" :value="PermissionConf.CREATE" v-model="mCreate">
+        增<input class="form-check-input" type="checkbox" :value="PermissionConf.CREATE" v-model="roleCreate">
       </label>
     </div>
     <div class="form-check form-check-inline">
       <label class="form-check-label">
-        改<input class="form-check-input" type="checkbox" :value="PermissionConf.UPDATE" v-model="mUpdate">
+        改<input class="form-check-input" type="checkbox" :value="PermissionConf.UPDATE" v-model="roleUpdate">
       </label>
     </div>
     <div class="form-check form-check-inline">
       <label class="form-check-label">
-        删<input class="form-check-input" type="checkbox" :value="PermissionConf.DELETE" v-model="mDelete" />
+        删<input class="form-check-input" type="checkbox" :value="PermissionConf.DELETE" v-model="roleDelete" />
       </label>
     </div>
   </span>
@@ -28,7 +28,11 @@
 
   export default {
     props: {
-      permission: {
+      // myPermission: {
+      //   type: Number,
+      //   required: true
+      // },
+      rolePermission: {
         type: Number,
         required: true
       }
@@ -37,25 +41,46 @@
       PermissionConf
     }),
     computed: {
-      mRead: permissionComputed('READ'),
-      mCreate: permissionComputed('CREATE'),
-      mUpdate: permissionComputed('UPDATE'),
-      mDelete: permissionComputed('DELETE')
+      // my permission , not use now
+      // myRead: myPermissionComputed('READ'),
+      // myCreate: myPermissionComputed('CREATE'),
+      // myUpdate: myPermissionComputed('UPDATE'),
+      // myDelete: myPermissionComputed('DELETE'),
+      roleRead: rolePermissionComputed('READ'),
+      roleCreate: rolePermissionComputed('CREATE'),
+      roleUpdate: rolePermissionComputed('UPDATE'),
+      roleDelete: rolePermissionComputed('DELETE')
     },
     methods: {
-      updatePermission(value) {
-        this.$emit('update:permission', this.permission + value)
+      // updateMyPermission(value) {
+      //   this.$emit('update:myPermission', this.myPermission + value)
+      // },
+      updateRolePermission(value) {
+        this.$emit('update:rolePermission', this.rolePermission + value)
       }
     }
   }
 
-  function permissionComputed(key) {
+  // function myPermissionComputed(key) {
+  //   return {
+  //     get() {
+  //       return !!(this.myPermission & PermissionConf[key])
+  //     },
+  //     set(newValue) {
+  //       this.updateMyPermission(newValue
+  //         ? PermissionConf[key]
+  //         : -PermissionConf[key])
+  //     }
+  //   }
+  // }
+
+  function rolePermissionComputed(key) {
     return {
       get() {
-        return !!(this.permission & PermissionConf[key])
+        return !!(this.rolePermission & PermissionConf[key])
       },
       set(newValue) {
-        this.updatePermission(newValue
+        this.updateRolePermission(newValue
           ? PermissionConf[key]
           : -PermissionConf[key])
       }

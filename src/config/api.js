@@ -112,6 +112,16 @@ export default {
   },
   'deleteRole': {
     uri: '/role/maintain/{id}'
+  },
+  // role permission
+  'getRoleNodes': {
+    method: 'post',
+    uri: '/role/node/map',
+    middleware: ['permission']
+  },
+  'putRoleNodes': {
+    method: 'post',
+    uri: '/role/node/configure'
   }
 }
 

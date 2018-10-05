@@ -3,10 +3,15 @@
     <i class="jstree-icon jstree-ocl"
        v-for="l in _.range(0, level)"
        :style="{ visibility: l !== (level-1) ? 'hidden' : 'visible' }"></i>
-    {{ node.display_name }}
-    <crud v-if="node.permission" :permission.sync="node.permission[0].permission" />
-    <ul v-if="node.children">
-      <j-permission v-for="(subNode, index) in node.children" :key="index" :node="subNode" :level="level+1" />
+    {{ roleNode.display_name }}
+    <crud :rolePermission.sync="roleNode.permission[0].permission" />
+    <!--:myPermission.sync="menuNode.permission[0].permission"-->
+    <ul v-if="roleNode.children">
+      <j-permission v-for="(subNode, index) in roleNode.children"
+                    :key="index"
+                    :roleNode="subNode"
+                    :level="level+1" />
+      <!--:menuNode="subNode"-->
     </ul>
   </li>
 </template>

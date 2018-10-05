@@ -27,7 +27,7 @@ export default {
   }
 }
 
-var proccessSubNode = (allNodes, nodes) =>
+export var proccessSubNode = (allNodes, nodes) =>
 {
   _.forEach(nodes, node =>
   {
@@ -40,4 +40,4 @@ var proccessSubNode = (allNodes, nodes) =>
   })
   return nodes
 }
-var getChildren = (allNodes, id = null) => _.filter(allNodes, {parent_id: id, display: 'Y'})
+export var getChildren = (allNodes, id = null) => _.filter(allNodes, {parent_id: id, display: 'Y'})

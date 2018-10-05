@@ -1,6 +1,8 @@
 export default {
-  handle: (res, next) =>
+  handle: function (next)
   {
+    next()
+    var res = this.res
     if (res.success)
     {
       res.data = _.map(res.data, data =>
@@ -10,6 +12,5 @@ export default {
         return data
       })
     }
-    next()
   }
 }
