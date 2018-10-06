@@ -140,7 +140,8 @@
       // permission
       async putRoleNodes() {
         var res = await this.$callApi('putRoleNodes', {id: this.roleID, nodes: this.putData})
-        res.success && this.getNodes()
+        this.requestResult = this.getRequestResult(res.success, '更新')
+        res.success && this.getMyNodes()
       }
     },
     computed: {

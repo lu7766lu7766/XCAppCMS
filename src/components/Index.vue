@@ -156,7 +156,7 @@
         })
       },
       dataInit() {
-        axios.all([this.getNodes(), this.getAccount()]).then(() =>
+        axios.all([this.getMyNodes(), this.getAccount()]).then(() =>
         {
           this.$nextTick(() =>
           {

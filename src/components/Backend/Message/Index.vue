@@ -128,7 +128,7 @@
       },
       pushMessage(id) {
         this.$callApi('pushMessage', {id})
-        this.request = this.getRequestResult(res.success, '推播')
+        this.requestResult = this.getRequestResult(res.success, '推播')
       }
     }
   }

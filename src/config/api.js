@@ -18,7 +18,7 @@ export default {
     uri: '/passport/token/personal/generate'
   },
   // menu
-  'getNodes': {
+  'getMyNodes': {
     uri: '/node/map'
   },
   // app

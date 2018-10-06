@@ -3,8 +3,8 @@ import { NodeType } from 'module/node'
 
 export default {
   methods: {
-    async getNodes() {
-      var res = await this.$callApi('getNodes')
+    async getMyNodes() {
+      var res = await this.$callApi('getMyNodes')
       if (res.success)
       {
         this.$store.commit(NodeType.setNodes, res.data)
