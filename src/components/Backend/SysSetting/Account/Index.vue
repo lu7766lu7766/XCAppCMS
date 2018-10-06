@@ -138,7 +138,7 @@
         confirm_password: '',
         display_name: '',
         roles: [],
-        status: 'disable'
+        status: 'enable'
       },
       roles: {},
       status: {},
