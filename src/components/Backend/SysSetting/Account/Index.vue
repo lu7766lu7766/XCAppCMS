@@ -35,7 +35,7 @@
           <div class="form-inline"
                style="display: block;">
             <select class="form-control"
-                    v-model="body.role_id">
+                    v-model="seachData.role_id">
               <option value="">全部</option>
               <option v-for="(role_id, name) in roles"
                       :key="role_id"
@@ -43,10 +43,14 @@
                 {{ name }}
               </option>
             </select>
-            <input type="text" class="form-control" placeholder="关键字" v-model="body.account" @keyup.13="mGetList()" />
+            <input type="text"
+                   class="form-control"
+                   placeholder="关键字"
+                   v-model="seachData.account"
+                   @keyup.13="getSearchData()" />
             <button type="button"
                     class="btn btn-sm btn-default"
-                    @click="mGetList()">
+                    @click="getSearchData()">
               搜索
             </button>
           </div>
@@ -138,7 +142,7 @@
       },
       roles: {},
       status: {},
-      body: {
+      seachData: {
         account: '',
         role_id: ''
       }

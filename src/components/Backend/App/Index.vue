@@ -24,16 +24,24 @@
         </div>
         <div class="col-md-6" style="text-align: right;">
           <div class="form-inline" style="display: block;">
-            <select class="form-control" v-model="body.category">
+            <select class="form-control" v-model="seachData.category">
               <option value="">类别</option>
               <option v-for="(name, conf) in AppCategoryConf" :key="name" :value="conf">{{ name }}</option>
             </select>
-            <select class="form-control" v-model="body.mobile_device">
+            <select class="form-control" v-model="seachData.mobile_device">
               <option value="">裝置</option>
               <option v-for="(name, index) in AppMobileDeviceConf" :key="index" :value="name">{{ name }}</option>
             </select>
-            <input type="text" class="form-control" placeholder="关键字" v-model="body.name" @keyup.13="mGetList()" />
-            <button type="button" class="btn btn-sm btn-default" @click="mGetList()">搜索</button>
+            <input type="text"
+                   class="form-control"
+                   placeholder="关键字"
+                   v-model="seachData.name"
+                   @keyup.13="getSearchData()" />
+            <button type="button"
+                    class="btn btn-sm btn-default"
+                    @click="getSearchData()">
+              搜索
+            </button>
           </div>
         </div>
       </div>
@@ -153,7 +161,7 @@
         status: 'unpublished',
         topic_id: ''
       },
-      body: {
+      seachData: {
         category: '',
         mobile_device: '',
         name: ''

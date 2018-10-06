@@ -24,7 +24,7 @@ export default {
     /**
      * request body
      */
-    body: {}
+    seachData: {}
     //
   }),
   watch: {
@@ -101,7 +101,7 @@ export default {
      * @param {*} data
      */
     async getList(key, data = {}) {
-      return await this.$callApi(key, _.assign({}, data, this.paginate, this.body))
+      return await this.$callApi(key, _.assign({}, data, this.paginate, this.seachData))
     },
     /**
      * it will defined mGetList() in owner component, then call this func
@@ -110,7 +110,7 @@ export default {
      * @param {*} data
      */
     async getTotal(key, data = {}) {
-      return await this.$callApi(key, _.assign({}, data, this.body))
+      return await this.$callApi(key, _.assign({}, data, this.seachData))
     },
     getNewPageData() {
       this.mGetList()
