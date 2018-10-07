@@ -20,11 +20,7 @@
 
       <div class="row form-group">
         <div class="col-md-12">
-          <button class="btn btn-sm btn-primary m-r-5 m-b-5"
-                  v-b-modal.modalDetail
-                  @click="setData()">
-            新增
-          </button>
+          <create-btn @click="setData()"></create-btn>
         </div>
       </div>
     </template>
@@ -57,15 +53,9 @@
           <i v-else-if="d.enable == 'N'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
         </td>
         <td class="action">
-          <button class="btn btn-sm btn-warning m-r-5 m-b-5" v-b-modal.modalPermission @click="getRoleNodes(d.id)">
-            权限
-          </button>
-          <button class="btn btn-sm btn-info m-r-5 m-b-5" v-b-modal.modalDetail @click="setData(d)">
-            编辑
-          </button>
-          <button class="btn btn-sm btn-danger m-r-5 m-b-5" @click="deleteData('deleteRole', d)">
-            删除
-          </button>
+          <permission-btn @click="getRoleNodes(d.id)"></permission-btn>
+          <update-btn @click="setData(d)"></update-btn>
+          <delete-btn @click="deleteData('deleteRole', d)"></delete-btn>
         </td>
       </tr>
 

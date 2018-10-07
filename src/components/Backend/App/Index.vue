@@ -17,10 +17,8 @@
 
       <div class="row form-group">
         <div class="col-md-6">
-          <button type="button" class="btn btn-sm btn-primary m-r-5 m-b-5" v-b-modal.modalDetail @click="setData()">
-            新增
-          </button>
-          <button type="button" class="btn btn-sm btn-danger m-r-5 m-b-5" @click="mDeleteDatas()">删除</button>
+          <create-btn @click="setData()"></create-btn>
+          <delete-btn @click="mDeleteDatas()"></delete-btn>
         </div>
         <div class="col-md-6" style="text-align: right;">
           <div class="form-inline" style="display: block;">
@@ -37,11 +35,7 @@
                    placeholder="关键字"
                    v-model="seachData.name"
                    @keyup.13="getSearchData()" />
-            <button type="button"
-                    class="btn btn-sm btn-default"
-                    @click="getSearchData()">
-              搜索
-            </button>
+            <search-btn @click="getSearchData()"></search-btn>
           </div>
         </div>
       </div>
@@ -101,9 +95,7 @@
           <i v-if="d.update_switch == 'off'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
         </td>
         <td class="action">
-          <button class="btn btn-sm btn-info m-r-5 m-b-5" v-b-modal.modalDetail @click="setData(d)">
-            编辑
-          </button>
+          <update-btn @click="setData(d)"></update-btn>
         </td>
       </tr>
 

@@ -17,10 +17,8 @@
 
       <div class="row form-group">
         <div class="col-md-12">
-          <button class="btn btn-sm btn-primary m-r-5 m-b-5" v-b-modal.modalDetail @click="setData()">
-            新增
-          </button>
-          <button class="btn btn-sm btn-danger m-r-5 m-b-5" @click="mDeleteDatas()">删除</button>
+          <create-btn @click="setData()"></create-btn>
+          <delete-btn @click="mDeleteDatas()"></delete-btn>
         </div>
       </div>
     </template>
@@ -57,9 +55,7 @@
         <td>{{ d.content }}</td>
         <td>{{ _.map(d.app_managements, 'name').join(', ') }}</td>
         <td class="action">
-          <button class="btn btn-sm btn-info m-r-5 m-b-5" v-b-modal.modalDetail @click="setData(d)">
-            编辑
-          </button>
+          <update-btn @click="setData(d)"></update-btn>
           <button class="btn btn-sm btn-warning m-r-5 m-b-5" @click="pushMessage(d.id)">推播</button>
         </td>
       </tr>

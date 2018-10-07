@@ -99,6 +99,13 @@ const install = (Vue, options) =>
   Vue.component('paginate', require('@/shared/Paginate').default)
   Vue.component('alert', require('@/shared/Alert').default)
   Vue.component('request-result', require('@/shared/RequestResult').default)
+
+  Vue.component('create-btn', require('@/shared/Button/Create').default)
+  Vue.component('update-btn', require('@/shared/Button/Update').default)
+  Vue.component('delete-btn', require('@/shared/Button/Delete').default)
+  Vue.component('permission-btn', require('@/shared/Button/Permission').default)
+  Vue.component('search-btn', require('@/shared/Button/Search').default)
+
   Vue.component('multi-select', require('vue-multiselect').default)
 }
 import 'vue-multiselect/dist/vue-multiselect.min.css'
