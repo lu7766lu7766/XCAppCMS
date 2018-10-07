@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="modalDetail" size="lg" ok-title="储存" cancel-title="取消" @ok="ok">
+  <b-modal id="modalDetail" size="lg" ok-title="储存" cancel-title="取消" :ok-disabled="errors.any()" @ok="ok">
 
     <div slot="modal-header">
       <h5 class="modal-title">{{ title }}</h5>
@@ -10,7 +10,14 @@
       <div class="form-group row">
         <label class="col-md-2 col-form-label">角色名称</label>
         <div class="col-md-10">
-          <input type="text" class="form-control" v-model="data.display_name" />
+          <input type="text"
+                 class="form-control"
+                 name="display_name"
+                 v-validate="'required'"
+                 v-model="data.display_name" />
+          <error-message :thisErrors="errors"
+                         inputName="display_name">
+          </error-message>
         </div>
       </div>
 

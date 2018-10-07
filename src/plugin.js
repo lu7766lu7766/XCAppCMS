@@ -4,6 +4,7 @@ import APIConf, { GET, POST, PUT, DELETE, SuccessCodes, UnLoginCode } from 'src/
 import Middleware, { mapping as MiddleMapping } from 'src/middleware'
 import store from 'src/store'
 import { LoginType } from 'src/store/module/login'
+import { app } from 'src/main'
 
 const install = (Vue, options) =>
 {
@@ -99,6 +100,7 @@ const install = (Vue, options) =>
   Vue.component('paginate', require('@/shared/Paginate').default)
   Vue.component('alert', require('@/shared/Alert').default)
   Vue.component('request-result', require('@/shared/RequestResult').default)
+  Vue.component('error-message', require('@/shared/ErrorMessage').default)
 
   Vue.component('create-btn', require('@/shared/Button/Create').default)
   Vue.component('update-btn', require('@/shared/Button/Update').default)

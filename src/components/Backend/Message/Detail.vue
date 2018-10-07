@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="modalDetail" size="lg" ok-title="储存" cancel-title="取消" @ok="ok">
+  <b-modal id="modalDetail" size="lg" ok-title="储存" cancel-title="取消" :ok-disabled="errors.any()" @ok="ok">
 
     <div slot="modal-header">
       <h5 class="modal-title">{{ title }}</h5>
@@ -11,8 +11,14 @@
         <label class="col-md-2 col-form-label">推播内容</label>
         <div class="col-md-10">
           <div class="input-group date">
-            <textarea class="form-control" v-model="data.content">
+            <textarea class="form-control"
+                      name="content"
+                      v-validate="'required'"
+                      v-model="data.content">
             </textarea>
+            <error-message :thisErrors="errors"
+                           inputName="content">
+            </error-message>
           </div>
         </div>
       </div>

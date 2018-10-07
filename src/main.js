@@ -6,21 +6,29 @@ import { sync } from 'vuex-router-sync'
 
 sync(store, router)
 
+// meta
 import Meta from 'vue-meta'
 
 Vue.use(Meta)
 
+// bootstrap
 import BootstrapVue from 'bootstrap-vue'
-
-Vue.use(BootstrapVue)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-// import 'bootstrap'
 
+Vue.use(BootstrapVue)
+
+//validate
+import VeeValidate from 'vee-validate'
+
+Vue.use(VeeValidate)
+
+// swal
 import VueSweetalert2 from 'vue-sweetalert2'
 
 Vue.use(VueSweetalert2)
 
+// my plugin
 import MyPlugin from 'src/plugin'
 
 Vue.use(MyPlugin, {})

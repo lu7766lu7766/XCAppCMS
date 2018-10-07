@@ -15,13 +15,27 @@ export default {
     }
   },
   methods: {
-    ok() {
+    async ok() {
+      var validateResult = await this.$validator.validateAll()
+      if (!validateResult)
+      {
+        this.$swal({
+          text: '資料未完整或有誤，請再次確認',
+          type: 'error',
+          confirmButtonText: '確定'
+        })
+        return
+      }
       this.$emit(this.method, this.data)
     }
   },
   computed: {
     title() {
-      return this.method == 'post' ? '新增' : this.method == 'put' ? '编辑' : '新增/编辑'
+      return this.method == 'post'
+        ? '新增'
+        : this.method == 'put'
+          ? '编辑'
+          : '新增/编辑'
     }
   }
 }

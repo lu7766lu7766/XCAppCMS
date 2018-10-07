@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="modalDetail" size="lg" ok-title="储存" cancel-title="取消" @ok="ok">
+  <b-modal id="modalDetail" size="lg" ok-title="储存" cancel-title="取消" :ok-disabled="errors.any()" @ok="ok">
 
     <div slot="modal-header">
       <h5 class="modal-title">{{ title }}</h5>
@@ -9,28 +9,60 @@
       <div class="form-group row">
         <label class="col-md-2 col-form-label">帐号</label>
         <div class="col-md-10">
-          <input type="text" class="form-control" v-model="data.account" :readonly="method == 'put'" />
+          <input type="text"
+                 class="form-control"
+                 name="account"
+                 v-validate="'required|min:4|max:32'"
+                 v-model="data.account"
+                 :readonly="method == 'put'" />
+          <error-message :thisErrors="errors"
+                         inputName="account">
+          </error-message>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">密码</label>
         <div class="col-md-10">
-          <input type="password" class="form-control" v-model="data.password" placeholder="长度至少4码" />
+          <input type="password"
+                 class="form-control"
+                 name="password"
+                 v-validate="method === 'post' ? 'required|min:4|max:32' : ''"
+                 v-model="data.password"
+                 placeholder="长度至少4码" />
+          <error-message :thisErrors="errors"
+                         inputName="password">
+          </error-message>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">密码确认</label>
         <div class="col-md-10">
-          <input type="password" class="form-control" v-model="data.confirm_password" placeholder="请与密码相同" />
+          <input type="password"
+                 class="form-control"
+                 name="confirm_password"
+                 v-validate="method === 'post' ? {required: true, min: 4, max: 32, is: data.password} : ''"
+                 v-model="data.confirm_password"
+                 placeholder="请与密码相同" />
+          <error-message :thisErrors="errors"
+                         inputName="confirm_password">
+          </error-message>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">暱称</label>
         <div class="col-md-10">
-          <input type="text" class="form-control" v-model="data.display_name" placeholder="长度最多10码" />
+          <input type="text"
+                 class="form-control"
+                 name="display_name"
+                 v-validate="'required|max:10'"
+                 v-model="data.display_name"
+                 placeholder="长度最多10码" />
+          <error-message :thisErrors="errors"
+                         inputName="display_name">
+          </error-message>
         </div>
       </div>
 
@@ -40,7 +72,9 @@
           <!--<select class="form-control" multiple v-model="data.roles">-->
           <!--<option v-for="(id, name) in roles" :key="id" :value="{ id, display_name: name}">{{ name }}</option>-->
           <!--</select>-->
-          <multi-select v-model="data.roles"
+          <multi-select name="roles"
+                        v-validate="'required'"
+                        v-model="data.roles"
                         :options="roleOptions"
                         :multiple="true"
                         :close-on-select="false"
@@ -48,6 +82,9 @@
                         label="display_name"
                         track-by="id"
                         placeholder="请选择角色"></multi-select>
+          <error-message :thisErrors="errors"
+                         inputName="roles">
+          </error-message>
         </div>
       </div>
 

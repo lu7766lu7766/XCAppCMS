@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="modalDetail" size="lg" ok-title="储存" cancel-title="取消" @ok="ok">
+  <b-modal id="modalDetail" size="lg" ok-title="储存" cancel-title="取消" :ok-disabled="errors.any()" @ok="ok">
 
     <div slot="modal-header">
       <h5 class="modal-title">{{ title }}</h5>
@@ -11,31 +11,52 @@
         <label class="col-md-2 col-form-label">代码</label>
         <div class="col-md-10">
           <div class="input-group date">
-            <input type="text" class="form-control" v-model="data.code">
+            <input type="text"
+                   class="form-control"
+                   name="code"
+                   v-validate="'required'"
+                   v-model="data.code">
+            <error-message :thisErrors="errors"
+                           inputName="code">
+            </error-message>
           </div>
         </div>
       </div>
       <div class="form-group row">
         <label class="col-md-2 col-form-label">名称</label>
         <div class="col-md-10">
-          <input type="text" class="form-control" v-model="data.name">
+          <input type="text"
+                 class="form-control"
+                 name="name"
+                 v-validate="'required'"
+                 v-model="data.name">
+          <error-message :thisErrors="errors"
+                         inputName="name">
+          </error-message>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">类别</label>
         <div class="col-md-10">
-          <select class="form-control"  v-model="data.category">
+          <select class="form-control"
+                  name="category"
+                  v-validate="'required'"
+                  v-model="data.category">
             <option v-for="(name, conf) in AppCategoryConf" :key="name" :value="conf">{{ name }}</option>
           </select>
+          <error-message :thisErrors="errors"
+                         inputName="category">
+          </error-message>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">裝置</label>
         <div class="col-md-10">
-          <select class="form-control" v-model="data.mobile_device">
-            <option v-for="(name, index) in AppMobileDeviceConf" :key="name" :value="name" >{{ name }}</option>
+          <select class="form-control"
+                  v-model="data.mobile_device">
+            <option v-for="(name, index) in AppMobileDeviceConf" :key="name" :value="name">{{ name }}</option>
           </select>
         </div>
       </div>
@@ -55,7 +76,13 @@
         <label class="col-md-2 col-form-label">跳转网址</label>
         <div class="col-md-9">
           <div class="form-group row" v-for="(url, index) in data.redirect_url" :key="index">
-            <input type="text" class="form-control"  v-model="data.redirect_url[index]" />
+            <input type="text" class="form-control"
+                   name="redirect_url"
+                   v-validate="'required'"
+                   v-model="data.redirect_url[index]" />
+            <error-message :thisErrors="errors"
+                           inputName="redirect_url">
+            </error-message>
           </div>
         </div>
         <div class="col-md-1">
@@ -68,7 +95,10 @@
         <div class="col-md-10">
           <div class="form-check form-check-inline" v-for="(name, conf) in AppUpdateSwitchConf" :key="name">
             <label class="form-check-label">
-              <input type="radio" class="form-check-input" :value="conf" v-model="data.update_switch">{{ name }}
+              <input type="radio"
+                     class="form-check-input"
+                     :value="conf"
+                     v-model="data.update_switch">{{ name }}
             </label>
           </div>
         </div>
@@ -128,35 +158,35 @@
       </div>
 
     </form>
-
   </b-modal>
 </template>
 
 <script>
-import DetailMixins from 'mixins/common/Detail'
-export default {
-  mixins: [DetailMixins],
-  props: {
-    AppStatusConf: {
-      type: Object,
-      required: true
-    },
-    AppUpdateSwitchConf: {
-      type: Object,
-      required: true
-    },
-    AppRedirectSwitchConf: {
-      type: Object,
-      required: true
-    },
-    AppMobileDeviceConf: {
-      type: Array,
-      required: true
-    },
-    AppCategoryConf: {
-      type: Object,
-      required: true
+  import DetailMixins from 'mixins/common/Detail'
+
+  export default {
+    mixins: [DetailMixins],
+    props: {
+      AppStatusConf: {
+        type: Object,
+        required: true
+      },
+      AppUpdateSwitchConf: {
+        type: Object,
+        required: true
+      },
+      AppRedirectSwitchConf: {
+        type: Object,
+        required: true
+      },
+      AppMobileDeviceConf: {
+        type: Array,
+        required: true
+      },
+      AppCategoryConf: {
+        type: Object,
+        required: true
+      }
     }
   }
-}
 </script>
