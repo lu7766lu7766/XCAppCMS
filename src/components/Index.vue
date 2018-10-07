@@ -48,7 +48,9 @@
               </router-link>
 
               <div class="dropdown-divider"></div>
-              <a href="javascript:;" class="dropdown-item" @click="logout()">Log Out</a>
+              <a href="javascript:;" class="dropdown-item" @click="logout()">
+                登出
+              </a>
             </div>
           </li>
         </ul>
