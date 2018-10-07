@@ -9,7 +9,6 @@
         <div class="col-md-3">
 
           <div class="form-inline input-group mb-3">
-            <input type="text" class="form-control" placeholder="Token description" v-model="description" />
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="button" @click="getToken()">
                 产生
@@ -39,12 +38,11 @@
     data: () => ({
       token: '',
       name: '',
-      description: ''
     }),
     methods: {
       async getToken() {
         var res = await this.$callApi('persionTokenGenerate', {
-          description: this.description
+          description: new Date().getTime()
         })
         if (res.success)
         {
