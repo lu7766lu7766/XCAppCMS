@@ -82,42 +82,6 @@
 
           <ul class="nav">
             <j-menu v-for="(node, index) in menus" :key="index" :node="node" />
-            <!-- <li class="has-sub" :class="{active: mainMenu == 'sys-setting'}">
-              <a href="javascript:;">
-                <b class="caret"></b>
-                <span>系统设置</span>
-              </a>
-              <ul class="sub-menu">
-                <li :class="{active: nowMenu == 'role-list'}">
-                  <router-link :to="{
-                    name: 'role-list'
-                  }">
-                    <span>角色设定</span>
-                  </router-link>
-                </li>
-                <li :class="{active: nowMenu == 'account-list'}">
-                  <router-link :to="{
-                    name: 'account-list'
-                  }">
-                    <span>帐号管理</span>
-                  </router-link>
-                </li>
-              </ul>
-            </li>
-            <li :class="{active: nowMenu == 'app-list'}">
-              <router-link :to="{
-                  name: 'app-list'
-                }">
-                <span>APP管理</span>
-              </router-link>
-            </li>
-            <li :class="{active: nowMenu == 'message-list'}">
-              <router-link :to="{
-                  name: 'message-list'
-                }">
-                <span>讯息推播</span>
-              </router-link>
-            </li> -->
           </ul>
           <!-- end sidebar nav -->
         </div>
@@ -144,7 +108,8 @@
     metaInfo: {
       title: 'APP后台',
       link: [
-        {rel: 'stylesheet', href: '/resource/plugins/ionicons/css/ionicons.min.css'}
+        {rel: 'stylesheet', href: '/resource/plugins/ionicons/css/ionicons.min.css'},
+        {rel: 'stylesheet', href: '/assets/css/style.css'}
       ]
     },
     mixins: [CheckLoginMixins, IndexMixins],

@@ -45,7 +45,7 @@ module.exports = {
       // 加入靜態資源
       var express = require('express') // vue-cli-service 自帶 express
       app.use('/resource', express.static(resolve('resource')))
-      app.use('/static', express.static(resolve('static')))
+      app.use('/assets', express.static(resolve('assets')))
     }
   }
 }
