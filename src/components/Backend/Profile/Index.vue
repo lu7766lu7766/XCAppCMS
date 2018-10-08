@@ -1,15 +1,7 @@
 <template>
   <container title="个人设定">
     <template slot="header">
-      <ol class="breadcrumb pull-right p-0">
-        <li class="breadcrumb-item active">
-          <router-link :to="{
-            name: 'edit-profile'
-          }">
-            个人设定
-          </router-link>
-        </li>
-      </ol>
+      <custom-breadcrumb :breadcrumb="[{name:'edit-profile', display_name:'个人设定'}]" />
     </template>
 
     <request-result :requestResult="requestResult" />

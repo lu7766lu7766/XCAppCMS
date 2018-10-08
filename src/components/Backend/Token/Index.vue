@@ -2,16 +2,7 @@
   <container title="产生令牌">
 
     <template slot="header">
-
-      <ol class="breadcrumb pull-right p-0">
-        <li class="breadcrumb-item active">
-          <router-link :to="{
-            name: 'person-token-generate'
-          }">
-            产生令牌
-          </router-link>
-        </li>
-      </ol>
+      <custom-breadcrumb :breadcrumb="[{name:'person-token-generate', display_name:'产生令牌'}]" />
     </template>
 
     <div class="note note-warning col-md-12 m-b-25 get-note">

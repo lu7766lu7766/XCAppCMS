@@ -2,15 +2,7 @@
   <container title="讯息推播">
 
     <template slot="header">
-      <ol class="breadcrumb pull-right p-0">
-        <li class="breadcrumb-item active">
-          <router-link :to="{
-              name: 'message-list'
-            }">
-            讯息管理
-          </router-link>
-        </li>
-      </ol>
+      <node-breadcrumb />
     </template>
 
     <template slot="detail">

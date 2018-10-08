@@ -2,15 +2,7 @@
   <container title="APP管理">
 
     <template slot="header">
-      <ol class="breadcrumb pull-right p-0">
-        <li class="breadcrumb-item active">
-          <router-link :to="{
-            name: 'app-list'
-          }">
-            APP管理
-          </router-link>
-        </li>
-      </ol>
+      <node-breadcrumb />
     </template>
 
     <template slot="detail">
