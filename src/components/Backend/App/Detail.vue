@@ -56,7 +56,7 @@
         <div class="col-md-10">
           <select class="form-control"
                   v-model="data.mobile_device">
-            <option v-for="(name, index) in AppMobileDeviceConf" :key="name" :value="name">{{ name }}</option>
+            <option v-for="(name, key) in AppMobileDeviceConf" :key="key" :value="key">{{ name }}</option>
           </select>
         </div>
       </div>
@@ -75,18 +75,26 @@
       <div class="form-group row">
         <label class="col-md-2 col-form-label">跳转网址</label>
         <div class="col-md-9">
-          <div class="form-group row" v-for="(url, index) in data.redirect_url" :key="index">
+          <div class="form-group row m-b-5" v-for="(url, index) in data.redirect_url" :key="index">
             <input type="text" class="form-control"
-                   name="redirect_url"
+                   :name="'redirect_url' + index"
                    v-validate="'required'"
                    v-model="data.redirect_url[index]" />
             <error-message :thisErrors="errors"
-                           inputName="redirect_url">
+                           :inputName="'redirect_url' + index">
             </error-message>
           </div>
         </div>
         <div class="col-md-1">
-          <button type="button" class="btn btn-default" @click="data.redirect_url.push('')">＋</button>
+          <button type="button"
+                  class="btn btn-default m-b-10"
+                  @click="data.redirect_url ? data.redirect_url.push('') : (data.redirect_url = [''])">＋
+          </button>
+          <button type="button"
+                  class="btn btn-default m-b-10"
+                  v-if="data.redirect_url && data.redirect_url.length"
+                  @click="data.redirect_url.length > 1 ? data.redirect_url.pop() : (data.redirect_url = null)">－
+          </button>
         </div>
       </div>
 

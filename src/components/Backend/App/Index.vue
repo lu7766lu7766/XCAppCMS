@@ -28,7 +28,7 @@
             </select>
             <select class="form-control" v-model="seachData.mobile_device">
               <option value="">裝置</option>
-              <option v-for="(name, index) in AppMobileDeviceConf" :key="index" :value="name">{{ name }}</option>
+              <option v-for="(name, key) in AppMobileDeviceConf" :key="key" :value="key">{{ name }}</option>
             </select>
             <input type="text"
                    class="form-control"
@@ -135,15 +135,18 @@
         on: '开启',
         off: '关闭'
       },
-      AppMobileDeviceConf: ['ios', 'android'],
+      AppMobileDeviceConf: {
+        ios: 'IOS',
+        android: 'ANDROID'
+      },
       model: {
         id: '',
         code: '',
         name: '',
-        category: '',
+        category: 'futures',
         mobile_device: 'ios',
         redirect_switch: 'off',
-        redirect_url: [''],
+        redirect_url: null,
         update_switch: 'off',
         update_url: '',
         update_content: '',
