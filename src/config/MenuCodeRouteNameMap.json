@@ -18,5 +18,9 @@
   "ROLE_SETTING": {
     "name": "role-list",
     "icon": ""
+  },
+  "WEB_LINK": {
+    "name": "",
+    "icon": "fa fa-link"
   }
 }

@@ -216,10 +216,14 @@
     line-height: 34px
     padding-left: 0
 
-  .btn-yellow
-    background: #ffd900 !important
-    border-color: #ffd900 !important
-
+  .modal-header
+    background-color: #2d353c
+    color: #fff
+    padding: 10px 15px
+  .modal-footer
+    button
+      width:70px
+    
 </style>
 
 
