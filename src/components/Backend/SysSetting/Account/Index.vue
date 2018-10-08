@@ -1,19 +1,8 @@
 <template>
-  <container title='帐号管理'>
+  <container>
 
     <template slot="header">
-      <ol class="breadcrumb pull-right p-0">
-        <li class="breadcrumb-item">
-          <a href="javascript:;">系统设定</a>
-        </li>
-        <li class="breadcrumb-item active">
-          <router-link :to="{
-              name: 'account-list'
-            }">
-            帐号管理
-          </router-link>
-        </li>
-      </ol>
+      <node-breadcrumb />
     </template>
 
     <template slot="detail">

@@ -101,6 +101,8 @@ const install = (Vue, options) =>
   Vue.component('alert', require('@/shared/Alert').default)
   Vue.component('request-result', require('@/shared/RequestResult').default)
   Vue.component('error-message', require('@/shared/ErrorMessage').default)
+  Vue.component('node-breadcrumb', require('@/shared/NodeBreadcrumb').default)
+  Vue.component('custom-breadcrumb', require('@/shared/CustomBreadcrumb').default)
 
   Vue.component('create-btn', require('@/shared/Button/Create').default)
   Vue.component('update-btn', require('@/shared/Button/Update').default)
