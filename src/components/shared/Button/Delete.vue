@@ -1,6 +1,6 @@
 <template>
   <button type="button"
-          class="btn btn-sm btn-danger m-r-5 m-b-5"
+          class="btn btn-danger"
           v-if="currentDelete"
           @click="$emit('click')">
     删除

@@ -28,7 +28,7 @@
         <!-- end navbar-header -->
 
         <!-- begin header-nav -->
-        <ul class="navbar-nav navbar-right">
+        <ul class="navbar-nav navbar-right p-0">
           <li class="dropdown navbar-user">
             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
               <img src="/resource/img/user/user-13.jpg" alt="" />
@@ -44,7 +44,8 @@
 
               <router-link class="dropdown-item" :to="{
                   name: 'person-token-generate'
-              }">个人令牌申请
+                }">
+                产生令牌
               </router-link>
 
               <div class="dropdown-divider"></div>
@@ -174,41 +175,51 @@
 </script>
 
 <style lang="stylus">
-  #page-container
-    th
-      &.with-checkbox, &.index
-        width 50px
+  .table
+    &-box
+      > thead
+        > tr
+          > th
+            border-top: 1px solid #b6c2c9 !important
+            padding: 8px 10px
+      > tbody
+        > tr
+          > td
+            vertical-align: middle
+            padding: 5px 10px
+      .btn
+        line-height: 12px
+    .check-box
+      label
+        display: none
+    &-status
+      width: 100px
 
-      &.action
-        width 200px
+  @media all and (max-width: 965px)
+    .panel-body
+      > .row
+        > div
+          max-width: 100%
+          flex: 100%
+          &.panel-search
+            justify-content: flex-start !important
+            margin-top: 10px
 
-    td
-      &.action
-        text-align right
+  .panel
+    &-search
+      select.form-control
+        width: 100%
+      input
+        height 34px
 
-  .ion-checkmark
-    color green
+  .form-txt
+    line-height: 34px
+    padding-left: 0
 
-  .ion-close-round
-    color red
+  .btn-yellow
+    background: #ffd900 !important
+    border-color: #ffd900 !important
 
-  .form-editor label.col-form-label
-    text-align right
-
-  .modal-header
-    background #222
-
-    .modal-title
-      color #fff
-
-  // jstree
-  @import '/resource/plugins/jstree/dist/themes/default/style.min.css'
-
-  .jstree-default ul
-    padding-left 0px
-
-    li
-      list-style-type none
 </style>
 
 

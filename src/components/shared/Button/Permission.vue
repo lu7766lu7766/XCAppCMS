@@ -1,5 +1,6 @@
 <template>
-  <button class="btn btn-sm btn-warning m-r-5 m-b-5"
+  <button type="button"
+          class="btn btn-grey m-r-5"
           v-if="currentUpdate"
           @click="$emit('click')"
           v-b-modal.modalPermission>

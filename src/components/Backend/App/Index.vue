@@ -1,44 +1,16 @@
 <template>
-  <container>
+  <container title="APP管理">
 
     <template slot="header">
-      <ol class="breadcrumb pull-right">
+      <ol class="breadcrumb pull-right p-0">
         <li class="breadcrumb-item active">
           <router-link :to="{
-            name: 'message-list'
+            name: 'app-list'
           }">
             APP管理
           </router-link>
         </li>
       </ol>
-      <h1 class="page-header">APP管理</h1>
-
-      <request-result :requestResult="requestResult" />
-
-      <div class="row form-group">
-        <div class="col-md-6">
-          <create-btn @click="setData()"></create-btn>
-          <delete-btn @click="mDeleteDatas()"></delete-btn>
-        </div>
-        <div class="col-md-6" style="text-align: right;">
-          <div class="form-inline" style="display: block;">
-            <select class="form-control" v-model="seachData.category">
-              <option value="">类别</option>
-              <option v-for="(name, conf) in AppCategoryConf" :key="name" :value="conf">{{ name }}</option>
-            </select>
-            <select class="form-control" v-model="seachData.mobile_device">
-              <option value="">裝置</option>
-              <option v-for="(name, key) in AppMobileDeviceConf" :key="key" :value="key">{{ name }}</option>
-            </select>
-            <input type="text"
-                   class="form-control"
-                   placeholder="关键字"
-                   v-model="seachData.name"
-                   @keyup.13="getSearchData()" />
-            <search-btn @click="getSearchData()"></search-btn>
-          </div>
-        </div>
-      </div>
     </template>
 
     <template slot="detail">
@@ -53,30 +25,61 @@
               :method="method" />
     </template>
 
-    <table class="table table-striped table-hover">
+    <request-result :requestResult="requestResult" />
+
+    <div class="row m-b-20">
+      <div class="col-sm-3">
+        <create-btn @click="setData()"></create-btn>
+        <delete-btn @click="mDeleteDatas()"></delete-btn>
+      </div>
+      <div class="col-sm-9 form-inline justify-content-end panel-search">
+        <div class="form-group m-r-10 width-100">
+          <select class="form-control" v-model="seachData.category">
+            <option value="">类别</option>
+            <option v-for="(name, conf) in AppCategoryConf" :key="name" :value="conf">{{ name }}</option>
+          </select>
+        </div>
+        <div class="form-group m-r-10 width-100">
+          <select class="form-control" v-model="seachData.mobile_device">
+            <option value="">裝置</option>
+            <option v-for="(name, key) in AppMobileDeviceConf" :key="key" :value="key">{{ name }}</option>
+          </select>
+        </div>
+        <div class="form-group m-r-10">
+          <input type="text"
+                 class="form-control"
+                 placeholder="关键字"
+                 v-model="seachData.name"
+                 @keyup.13="getSearchData()" />
+        </div>
+        <search-btn @click="getSearchData()"></search-btn>
+      </div>
+    </div>
+
+    <table class="table table-striped table-hover table-box text-center">
       <thead>
       <tr>
-        <th class="with-checkbox">
-          <div class="checkbox checkbox-css">
+        <th class="width-30">
+          <div class="checkbox check-box">
             <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
             <label for="checkbox_all">&nbsp;</label>
           </div>
         </th>
-        <th class="index">#</th>
+        <th class="width-30">#</th>
         <th>代码</th>
         <th>名称</th>
-        <th>裝置</th>
         <th>类别</th>
-        <th>跳转开关</th>
-        <th>更新开关</th>
-        <th class="action">操作</th>
+        <th>裝置</th>
+        <th class="width-100">跳转开关</th>
+        <th class="width-100">更新开关</th>
+        <th class="width-100">操作</th>
       </tr>
       </thead>
       <tbody>
 
       <tr v-for="(d, index) in datas" :key="index">
-        <td class="with-checkbox">
-          <div class="checkbox checkbox-css">
+        <td>
+          <div class="checkbox check-box">
             <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
             <label :for="'checkbox_'+d.id">&nbsp;</label>
           </div>
@@ -84,15 +87,22 @@
         <td>{{ d.id }}</td>
         <td>{{ d.code }}</td>
         <td>{{ d.name }}</td>
-        <td>{{ d.mobile_device.toUpperCase() }}</td>
         <td>{{ AppCategoryConf[d.category] }}</td>
         <td>
-          <i v-if="d.redirect_switch == 'on'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
-          <i v-else-if="d.redirect_switch == 'off'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
+          <span class="bg-lime app-ic" v-if="d.mobile_device == 'android'">
+            <i class="fab fa-android fa-lg text-white"></i>
+          </span>
+          <span class="bg-grey app-ic" v-else-if="d.mobile_device == 'ios'">
+            <i class="fab fa-apple fa-lg text-white"></i>
+          </span>
         </td>
         <td>
-          <i v-if="d.update_switch == 'on'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
-          <i v-if="d.update_switch == 'off'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
+          <i v-if="d.redirect_switch == 'on'" class="ion-checkmark fa-lg fa-fw text-green"></i>
+          <i v-else-if="d.redirect_switch == 'off'" class="ion-close-round fa-lg fa-fw text-danger"></i>
+        </td>
+        <td>
+          <i v-if="d.update_switch == 'on'" class="ion-checkmark fa-lg fa-fw text-green"></i>
+          <i v-if="d.update_switch == 'off'" class="ion-close-round fa-lg fa-fw text-danger"></i>
         </td>
         <td class="action">
           <update-btn @click="setData(d)"></update-btn>
@@ -209,3 +219,12 @@
     }
   }
 </script>
+
+<style lang="stylus" scoped>
+  .app-ic
+    border-radius: 3px
+    width 22px
+    height 22px
+    display: inline-block
+    line-height 22px
+</style>

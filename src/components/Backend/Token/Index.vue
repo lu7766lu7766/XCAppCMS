@@ -1,31 +1,44 @@
 <template>
-  <container>
+  <container title="产生令牌">
 
     <template slot="header">
 
-      <h1 class="page-header">个人令牌申请</h1>
-
-      <div class="row form-group">
-        <div class="col-md-3">
-
-          <div class="form-inline input-group mb-3">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" @click="getToken()">
-                产生
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ol class="breadcrumb pull-right p-0">
+        <li class="breadcrumb-item active">
+          <router-link :to="{
+            name: 'person-token-generate'
+          }">
+            产生令牌
+          </router-link>
+        </li>
+      </ol>
     </template>
 
-    <i class="fas fa-copy fa-2x" @click="copyToken()" data-toggle="tooltip" data-placement="top" title="复制令牌"></i>
-    <div v-if="name">
-      <label>Name: </label>{{ name }}
+    <div class="note note-warning col-md-12 m-b-25 get-note">
+      <div class="note-icon"><i class="fa fa-info-circle"></i></div>
+      <div class="note-content">
+        1. 点击产生获得TOKEN<br />
+        2. 产生后请自行保存<br />
+        3. 若再点击产生, 则会变更TOKEN, 需使用新的TOKEN<br />
+      </div>
     </div>
-    <div v-if="token">
-      <label>Token: </label>
-      <span ref="copyTarget">{{ token }}</span>
+    <div>
+      <div class="form-group row m-b-15">
+        <label class="col-md-2 col-form-label">TOKEN</label>
+        <div class="col-md-9 m-b-15">
+          <textarea class="form-control" rows="10" ref="copyTarget">
+            {{ token }}
+          </textarea>
+        </div>
+        <div class="col-md-1 m-b-15 align-self-end">
+          <a class="btn btn-warning width-70 m-t-5 text-white" @click="getToken()">产生</a>
+          <a class="btn btn-grey width-70 m-t-5 text-white"
+             @click="copyToken()"
+             data-toggle="tooltip"
+             data-placement="top"
+             title="复制令牌">复制</a>
+        </div>
+      </div>
     </div>
 
   </container>
@@ -36,8 +49,7 @@
 
   export default {
     data: () => ({
-      token: '',
-      name: ''
+      token: ''
     }),
     methods: {
       async getToken() {
@@ -46,7 +58,6 @@
         })
         if (res.success)
         {
-          this.name = res.data.name
           this.token = res.data.token
         }
       },

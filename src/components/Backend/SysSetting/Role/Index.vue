@@ -1,8 +1,8 @@
 <template>
-  <container>
+  <container title="角色设定">
 
     <template slot="header">
-      <ol class="breadcrumb pull-right">
+      <ol class="breadcrumb pull-right p-0">
         <li class="breadcrumb-item">
           <a href="javascript:;">系统设定</a>
         </li>
@@ -14,15 +14,6 @@
           </router-link>
         </li>
       </ol>
-      <h1 class="page-header">角色设定</h1>
-
-      <request-result :requestResult="requestResult" />
-
-      <div class="row form-group">
-        <div class="col-md-12">
-          <create-btn @click="setData()"></create-btn>
-        </div>
-      </div>
     </template>
 
     <template slot="detail">
@@ -32,16 +23,23 @@
               @put="put"
               :method="method" />
       <permission :roleMenus="roleMenus" @putRoleNodes="putRoleNodes" />
-
     </template>
 
-    <table class="table table-striped table-hover">
+    <request-result :requestResult="requestResult" />
+
+    <div class="row form-group">
+      <div class="col-md-12">
+        <create-btn @click="setData()"></create-btn>
+      </div>
+    </div>
+
+    <table class="table table-striped table-hover table-box text-center">
       <thead>
       <tr>
-        <th class="index">#</th>
+        <th class="width-30">#</th>
         <th>角色名称</th>
-        <th>状态</th>
-        <th class="action">操作</th>
+        <th class="width-100">状态</th>
+        <th class="width-200">操作</th>
       </tr>
       </thead>
       <tbody>
@@ -49,8 +47,8 @@
         <td>{{ d.id }}</td>
         <td>{{ d.display_name }}</td>
         <td>
-          <i v-if="d.enable == 'Y'" class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
-          <i v-else-if="d.enable == 'N'" class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
+          <i v-if="d.enable == 'Y'" class="ion-checkmark fa-lg fa-fw text-green"></i>
+          <i v-else-if="d.enable == 'N'" class="ion-close-round fa-lg fa-fw text-danger"></i>
         </td>
         <td class="action">
           <permission-btn @click="getRoleNodes(d.id)"></permission-btn>

@@ -1,50 +1,19 @@
 <template>
-  <container>
+  <container title='帐号管理'>
 
     <template slot="header">
-      <ol class="breadcrumb pull-right">
+      <ol class="breadcrumb pull-right p-0">
         <li class="breadcrumb-item">
           <a href="javascript:;">系统设定</a>
         </li>
         <li class="breadcrumb-item active">
           <router-link :to="{
-            name: 'account-list'
-          }">
+              name: 'account-list'
+            }">
             帐号管理
           </router-link>
         </li>
       </ol>
-      <h1 class="page-header">帐号管理</h1>
-
-      <request-result :requestResult="requestResult" />
-
-      <div class="row form-group">
-        <div class="col-md-6">
-          <create-btn @click="setData()"></create-btn>
-          <delete-btn @click="mDeleteDatas()"></delete-btn>
-        </div>
-        <div class="col-md-6"
-             style="text-align: right;">
-          <div class="form-inline"
-               style="display: block;">
-            <select class="form-control"
-                    v-model="seachData.role_id">
-              <option value="">全部</option>
-              <option v-for="(role_id, name) in roles"
-                      :key="role_id"
-                      :value="role_id">
-                {{ name }}
-              </option>
-            </select>
-            <input type="text"
-                   class="form-control"
-                   placeholder="关键字"
-                   v-model="seachData.account"
-                   @keyup.13="getSearchData()" />
-            <search-btn @click="getSearchData()"></search-btn>
-          </div>
-        </div>
-      </div>
     </template>
 
     <template slot="detail">
@@ -56,32 +25,63 @@
               :method="method" />
     </template>
 
-    <table class="table table-striped table-hover">
+    <request-result :requestResult="requestResult" />
+
+    <div class="row m-b-20">
+      <div class="col-sm-3">
+        <create-btn @click="setData()"></create-btn>
+        <delete-btn @click="mDeleteDatas()"></delete-btn>
+      </div>
+      <div class="col-sm-9 form-inline justify-content-end panel-search">
+        <div class="form-group width-100 m-r-10">
+
+          <select class="form-control"
+                  v-model="seachData.role_id">
+            <option value="">全部</option>
+            <option v-for="(role_id, name) in roles"
+                    :key="role_id"
+                    :value="role_id">
+              {{ name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group m-r-10">
+
+          <input type="text"
+                 class="form-control"
+                 placeholder="关键字"
+                 v-model="seachData.account"
+                 @keyup.13="getSearchData()" />
+        </div>
+        <search-btn @click="getSearchData()"></search-btn>
+      </div>
+    </div>
+
+    <table class="table table-striped table-hover table-box text-center">
       <thead>
       <tr>
-        <th class="with-checkbox"
-            width=100>
-          <div class="checkbox checkbox-css">
+        <th class="width-30">
+          <div class="checkbox check-box">
             <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
-            <label for="checkbox_all">&nbsp;</label>
+            <label for="checkbox_all" class="m-b-0">&nbsp;</label>
           </div>
         </th>
-        <th class="index">#</th>
+        <th class="width-30">#</th>
         <th>帐号</th>
         <th>暱称</th>
         <th>角色名称</th>
-        <th>状态</th>
+        <th class="width-100">状态</th>
         <th>最后登入IP</th>
-        <th class="action">操作</th>
+        <th class="width-100">操作</th>
       </tr>
       </thead>
       <tbody>
 
       <tr v-for="(d, index) in datas" :key="index">
-        <td class="with-checkbox">
-          <div class="checkbox checkbox-css">
+        <td>
+          <div class="checkbox check-box">
             <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
-            <label :for="'checkbox_'+d.id">&nbsp;</label>
+            <label :for="'checkbox_'+d.id" class="m-b-0">&nbsp;</label>
           </div>
         </td>
         <td>{{ d.id }}</td>
@@ -90,9 +90,9 @@
         <td>{{ _.map(d.roles, 'display_name').join(', ') }}</td>
         <td>
           <i v-if="d.status == 'enable'"
-             class="ion-checkmark fa-lg fa-fw pull-left m-r-10"></i>
+             class="ion-checkmark fa-lg fa-fw text-green"></i>
           <i v-else-if="d.status == 'disable'"
-             class="ion-close-round fa-lg fa-fw pull-left m-r-10"></i>
+             class="ion-close-round fa-lg fa-fw text-danger"></i>
         </td>
         <td>{{ d.login_ip }}</td>
         <td class="action">

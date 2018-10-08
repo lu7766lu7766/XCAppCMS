@@ -1,8 +1,8 @@
 <template>
-  <container>
+  <container title="讯息推播">
 
     <template slot="header">
-      <ol class="breadcrumb pull-right">
+      <ol class="breadcrumb pull-right p-0">
         <li class="breadcrumb-item active">
           <router-link :to="{
               name: 'message-list'
@@ -11,42 +11,41 @@
           </router-link>
         </li>
       </ol>
-      <h1 class="page-header">讯息管理</h1>
-
-      <request-result :requestResult="requestResult" />
-
-      <div class="row form-group">
-        <div class="col-md-12">
-          <create-btn @click="setData()"></create-btn>
-          <delete-btn @click="mDeleteDatas()"></delete-btn>
-        </div>
-      </div>
     </template>
 
     <template slot="detail">
       <detail :data.sync="data" :topics="topics" @post="post" @put="put" :method="method" />
     </template>
 
-    <table class="table table-striped table-hover">
+    <request-result :requestResult="requestResult" />
+
+    <div class="row form-group">
+      <div class="col-md-12">
+        <create-btn @click="setData()"></create-btn>
+        <delete-btn @click="mDeleteDatas()"></delete-btn>
+      </div>
+    </div>
+
+    <table class="table table-striped table-hover table-box text-center">
       <thead>
       <tr>
-        <th class="with-checkbox">
-          <div class="checkbox checkbox-css">
+        <th class="width-30">
+          <div class="checkbox check-box">
             <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
             <label for="checkbox_all">&nbsp;</label>
           </div>
         </th>
-        <th class="index">#</th>
+        <th class="width-30">#</th>
         <th>推播内容</th>
         <th>装置</th>
-        <th class="action">操作</th>
+        <th class="width-150">操作</th>
       </tr>
       </thead>
       <tbody>
 
       <tr v-for="(d, index) in datas" :key="index">
-        <td class="with-checkbox">
-          <div class="checkbox checkbox-css">
+        <td>
+          <div class="checkbox check-box">
             <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
             <label :for="'checkbox_'+d.id">&nbsp;</label>
           </div>
@@ -56,7 +55,7 @@
         <td>{{ _.map(d.app_managements, 'name').join(', ') }}</td>
         <td class="action">
           <update-btn @click="setData(d)"></update-btn>
-          <button class="btn btn-sm btn-warning m-r-5 m-b-5" @click="pushMessage(d.id)">推播</button>
+          <button class="btn btn-yellow text-white" @click="pushMessage(d.id)">推播</button>
         </td>
       </tr>
 

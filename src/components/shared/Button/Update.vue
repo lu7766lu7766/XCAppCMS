@@ -1,5 +1,6 @@
 <template>
-  <button class="btn btn-sm btn-info m-r-5 m-b-5"
+  <button type="button"
+          class="btn btn-green m-r-5"
           v-if="currentUpdate"
           @click="$emit('click')"
           v-b-modal.modalDetail>

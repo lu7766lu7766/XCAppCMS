@@ -11,21 +11,20 @@
       <h5 class="modal-title">{{ title }}</h5>
     </div>
 
-    <form class="form-horizontal form-bordered form-editor">
+    <form class="form-horizontal">
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">推播内容</label>
         <div class="col-md-10">
-          <div class="input-group date">
-            <textarea class="form-control"
-                      name="content"
-                      v-validate="'required'"
-                      v-model="data.content">
-            </textarea>
-            <error-message :thisErrors="errors"
-                           inputName="content">
-            </error-message>
-          </div>
+          <textarea class="form-control"
+                    name="content"
+                    rows="5"
+                    v-validate="'required'"
+                    v-model="data.content">
+          </textarea>
+          <error-message :thisErrors="errors"
+                         inputName="content">
+          </error-message>
         </div>
       </div>
 

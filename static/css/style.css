@@ -1,0 +1,37 @@
+body {
+    font-size: 13px !important;
+    background: #d9e0e7 !important;
+}
+
+.dropdown-item, .form-control, .btn {
+    font-size: 13px !important;
+}
+
+.btn, .btn:hover {
+    box-shadow: none;
+}
+
+.row > [class^=col-] {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.breadcrumb {
+    background-color: transparent !important;
+}
+
+.header .navbar-user img {
+    float: left;
+    margin: -5px 10px 0 0;
+}
+
+/* page */
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+    background-color: #545b62 !important;
+    border-color: #545b62 !important;
+}

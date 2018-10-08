@@ -1,6 +1,6 @@
 <template>
   <button type="button"
-          class="btn btn-sm btn-default  m-r-5 m-b-5"
+          class="btn btn-warning text-white"
           v-if="currentRead"
           @click="$emit('click')">
     搜索

@@ -11,7 +11,7 @@
       <h5 class="modal-title">{{ title }}</h5>
     </div>
 
-    <form class="form-horizontal form-bordered form-editor">
+    <form class="form-horizontal">
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">角色名称</label>

@@ -4,23 +4,11 @@
     <slot name="header"></slot>
 
     <!-- begin panel -->
-    <div class="panel panel-inverse">
+    <div class="panel panel-inverse" style="clear:both;">
       <div class="panel-heading">
-        <div class="panel-heading-btn">
-          <a href="javascript:;"
-             class="btn btn-xs btn-icon btn-circle btn-default"
-             data-click="panel-expand">
-            <i class="fa fa-expand"></i>
-          </a>
-          <a href="javascript:;"
-             class="btn btn-xs btn-icon btn-circle btn-warning"
-             data-click="panel-collapse">
-            <i class="fa fa-minus"></i>
-          </a>
-        </div>
-        <h4 class="panel-title">列表</h4>
+        <h5 class="m-b-0">{{ title }}</h5>
       </div>
-      <div class="panel-body">
+      <div class="panel-body p-t-30 p-b-30">
 
         <slot></slot>
 
@@ -31,3 +19,14 @@
 
   </div>
 </template>
+
+<script>
+  export default {
+    props: {
+      title: {
+        type: String,
+        default: '列表'
+      }
+    }
+  }
+</script>

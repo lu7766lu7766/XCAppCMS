@@ -11,21 +11,19 @@
       <h5 class="modal-title">{{ title }}</h5>
     </div>
 
-    <form class="form-horizontal form-bordered form-editor">
+    <form class="form-horizontal">
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">代码</label>
         <div class="col-md-10">
-          <div class="input-group date">
-            <input type="text"
-                   class="form-control"
-                   name="code"
-                   v-validate="'required'"
-                   v-model="data.code">
-            <error-message :thisErrors="errors"
-                           inputName="code">
-            </error-message>
-          </div>
+          <input type="text"
+                 class="form-control"
+                 name="code"
+                 v-validate="'required'"
+                 v-model="data.code">
+          <error-message :thisErrors="errors"
+                         inputName="code">
+          </error-message>
         </div>
       </div>
       <div class="form-group row">
@@ -80,27 +78,32 @@
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">跳转网址</label>
-        <div class="col-md-9">
-          <div class="form-group row m-b-5" v-for="(url, index) in data.redirect_url" :key="index">
-            <input type="text" class="form-control"
-                   :name="'redirect_url' + index"
-                   v-validate="'required'"
-                   v-model="data.redirect_url[index]" />
-            <error-message :thisErrors="errors"
-                           :inputName="'redirect_url' + index">
-            </error-message>
+        <div class="col-md-10 row">
+
+          <div class="col-sm-9">
+            <div class="form-group " v-for="(url, index) in data.redirect_url" :key="index">
+              <input type="text" class="form-control"
+                     :name="'redirect_url' + index"
+                     v-validate="'required'"
+                     v-model="data.redirect_url[index]" />
+              <error-message :thisErrors="errors"
+                             :inputName="'redirect_url' + index">
+              </error-message>
+            </div>
           </div>
-        </div>
-        <div class="col-md-1">
-          <button type="button"
-                  class="btn btn-default m-b-10"
-                  @click="data.redirect_url ? data.redirect_url.push('') : (data.redirect_url = [''])">＋
-          </button>
-          <button type="button"
-                  class="btn btn-default m-b-10"
-                  v-if="data.redirect_url && data.redirect_url.length"
-                  @click="data.redirect_url.length > 1 ? data.redirect_url.pop() : (data.redirect_url = null)">－
-          </button>
+          <div class="col-sm-2 p-l-0">
+            <button type="button"
+                    class="btn btn-grey add-change-web m-r-5"
+                    @click="data.redirect_url ? data.redirect_url.push('') : (data.redirect_url = [''])">
+              <i class="fas fa-lg fa-fw fa-plus"></i>
+            </button>
+            <button type="button"
+                    class="btn btn-grey add-change-web"
+                    v-if="data.redirect_url && data.redirect_url.length"
+                    @click="data.redirect_url.length > 1 ? data.redirect_url.pop() : (data.redirect_url = null)">
+              <i class="fas fa-lg fa-fw fa-minus"></i>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -204,3 +207,12 @@
     }
   }
 </script>
+
+<style lang="stylus" scoped>
+  .add-change-web
+    padding 5px
+    width 38px
+    height 38px
+    text-align: center
+
+</style>

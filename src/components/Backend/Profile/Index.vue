@@ -1,40 +1,48 @@
 <template>
-  <container>
+  <container title="个人设定">
     <template slot="header">
-
-      <h1 class="page-header">个人设定</h1>
-
-      <request-result :requestResult="requestResult" />
-
+      <ol class="breadcrumb pull-right p-0">
+        <li class="breadcrumb-item active">
+          <router-link :to="{
+            name: 'edit-profile'
+          }">
+            个人设定
+          </router-link>
+        </li>
+      </ol>
     </template>
+
+    <request-result :requestResult="requestResult" />
 
     <div slot="modal-header">
       <h5 class="modal-title">编辑</h5>
     </div>
 
-    <form class="form-horizontal form-bordered form-editor">
+    <form class="form-horizontal">
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">暱稱</label>
-        <div class="col-md-10">
+        <div class="col-md-4">
           <div class="input-group date">
             <input type="text" class="form-control" @keyup.13="put()" v-model="data.display_name" />
           </div>
         </div>
+
       </div>
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">原密码</label>
-        <div class="col-md-10">
+        <div class="col-md-4">
           <div class="input-group date">
             <input type="password" class="form-control" @keyup.13="put()" v-model="data.old_password" />
           </div>
         </div>
+        <div class="col-md-4 form-txt">若不修改密码, 请保留空白</div>
       </div>
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">新密码</label>
-        <div class="col-md-10">
+        <div class="col-md-4">
           <div class="input-group date">
             <input type="password" class="form-control" @keyup.13="put()" v-model="data.password" />
           </div>
@@ -43,20 +51,15 @@
 
       <div class="form-group row">
         <label class="col-md-2 col-form-label">新密码确认</label>
-        <div class="col-md-10">
+        <div class="col-md-4">
           <div class="input-group date">
             <input type="password" class="form-control" @keyup.13="put()" v-model="data.confirm_password" />
           </div>
         </div>
       </div>
 
-      <div class="form-group row">
-        <label class="col-md-2 col-form-label"></label>
-        <div class="col-md-10">
-          <div class="input-group">
-            <button type="button" class="btn btn-sm btn-primary m-r-5 m-b-5" @click="put()">储存</button>
-          </div>
-        </div>
+      <div class="form-group m-t-30">
+        <button type="button" class="btn btn-warning width-70 m-r-5" @click="put()">储存</button>
       </div>
 
     </form>

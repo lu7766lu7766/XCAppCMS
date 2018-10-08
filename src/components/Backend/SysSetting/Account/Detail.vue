@@ -11,7 +11,7 @@
       <h5 class="modal-title">{{ title }}</h5>
     </div>
 
-    <form class="form-horizontal form-bordered form-editor">
+    <form class="form-horizontal">
       <div class="form-group row">
         <label class="col-md-2 col-form-label">帐号</label>
         <div class="col-md-10">
@@ -139,3 +139,10 @@
     }
   }
 </script>
+
+<style lang="stylus">
+  .account-size
+    font-size: 13px
+    input
+      font-size: 13px
+</style>
