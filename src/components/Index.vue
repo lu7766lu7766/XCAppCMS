@@ -108,8 +108,7 @@
     metaInfo: {
       title: 'APP后台',
       link: [
-        {rel: 'stylesheet', href: '/resource/plugins/ionicons/css/ionicons.min.css'},
-        {rel: 'stylesheet', href: '/assets/css/style.css'}
+        {rel: 'stylesheet', href: '/resource/plugins/ionicons/css/ionicons.min.css'}
       ]
     },
     mixins: [CheckLoginMixins, IndexMixins],
@@ -140,6 +139,7 @@
 </script>
 
 <style lang="stylus">
+
   .table
     &-box
       > thead
@@ -185,10 +185,11 @@
     background-color: #2d353c
     color: #fff
     padding: 10px 15px
+
   .modal-footer
     button
-      width:70px
-    
+      width: 70px
+
 </style>
 
 

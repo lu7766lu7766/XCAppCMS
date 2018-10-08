@@ -20,8 +20,15 @@ Vue.use(BootstrapVue)
 
 //validate
 import VeeValidate from 'vee-validate'
+import cn from 'vee-validate/dist/locale/zh_CN'
 
-Vue.use(VeeValidate)
+const config = {
+  locale: 'cn',
+  events: 'input|blur',
+  dictionary: {cn}
+}
+cn.messages.required = () => '必填栏位'
+Vue.use(VeeValidate, config)
 
 // swal
 import VueSweetalert2 from 'vue-sweetalert2'
