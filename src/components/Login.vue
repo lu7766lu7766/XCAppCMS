@@ -8,9 +8,9 @@
     <!-- end #page-loader -->
 
     <div class="login-cover">
-      <div class="login-cover-image"
+      <!-- <div class="login-cover-image"
            :style="{'background-image': `url(${bgImg})`}">
-      </div>
+      </div> -->
       <div class="login-cover-bg"></div>
     </div>
     <!-- begin #page-container -->
@@ -18,17 +18,15 @@
         id="page-container"
         class="fade">
       <!-- begin login -->
-      <div
-          class="login login-v2"
-          data-pageload-addclass="animated fadeIn">
+      <div class="login bg-black animated fadeInDown">
         <!-- begin brand -->
         <div class="login-header">
           <div class="brand">
-            <span class="logo"></span>
-            <b>APP</b> CMS
+              <span class="logo"></span> <b>APP</b> CMS
+              <small>APP相关设定管理系统</small>
           </div>
           <div class="icon">
-            <i class="fa fa-lock"></i>
+              <i class="fa fa-lock"></i>
           </div>
         </div>
         <!-- end brand -->
@@ -36,13 +34,13 @@
         <div class="login-content">
           <div class="form-group m-b-20">
             <input
-                type="text" class="form-control form-control-lg" placeholder="帐号" required
+                type="text" class="form-control form-control-lg inverse-mode" placeholder="帐号" required
                 v-model="user.username"
                 @keyup.13="doLogin()" />
           </div>
           <div class="form-group m-b-20">
             <input
-                type="password" class="form-control form-control-lg" placeholder="密码" required
+                type="password" class="form-control form-control-lg inverse-mode" placeholder="密码" required
                 v-model="user.password"
                 @keyup.13="doLogin()" />
           </div>
@@ -66,7 +64,7 @@
       </div>
       <!-- end login -->
 
-      <ul class="login-bg-list clearfix">
+      <!-- <ul class="login-bg-list clearfix">
         <li class="active">
           <a style="background-image: url(/resource/img/login-bg/login-bg-17.jpg)"
              @click="bgImg='/resource/img/login-bg/login-bg-17.jpg'"></a>
@@ -91,7 +89,7 @@
           <a style="background-image: url(/resource/img/login-bg/login-bg-12.jpg)"
              @click="bgImg='/resource/img/login-bg/login-bg-12.jpg'"></a>
         </li>
-      </ul>
+      </ul> -->
 
     </div>
   </div>
@@ -168,3 +166,11 @@
     }
   }
 </script>
+<style lang="stylus" scoped>
+  .login-cover-bg
+    background:#d9e0e7
+  .btn-success:hover
+    background: #008a8a !important;
+    border-color: #008a8a !important;
+</style>
+
