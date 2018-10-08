@@ -24,7 +24,7 @@ export default {
           type: 'error',
           confirmButtonText: '確定'
         })
-        return
+        return false
       }
       this.$emit(this.method, this.data)
     }

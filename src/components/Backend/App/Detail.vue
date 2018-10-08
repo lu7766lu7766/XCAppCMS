@@ -188,7 +188,7 @@
         required: true
       },
       AppMobileDeviceConf: {
-        type: Array,
+        type: Object,
         required: true
       },
       AppCategoryConf: {
