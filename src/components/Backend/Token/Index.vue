@@ -37,7 +37,7 @@
   export default {
     data: () => ({
       token: '',
-      name: '',
+      name: ''
     }),
     methods: {
       async getToken() {

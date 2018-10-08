@@ -1,7 +1,8 @@
 var path = require('path')
 var webpackConfig = require('./webpack.config')
 
-var resolve = (dir) => {
+var resolve = (dir) =>
+{
   return path.join(__dirname, dir)
 }
 
@@ -17,14 +18,15 @@ module.exports = {
   // compiler: true,
   // 调整内部的 webpack 配置。
   // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/webpack.md
-  chainWebpack: () => {
+  chainWebpack: () =>
+  {
   },
   configureWebpack: webpackConfig,
   // 配置 webpack-dev-server 行为。
   devServer: {
     disableHostCheck: true,
     open: process.platform === 'darwin',
-    host: 'jac.xing99.cc', //'0.0.0.0',
+    host: '0.0.0.0',
     port: 8088,
     https: false,
     hotOnly: false,
@@ -38,7 +40,8 @@ module.exports = {
     //     // logLevel: 'debug'
     //   }
     // }, // string | Object
-    before: app => {
+    before: app =>
+    {
       // 加入靜態資源
       var express = require('express') // vue-cli-service 自帶 express
       app.use('/resource', express.static(resolve('resource')))

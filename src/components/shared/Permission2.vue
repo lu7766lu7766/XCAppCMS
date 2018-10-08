@@ -2,6 +2,7 @@
   <li class="jstree-leaf">
     <i class="jstree-icon jstree-ocl"
        v-for="l in _.range(0, level)"
+       :key="l"
        :style="{ visibility: l !== (level-1) ? 'hidden' : 'visible' }"></i>
     {{ roleNode.display_name }}
     <crud :rolePermission.sync="roleNode.permission[0].permission" />
