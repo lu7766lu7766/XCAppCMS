@@ -188,6 +188,15 @@
   .modal-footer
     button
       width:70px
+      &.btn-primary
+        background: #f59c1a
+        border-color: #f59c1a
+        &.disabled
+          background: #f59c1a
+          border-color: #f59c1a
+          &:focus, &:hover
+            background: #f59c1a
+            border-color: #f59c1a
     
 </style>
 

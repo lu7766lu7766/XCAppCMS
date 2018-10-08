@@ -29,7 +29,7 @@
             <input type="password" class="form-control" @keyup.13="put()" v-model="data.old_password" />
           </div>
         </div>
-        <div class="col-md-4 form-txt">若不修改密码, 请保留空白</div>
+        <div class="col-md-4 form-txt text-danger">若不修改密码, 请保留空白</div>
       </div>
 
       <div class="form-group row">
