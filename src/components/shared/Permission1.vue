@@ -2,14 +2,13 @@
   <li class="jstree-leaf">
     <div>
       <span>
-         <i class="jstree-icon jstree-ocl"
-            v-for="l in _.range(0, level)"
-            :style="{ visibility: l !== (level-1) ? 'hidden' : 'visible' }"></i>
+        <i v-if="MenuCodeRouteNameMap[roleNode.code]" :class="MenuCodeRouteNameMap[roleNode.code].icon" />
+        <i v-if="level > 0" class="fa fa-angle-right" />
         {{ roleNode.display_name }}
       </span>
       <crud :rolePermission.sync="roleNode.permission[0].permission" />
     </div>
-    <ul v-if="roleNode.children">
+    <ul v-if="roleNode.children" class="limit-sub">
       <j-permission v-for="(subNode, index) in roleNode.children"
                     :key="index"
                     :roleNode="subNode"

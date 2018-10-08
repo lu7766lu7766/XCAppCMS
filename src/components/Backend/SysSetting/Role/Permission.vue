@@ -1,6 +1,6 @@
 <template>
 
-  <b-modal id="modalPermission" size="lg" ok-title="储存" cancel-title="取消" @shown="show" @ok="ok">
+  <b-modal id="modalPermission" size="lg" ok-title="储存" cancel-title="取消" @ok="ok">
 
     <div slot="modal-header">
       <h5 class="modal-title">權限</h5>
@@ -45,7 +45,7 @@
   }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
   .limit
     &-main, &-sub
       margin 0

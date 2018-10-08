@@ -1,3 +1,5 @@
+import MenuCodeRouteNameMap from 'src/config/MenuCodeRouteNameMap'
+
 export default {
   props: {
     // menuNode: {
@@ -16,6 +18,9 @@ export default {
   components: {
     crud: require('@/shared/CRUD').default
   },
+  data: () => ({
+    MenuCodeRouteNameMap
+  }),
   computed: {
     nodes() {
       return this.$store.state.Node.nodes
