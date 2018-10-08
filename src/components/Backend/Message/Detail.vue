@@ -40,8 +40,8 @@
 
           <div class="form-check form-check-inline" v-for="(topic, index) in topics" :key="index">
             <label class="form-check-label">
-              <input type="checkbox" class="form-check-input" v-model="data.app_managements" :value="topic" />{{
-              topic.name }}
+              <input type="checkbox" class="form-check-input" v-model="data.app_managements" :value="topic" />
+              {{ topic.name }}
             </label>
           </div>
 
