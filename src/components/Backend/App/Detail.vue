@@ -58,10 +58,17 @@
       <div class="form-group row">
         <label class="col-md-2 col-form-label">裝置</label>
         <div class="col-md-10">
-          <select class="form-control"
-                  v-model="data.mobile_device">
-            <option v-for="(name, key) in AppMobileDeviceConf" :key="key" :value="key">{{ name }}</option>
-          </select>
+          <div class="form-check form-check-inline" v-for="(name, key) in AppMobileDeviceConf" :key="key">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" :value="key" v-model="data.mobile_device">
+              <span class="bg-grey app-ic" v-if="key === 'ios'">
+                <i class="fab fa-apple fa-2x text-white"></i>
+              </span>
+              <span class="bg-lime app-ic" v-else-if="key === 'android'">
+                <i class="fab fa-android fa-2x text-white"></i>
+              </span>
+            </label>
+          </div>
         </div>
       </div>
 
