@@ -38,7 +38,6 @@
           let tmp = _.find(this.nodes, {id})
           id = tmp.parent_id
           res.unshift(tmp)
-          console.log(res)
         }
         return res
       }
