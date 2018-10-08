@@ -17,9 +17,7 @@
       <div class="form-group row m-b-15">
         <label class="col-md-2 col-form-label">TOKEN</label>
         <div class="col-md-9 m-b-15">
-          <textarea class="form-control" rows="10" ref="copyTarget">
-            {{ token }}
-          </textarea>
+          <textarea class="form-control" rows="10" ref="copyTarget">{{ token }}</textarea>
         </div>
         <div class="col-md-1 m-b-15 align-self-end">
           <a class="btn btn-warning width-70 m-t-5 text-white" @click="getToken()">产生</a>

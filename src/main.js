@@ -35,6 +35,11 @@ import VueSweetalert2 from 'vue-sweetalert2'
 
 Vue.use(VueSweetalert2)
 
+// toast
+import Toasted from 'vue-toasted'
+
+Vue.use(Toasted, {duration: 1000, position: 'bottom-center'})
+
 // my plugin
 import MyPlugin from 'src/plugin'
 
