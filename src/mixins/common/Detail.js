@@ -24,9 +24,11 @@ export default {
           type: 'error',
           confirmButtonText: '確定'
         })
-        return false
       }
       this.$emit(this.method, this.data)
+    },
+    show() {
+      this.$validator.validateAll()
     }
   },
   computed: {

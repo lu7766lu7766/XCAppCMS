@@ -148,9 +148,11 @@ export default {
       this.method = !data
         ? 'post'
         : 'put'
-      const copyModel = data || this.model
-      if (!this.data && this.data.id === copyModel.id) return
-      this.data = _.cloneDeep(copyModel)
+      const copyTarget = data || this.model
+      if (this.data && this.data.id !== copyTarget.id)
+      {
+        this.data = _.cloneDeep(copyTarget)
+      }
     },
     /**
      * page change

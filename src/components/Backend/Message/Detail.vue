@@ -1,5 +1,11 @@
 <template>
-  <b-modal id="modalDetail" size="lg" ok-title="储存" cancel-title="取消" :ok-disabled="errors.any()" @ok="ok">
+  <b-modal id="modalDetail"
+           size="lg"
+           ok-title="储存"
+           cancel-title="取消"
+           :ok-disabled="errors.any()"
+           @shown="show"
+           @ok="ok">
 
     <div slot="modal-header">
       <h5 class="modal-title">{{ title }}</h5>

@@ -54,8 +54,8 @@
         </td>
         <td class="action">
           <permission-btn @click="getRoleNodes(d.id)"></permission-btn>
-          <update-btn @click="setData(d)"></update-btn>
-          <delete-btn @click="deleteData('deleteRole', d)"></delete-btn>
+          <update-btn v-if="d.can_edit === 'Y'" @click="setData(d)"></update-btn>
+          <delete-btn v-if="d.can_edit === 'Y'" @click="deleteData('deleteRole', d)"></delete-btn>
         </td>
       </tr>
 
