@@ -1,5 +1,5 @@
 <template>
-  <span class="right-content">
+  <span class="crud-box d-inline-flex">
     <div class="form-check form-check-inline">
       <label class="form-check-label">
         查<input class="form-check-input" type="checkbox" :value="PermissionConf.READ" v-model="roleRead">

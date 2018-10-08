@@ -1,17 +1,22 @@
 {
   "WEB_MG": {
-    "name": "sys-setting"
+    "name": "sys-setting",
+    "icon": "fa fa-th-large"
   },
   "ACC_ST": {
-    "name": "account-list"
+    "name": "account-list",
+    "icon": ""
   },
   "APP_MG": {
-    "name": "app-list"
+    "name": "app-list",
+    "icon": "fa fa-server"
   },
   "PSH_NOTI": {
-    "name": "message-list"
+    "name": "message-list",
+    "icon": "fa fa-bell"
   },
   "ROLE_SETTING": {
-    "name": "role-list"
+    "name": "role-list",
+    "icon": ""
   }
 }

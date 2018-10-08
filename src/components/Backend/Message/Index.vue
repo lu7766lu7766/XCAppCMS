@@ -26,41 +26,43 @@
       </div>
     </div>
 
-    <table class="table table-striped table-hover table-box text-center">
-      <thead>
-      <tr>
-        <th class="width-30">
-          <div class="checkbox check-box">
-            <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
-            <label for="checkbox_all">&nbsp;</label>
-          </div>
-        </th>
-        <th class="width-30">#</th>
-        <th>推播内容</th>
-        <th>装置</th>
-        <th class="width-150">操作</th>
-      </tr>
-      </thead>
-      <tbody>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-box text-center">
+        <thead>
+        <tr>
+          <th class="width-30">
+            <div class="checkbox check-box">
+              <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
+              <label for="checkbox_all">&nbsp;</label>
+            </div>
+          </th>
+          <th class="width-30">#</th>
+          <th>推播内容</th>
+          <th>装置</th>
+          <th class="width-150">操作</th>
+        </tr>
+        </thead>
+        <tbody>
 
-      <tr v-for="(d, index) in datas" :key="index">
-        <td>
-          <div class="checkbox check-box">
-            <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
-            <label :for="'checkbox_'+d.id">&nbsp;</label>
-          </div>
-        </td>
-        <td>{{ d.id }}</td>
-        <td>{{ d.content }}</td>
-        <td>{{ _.map(d.app_managements, 'name').join(', ') }}</td>
-        <td class="action">
-          <update-btn @click="setData(d)"></update-btn>
-          <button class="btn btn-yellow text-white" @click="pushMessage(d.id)">推播</button>
-        </td>
-      </tr>
+        <tr v-for="(d, index) in datas" :key="index">
+          <td>
+            <div class="checkbox check-box">
+              <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
+              <label :for="'checkbox_'+d.id">&nbsp;</label>
+            </div>
+          </td>
+          <td>{{ d.id }}</td>
+          <td>{{ d.content }}</td>
+          <td>{{ _.map(d.app_managements, 'name').join(', ') }}</td>
+          <td class="action">
+            <update-btn @click="setData(d)"></update-btn>
+            <button class="btn btn-yellow text-white" @click="pushMessage(d.id)">推播</button>
+          </td>
+        </tr>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
 
     <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
 

@@ -33,32 +33,34 @@
       </div>
     </div>
 
-    <table class="table table-striped table-hover table-box text-center">
-      <thead>
-      <tr>
-        <th class="width-30">#</th>
-        <th>角色名称</th>
-        <th class="width-100">状态</th>
-        <th class="width-200">操作</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(d, index) in datas" :key="index">
-        <td>{{ d.id }}</td>
-        <td>{{ d.display_name }}</td>
-        <td>
-          <i v-if="d.enable == 'Y'" class="ion-checkmark fa-lg fa-fw text-green"></i>
-          <i v-else-if="d.enable == 'N'" class="ion-close-round fa-lg fa-fw text-danger"></i>
-        </td>
-        <td class="action">
-          <permission-btn @click="getRoleNodes(d.id)"></permission-btn>
-          <update-btn v-if="d.can_edit === 'Y'" @click="setData(d)"></update-btn>
-          <delete-btn v-if="d.can_edit === 'Y'" @click="deleteData('deleteRole', d)"></delete-btn>
-        </td>
-      </tr>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-box text-center">
+        <thead>
+        <tr>
+          <th class="width-30">#</th>
+          <th>角色名称</th>
+          <th class="width-100">状态</th>
+          <th class="width-200">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(d, index) in datas" :key="index">
+          <td>{{ d.id }}</td>
+          <td>{{ d.display_name }}</td>
+          <td>
+            <i v-if="d.enable == 'Y'" class="ion-checkmark fa-lg fa-fw text-green"></i>
+            <i v-else-if="d.enable == 'N'" class="ion-close-round fa-lg fa-fw text-danger"></i>
+          </td>
+          <td class="action">
+            <permission-btn @click="getRoleNodes(d.id)"></permission-btn>
+            <update-btn v-if="d.can_edit === 'Y'" @click="setData(d)"></update-btn>
+            <delete-btn v-if="d.can_edit === 'Y'" @click="deleteData('deleteRole', d)"></delete-btn>
+          </td>
+        </tr>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
 
     <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
 

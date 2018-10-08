@@ -57,51 +57,53 @@
       </div>
     </div>
 
-    <table class="table table-striped table-hover table-box text-center">
-      <thead>
-      <tr>
-        <th class="width-30">
-          <div class="checkbox check-box">
-            <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
-            <label for="checkbox_all" class="m-b-0">&nbsp;</label>
-          </div>
-        </th>
-        <th class="width-30">#</th>
-        <th>帐号</th>
-        <th>暱称</th>
-        <th>角色名称</th>
-        <th class="width-100">状态</th>
-        <th>最后登入IP</th>
-        <th class="width-100">操作</th>
-      </tr>
-      </thead>
-      <tbody>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-box text-center">
+        <thead>
+        <tr>
+          <th class="width-30">
+            <div class="checkbox check-box">
+              <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
+              <label for="checkbox_all" class="m-b-0">&nbsp;</label>
+            </div>
+          </th>
+          <th class="width-30">#</th>
+          <th>帐号</th>
+          <th>暱称</th>
+          <th>角色名称</th>
+          <th class="width-100">状态</th>
+          <th>最后登入IP</th>
+          <th class="width-100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
 
-      <tr v-for="(d, index) in datas" :key="index">
-        <td>
-          <div class="checkbox check-box">
-            <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
-            <label :for="'checkbox_'+d.id" class="m-b-0">&nbsp;</label>
-          </div>
-        </td>
-        <td>{{ d.id }}</td>
-        <td>{{ d.account }}</td>
-        <td>{{ d.display_name }}</td>
-        <td>{{ _.map(d.roles, 'display_name').join(', ') }}</td>
-        <td>
-          <i v-if="d.status == 'enable'"
-             class="ion-checkmark fa-lg fa-fw text-green"></i>
-          <i v-else-if="d.status == 'disable'"
-             class="ion-close-round fa-lg fa-fw text-danger"></i>
-        </td>
-        <td>{{ d.login_ip }}</td>
-        <td class="action">
-          <update-btn @click="setData(d)"></update-btn>
-        </td>
-      </tr>
+        <tr v-for="(d, index) in datas" :key="index">
+          <td>
+            <div class="checkbox check-box">
+              <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
+              <label :for="'checkbox_'+d.id" class="m-b-0">&nbsp;</label>
+            </div>
+          </td>
+          <td>{{ d.id }}</td>
+          <td>{{ d.account }}</td>
+          <td>{{ d.display_name }}</td>
+          <td>{{ _.map(d.roles, 'display_name').join(', ') }}</td>
+          <td>
+            <i v-if="d.status == 'enable'"
+               class="ion-checkmark fa-lg fa-fw text-green"></i>
+            <i v-else-if="d.status == 'disable'"
+               class="ion-close-round fa-lg fa-fw text-danger"></i>
+          </td>
+          <td>{{ d.login_ip }}</td>
+          <td class="action">
+            <update-btn @click="setData(d)"></update-btn>
+          </td>
+        </tr>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
 
     <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
 

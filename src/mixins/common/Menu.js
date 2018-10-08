@@ -13,14 +13,19 @@ export default {
       default: 1
     }
   },
+  data: () => ({
+    MenuCodeRouteNameMap
+  }),
   computed: {
     routeName() {
-      return this.$route.matched[this.level] ? this.$route.matched[this.level].name : ''
+      return this.$route.matched[this.level]
+        ? this.$route.matched[this.level].name
+        : ''
     }
   },
   methods: {
     getRouteByCode(code) {
-      return MenuCodeRouteNameMap[code] || { name: '' }
+      return MenuCodeRouteNameMap[code] || {name: ''}
     }
   }
 }

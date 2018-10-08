@@ -56,61 +56,63 @@
       </div>
     </div>
 
-    <table class="table table-striped table-hover table-box text-center">
-      <thead>
-      <tr>
-        <th class="width-30">
-          <div class="checkbox check-box">
-            <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
-            <label for="checkbox_all">&nbsp;</label>
-          </div>
-        </th>
-        <th class="width-30">#</th>
-        <th>代码</th>
-        <th>名称</th>
-        <th>类别</th>
-        <th>裝置</th>
-        <th class="width-100">跳转开关</th>
-        <th class="width-100">更新开关</th>
-        <th class="width-100">操作</th>
-      </tr>
-      </thead>
-      <tbody>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-box text-center">
+        <thead>
+        <tr>
+          <th class="width-30">
+            <div class="checkbox check-box">
+              <input type="checkbox" id="checkbox_all" v-model="isAllChecked">
+              <label for="checkbox_all">&nbsp;</label>
+            </div>
+          </th>
+          <th class="width-30">#</th>
+          <th>代码</th>
+          <th>名称</th>
+          <th>类别</th>
+          <th>裝置</th>
+          <th class="width-100">跳转开关</th>
+          <th class="width-100">更新开关</th>
+          <th class="width-100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
 
-      <tr v-for="(d, index) in datas" :key="index">
-        <td>
-          <div class="checkbox check-box">
-            <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
-            <label :for="'checkbox_'+d.id">&nbsp;</label>
-          </div>
-        </td>
-        <td>{{ d.id }}</td>
-        <td>{{ d.code }}</td>
-        <td>{{ d.name }}</td>
-        <td>{{ AppCategoryConf[d.category] }}</td>
-        <td>
+        <tr v-for="(d, index) in datas" :key="index">
+          <td>
+            <div class="checkbox check-box">
+              <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
+              <label :for="'checkbox_'+d.id">&nbsp;</label>
+            </div>
+          </td>
+          <td>{{ d.id }}</td>
+          <td>{{ d.code }}</td>
+          <td>{{ d.name }}</td>
+          <td>{{ AppCategoryConf[d.category] }}</td>
+          <td>
           <span class="bg-lime app-ic" v-if="d.mobile_device == 'android'">
             <i class="fab fa-android fa-lg text-white"></i>
           </span>
-          <span class="bg-grey app-ic" v-else-if="d.mobile_device == 'ios'">
+            <span class="bg-grey app-ic" v-else-if="d.mobile_device == 'ios'">
             <i class="fab fa-apple fa-lg text-white"></i>
           </span>
-        </td>
-        <td>
-          <i v-if="d.redirect_switch == 'on'" class="ion-checkmark fa-lg fa-fw text-green"></i>
-          <i v-else-if="d.redirect_switch == 'off'" class="ion-close-round fa-lg fa-fw text-danger"></i>
-        </td>
-        <td>
-          <i v-if="d.update_switch == 'on'" class="ion-checkmark fa-lg fa-fw text-green"></i>
-          <i v-if="d.update_switch == 'off'" class="ion-close-round fa-lg fa-fw text-danger"></i>
-        </td>
-        <td class="action">
-          <update-btn @click="setData(d)"></update-btn>
-        </td>
-      </tr>
+          </td>
+          <td>
+            <i v-if="d.redirect_switch == 'on'" class="ion-checkmark fa-lg fa-fw text-green"></i>
+            <i v-else-if="d.redirect_switch == 'off'" class="ion-close-round fa-lg fa-fw text-danger"></i>
+          </td>
+          <td>
+            <i v-if="d.update_switch == 'on'" class="ion-checkmark fa-lg fa-fw text-green"></i>
+            <i v-if="d.update_switch == 'off'" class="ion-close-round fa-lg fa-fw text-danger"></i>
+          </td>
+          <td class="action">
+            <update-btn @click="setData(d)"></update-btn>
+          </td>
+        </tr>
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
 
     <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
 
