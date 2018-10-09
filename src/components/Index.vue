@@ -176,6 +176,12 @@
         width: 100%
       input
         height 34px
+      .form-group, .btn
+        @media all and (max-width: 575px)
+          width:100% !important
+          margin-right 0 !important
+          margin-bottom 10px
+
 
   .form-txt
     line-height: 34px
