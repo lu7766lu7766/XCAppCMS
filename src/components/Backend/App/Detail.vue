@@ -62,10 +62,10 @@
             <label class="form-check-label">
               <input type="radio" class="form-check-input" :value="key" v-model="data.mobile_device">
               <span class="bg-grey app-ic" v-if="key === 'ios'">
-                <i class="fab fa-apple fa-2x text-white"></i>
+                <i class="fab fa-apple text-white"></i>
               </span>
               <span class="bg-lime app-ic" v-else-if="key === 'android'">
-                <i class="fab fa-android fa-2x text-white"></i>
+                <i class="fab fa-android text-white"></i>
               </span>
             </label>
           </div>
@@ -221,5 +221,12 @@
     width 38px
     height 38px
     text-align: center
-
+  .app-ic
+    border-radius: 3px
+    width 22px
+    height 22px
+    display: inline-block
+    line-height 22px
+    text-align: center
+    font-size:14px
 </style>
