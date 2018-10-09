@@ -4,7 +4,6 @@ import APIConf, { GET, POST, PUT, DELETE, SuccessCodes, UnLoginCode } from 'src/
 import Middleware, { mapping as MiddleMapping } from 'src/middleware'
 import store from 'src/store'
 import { LoginType } from 'src/store/module/login'
-import { app } from 'src/main'
 
 const install = (Vue, options) =>
 {
@@ -23,6 +22,7 @@ const install = (Vue, options) =>
 
     document.execCommand('copy')
     clip_area.remove()
+    Vue.toasted.show('复制成功')
   }
 
   Vue.prototype.$callApi = async (key, data) =>

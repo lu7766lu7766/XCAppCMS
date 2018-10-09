@@ -82,6 +82,14 @@
 
           <ul class="nav">
             <j-menu v-for="(node, index) in menus" :key="index" :node="node" />
+            <li>
+
+  
+              <a href="javascript:;window.open('https://hackmd.io/bZ8ZfevuR4idz5QyqgZRVg', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500')" target="">
+                <i class="fas fa-external-link-square-alt" />
+                <span>串接说明</span>
+              </a>
+            </li>
           </ul>
           <!-- end sidebar nav -->
         </div>
@@ -108,8 +116,7 @@
     metaInfo: {
       title: 'APP后台',
       link: [
-        {rel: 'stylesheet', href: '/resource/plugins/ionicons/css/ionicons.min.css'},
-        {rel: 'stylesheet', href: '/assets/css/style.css'}
+        {rel: 'stylesheet', href: '/resource/plugins/ionicons/css/ionicons.min.css'}
       ]
     },
     mixins: [CheckLoginMixins, IndexMixins],
@@ -140,6 +147,7 @@
 </script>
 
 <style lang="stylus">
+
   .table
     &-box
       > thead
@@ -191,6 +199,7 @@
     background-color: #2d353c
     color: #fff
     padding: 10px 15px
+
   .modal-footer
     button
       width:70px

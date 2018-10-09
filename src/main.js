@@ -20,13 +20,25 @@ Vue.use(BootstrapVue)
 
 //validate
 import VeeValidate from 'vee-validate'
+import cn from 'vee-validate/dist/locale/zh_CN'
 
-Vue.use(VeeValidate)
+const config = {
+  locale: 'cn',
+  events: 'input|blur',
+  dictionary: {cn}
+}
+cn.messages.required = () => '必填栏位'
+Vue.use(VeeValidate, config)
 
 // swal
 import VueSweetalert2 from 'vue-sweetalert2'
 
 Vue.use(VueSweetalert2)
+
+// toast
+import Toasted from 'vue-toasted'
+
+Vue.use(Toasted, {duration: 1000, position: 'bottom-center'})
 
 // my plugin
 import MyPlugin from 'src/plugin'

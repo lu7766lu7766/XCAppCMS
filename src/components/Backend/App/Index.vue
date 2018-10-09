@@ -82,12 +82,12 @@
           <td>{{ d.name }}</td>
           <td>{{ AppCategoryConf[d.category] }}</td>
           <td>
-          <span class="bg-lime app-ic" v-if="d.mobile_device == 'android'">
-            <i class="fab fa-android fa-lg text-white"></i>
-          </span>
+            <span class="bg-lime app-ic" v-if="d.mobile_device == 'android'">
+              <i class="fab fa-android fa-lg text-white"></i>
+            </span>
             <span class="bg-grey app-ic" v-else-if="d.mobile_device == 'ios'">
-            <i class="fab fa-apple fa-lg text-white"></i>
-          </span>
+              <i class="fab fa-apple fa-lg text-white"></i>
+            </span>
           </td>
           <td>
             <i v-if="d.redirect_switch == 'on'" class="ion-checkmark fa-lg fa-fw text-green"></i>
