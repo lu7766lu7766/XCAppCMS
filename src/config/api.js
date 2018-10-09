@@ -133,7 +133,7 @@ export const SuccessCodes = [0, 200, 201]
 export const UnLoginCode = 401
 const hosts = {
   // 本地測試用，對應host.xxx
-  target: 'test',
+  target: 'rc',
   // host config
   host: {
     test: {
@@ -150,14 +150,18 @@ const hosts = {
       api: 'api-appcms',
       web: 'appcms',
       login: {
-        client_id: 'f8ef9f32-dcf9-426f-a737-661543b669a2',
-        client_secret: 'SC2uOpKpv7XFYWEIkncypOrV908lZclXvNU7jW8M'
+        client_id: '15393d1d-c0ba-42dc-9a04-b79655769ee7',
+        client_secret: 'jiP9Zalt0Vbt7hv7M6KmgwVbiy5m2gJO5EKIAmRL'
       }
     },
     formal: {
       host: 'apps99.cc',
       api: 'api',
-      web: 'admin'
+      web: 'admin',
+      login: {
+        client_id: 'f0f6030c-38e8-4f4a-9e5b-29635ad1bcc7',
+        client_secret: '3uZoEbCFdacdFikZCzKZatGjTM1VoKfSjlutxgPE'
+      }
     },
     local: {
       host: '192.168.1.21',
