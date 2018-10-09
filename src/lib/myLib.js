@@ -1,20 +1,21 @@
 import qs from 'qs'
 import store from 'src/store'
-import { hosts as hostsConf, POST, PUT } from 'src/config/api'
+import { getCurrentHost, POST, PUT } from 'src/config/api'
 
-var host = location.host.split('.').splice(-2).join('.')
-var target = hostsConf.target
-Object.keys(hostsConf.host).forEach(key =>
-{
-  target = hostsConf.host[key].host === host
-    ? key
-    : target
-})
-var apiPrefix = hostsConf.host[target].api
-  ? (hostsConf.host[target].api + '.')
+var hostConf = getCurrentHost()
+var apiPrefix = hostConf.api
+  ? (hostConf.api + '.')
   : ''
-var apiHost = `//${apiPrefix}${hostsConf.host[target].host}`
+var apiHost = `//${apiPrefix}${hostConf.host}`
 
+/**
+ * create api request body
+ * @param method
+ * @param uri
+ * @param data
+ * @param header
+ * @returns {{url: string, headers, method: string, responseType: string, withCredentials: boolean}}
+ */
 export function createApiBody(method = 'get', uri = '', data = {}, header = {}) {
   let apiHeader = {}
   // apiHeader['Content-Type'] = 'application/json'
@@ -42,6 +43,14 @@ export function createApiBody(method = 'get', uri = '', data = {}, header = {}) 
   return res
 }
 
+/**
+ * find the key match in uri and replace it
+ * ex. uri: '/aa/{id}', data: {a: 'a', id: 1}
+ * result. /aa/1 data: {a: 'a'}
+ * @param uri
+ * @param data
+ * @returns {*}
+ */
 function replaceMatchData(uri, data) {
   var ts = uri.match(/({[\w]+})/g)
   if (ts)
@@ -59,6 +68,11 @@ function replaceMatchData(uri, data) {
   return uri
 }
 
+/**
+ * root to parse json at api result
+ * @param val
+ * @returns {*}
+ */
 export function roopParse(val) {
   if (_.isObject(val) || _.isArray(val))
   {
@@ -80,3 +94,4 @@ export function roopParse(val) {
     }
   }
 }
+

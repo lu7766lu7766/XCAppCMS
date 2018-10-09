@@ -1,3 +1,4 @@
+// api config
 export default {
   'test': {
     method: 'get',
@@ -8,10 +9,9 @@ export default {
     method: 'post',
     uri: '/passport/login',
     data: {
-      'grant_type': 'password',
-      'client_id': 'cd42865e-1026-4875-86c3-afa6ac15d4fd',
-      'client_secret': 'h3Cbzy7fRIioogCoEzhKUt3yPlJDiBytPgXnOuZN'
-    }
+      'grant_type': 'password'
+    },
+    special: 'login'
   },
   'persionTokenGenerate': {
     method: 'post',
@@ -131,13 +131,28 @@ export const PUT = 'put'
 export const DELETE = 'delete'
 export const SuccessCodes = [0, 200, 201]
 export const UnLoginCode = 401
-export const hosts = {
+const hosts = {
+  // 本地測試用，對應host.xxx
   target: 'test',
+  // host config
   host: {
     test: {
       host: 'xing99.cc',
-      api: 'test-app-api',
-      web: 'test-app-cms'
+      api: 'api-appcms',
+      web: 'appcms',
+      login: {
+        client_id: 'cd42865e-1026-4875-86c3-afa6ac15d4fd',
+        client_secret: 'h3Cbzy7fRIioogCoEzhKUt3yPlJDiBytPgXnOuZN'
+      }
+    },
+    rc: {
+      host: 'xing77.cc',
+      api: 'api-appcms',
+      web: 'appcms',
+      login: {
+        client_id: 'f8ef9f32-dcf9-426f-a737-661543b669a2',
+        client_secret: 'SC2uOpKpv7XFYWEIkncypOrV908lZclXvNU7jW8M'
+      }
     },
     formal: {
       host: 'apps99.cc',
@@ -150,4 +165,20 @@ export const hosts = {
       web: ''
     }
   }
+}
+
+/**
+ * 取得符合目前domain的 host config
+ * @param target
+ * @returns {*}
+ */
+export function getCurrentHost(target = hosts.target) {
+  var host = location.host.split('.').splice(-2).join('.')
+  Object.keys(hosts.host).forEach(key =>
+  {
+    target = hosts.host[key].host === host
+      ? key
+      : target
+  })
+  return hosts.host[target]
 }

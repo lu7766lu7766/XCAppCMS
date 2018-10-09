@@ -149,7 +149,7 @@ export default {
         ? 'post'
         : 'put'
       const copyTarget = data || this.model
-      if (this.data && this.data.id !== copyTarget.id)
+      if (!_.keys(this.data).length || this.data.id !== copyTarget.id)
       {
         this.data = _.cloneDeep(copyTarget)
       }

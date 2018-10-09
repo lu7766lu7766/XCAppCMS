@@ -1,5 +1,5 @@
 <template>
-  <container title="讯息推播">
+  <list-container title="讯息推播">
 
     <template slot="header">
       <node-breadcrumb />
@@ -58,7 +58,7 @@
 
     <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
 
-  </container>
+  </list-container>
 </template>
 
 <script>

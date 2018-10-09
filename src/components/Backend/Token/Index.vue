@@ -1,5 +1,5 @@
 <template>
-  <container title="产生令牌">
+  <list-container title="产生令牌">
 
     <template slot="header">
       <custom-breadcrumb :breadcrumb="[{name:'person-token-generate', display_name:'产生令牌'}]" />
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-  </container>
+  </list-container>
 </template>
 
 <script>

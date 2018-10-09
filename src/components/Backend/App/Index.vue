@@ -1,5 +1,5 @@
 <template>
-  <container title="APP管理">
+  <list-container title="APP管理">
 
     <template slot="header">
       <node-breadcrumb />
@@ -108,7 +108,7 @@
 
     <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
 
-  </container>
+  </list-container>
 </template>
 
 <script>

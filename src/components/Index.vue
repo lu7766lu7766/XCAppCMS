@@ -83,7 +83,8 @@
           <ul class="nav">
             <j-menu v-for="(node, index) in menus" :key="index" :node="node" />
             <li>
-              <a href="javascript:;window.open('https://hackmd.io/bZ8ZfevuR4idz5QyqgZRVg', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500')" target="">
+              <a href="javascript:;window.open('https://hackmd.io/bZ8ZfevuR4idz5QyqgZRVg', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500')"
+                 target="">
                 <i class="fas fa-external-link-square-alt" />
                 <span>串接说明</span>
               </a>
@@ -184,10 +185,9 @@
         height 34px
       .form-group, .btn
         @media all and (max-width: 575px)
-          width:100% !important
+          width: 100% !important
           margin-right 0 !important
           margin-bottom 10px
-
 
   .form-txt
     line-height: 34px
@@ -200,17 +200,18 @@
 
   .modal-footer
     button
-      width:70px
-      &.btn-primary
+      width: 70px
+      &.btn-primary2
         background: #f59c1a
         border-color: #f59c1a
+        color: #fff
         &.disabled
           background: #f59c1a
           border-color: #f59c1a
           &:focus, &:hover
             background: #f59c1a
             border-color: #f59c1a
-    
+
 </style>
 
 

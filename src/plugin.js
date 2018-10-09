@@ -1,9 +1,10 @@
 // import Loader from 'lib/Loader'
 import { createApiBody, roopParse } from 'lib/myLib'
-import APIConf, { GET, POST, PUT, DELETE, SuccessCodes, UnLoginCode } from 'src/config/api'
+import APIConf, { GET, POST, PUT, DELETE, SuccessCodes, UnLoginCode, getCurrentHost } from 'src/config/api'
 import Middleware, { mapping as MiddleMapping } from 'src/middleware'
 import store from 'src/store'
 import { LoginType } from 'src/store/module/login'
+import Vue from 'vue'
 
 const install = (Vue, options) =>
 {
@@ -12,6 +13,10 @@ const install = (Vue, options) =>
   Vue.prototype._ = _
   Vue.prototype.moment = moment
 
+  /**
+   * copy selector's text
+   * @param selector dom element
+   */
   Vue.prototype.$copy = selector =>
   {
     var clip_area = document.createElement('textarea')
@@ -25,10 +30,19 @@ const install = (Vue, options) =>
     Vue.toasted.show('复制成功')
   }
 
+  /**
+   * get api return
+   * @param key api.json相關key
+   * @param data request body
+   * @returns {Promise<*>}
+   */
   Vue.prototype.$callApi = async (key, data) =>
   {
     const conf = APIConf[key]
     if (!conf) throw `${key} this api is not assign in project`
+
+    const {special} = conf
+    if (special) specialProccess(special, data)
 
     const method = conf.method ||
       (_.startsWith(key, GET)
@@ -69,51 +83,62 @@ const install = (Vue, options) =>
       next()
     })
 
+    // add middleware
     _.forEach(conf.middleware, middleware =>
     {
       app.use(MiddleMapping[middleware].default.handle)
     })
 
+    // start middleware
     app.go(function () {})
 
     return res
-
-    // app.use(function (res, next)
-    // {
-    //   console.log(1)
-    //   next()
-    //   console.log(2)
-    // })
-    // app.use(function (res, next)
-    // {
-    //   console.log(3)
-    //   next()
-    //   console.log(4)
-    // })
-    // app.go(function ()
-    // {
-    //   console.log(5)
-    // })
   }
 
-  Vue.component('container', require('@/shared/Container').default)
-  Vue.component('paginate', require('@/shared/Paginate').default)
-  Vue.component('alert', require('@/shared/Alert').default)
-  Vue.component('request-result', require('@/shared/RequestResult').default)
-  Vue.component('error-message', require('@/shared/ErrorMessage').default)
-  Vue.component('node-breadcrumb', require('@/shared/NodeBreadcrumb').default)
-  Vue.component('custom-breadcrumb', require('@/shared/CustomBreadcrumb').default)
+  // shared components
+  assignComponent('list-container', require('@/shared/Container/List'))
+  assignComponent('detail-container', require('@/shared/Container/Detail'))
+  assignComponent('paginate', require('@/shared/Paginate'))
+  assignComponent('alert', require('@/shared/Alert'))
+  assignComponent('request-result', require('@/shared/RequestResult'))
+  assignComponent('error-message', require('@/shared/ErrorMessage'))
+  assignComponent('node-breadcrumb', require('@/shared/Breadcrumb/Node'))
+  assignComponent('custom-breadcrumb', require('@/shared/Breadcrumb/Custom'))
 
-  Vue.component('create-btn', require('@/shared/Button/Create').default)
-  Vue.component('update-btn', require('@/shared/Button/Update').default)
-  Vue.component('delete-btn', require('@/shared/Button/Delete').default)
-  Vue.component('permission-btn', require('@/shared/Button/Permission').default)
-  Vue.component('search-btn', require('@/shared/Button/Search').default)
+  assignComponent('create-btn', require('@/shared/Button/Create'))
+  assignComponent('update-btn', require('@/shared/Button/Update'))
+  assignComponent('delete-btn', require('@/shared/Button/Delete'))
+  assignComponent('permission-btn', require('@/shared/Button/Permission'))
+  assignComponent('search-btn', require('@/shared/Button/Search'))
 
-  Vue.component('multi-select', require('vue-multiselect').default)
+  assignComponent('multi-select', require('vue-multiselect'))
 }
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 
 export default {
   install
+}
+
+/**
+ * proccess special
+ * @param key special key
+ * @param data source request body
+ */
+function specialProccess(key, data) {
+  switch (key)
+  {
+    case 'login':
+      const hostConf = getCurrentHost()
+      _.assign(data, hostConf.login)
+      break
+  }
+}
+
+/**
+ * get shorter
+ * @param tag tagName
+ * @param data require data
+ */
+function assignComponent(tag, data) {
+  Vue.component(tag, data.default || data)
 }

@@ -1,5 +1,5 @@
 <template>
-  <container>
+  <list-container>
 
     <template slot="header">
       <node-breadcrumb />
@@ -96,7 +96,7 @@
 
     <paginate :page="paginate.page" :lastPage="lastPage" @pageChange="pageChange" />
 
-  </container>
+  </list-container>
 </template>
 
 <script>
