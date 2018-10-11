@@ -23,11 +23,11 @@ module.exports = {
     // Takes the same options arguments as `aws-sdk`,
     // plus some additional options listed above
 
-    var bucketKey = process.argv.indexOf('-dev') > -1
-      ? 'test'
-      : process.argv.indexOf('-rc') > -1
-        ? 'rc'
-        : 'formal',
+    var bucketKey = process.argv.indexOf('-rc') > -1
+      ? 'rc'
+      : process.argv.indexOf('-stable') > -1
+        ? 'stable'
+        : 'test',
       bucket = conf.bucket[bucketKey],
       index = 0
     var uploadConf = {

@@ -62,14 +62,14 @@
 <style lang="stylus" scoped>
   .token
     &-btn
-      padding:0 15px
+      padding: 0 15px
       @media all and (min-width: 768px) and (max-width: 1445px)
         a
-          width:100% !important
+          width: 100% !important
       @media all and (max-width: 575px)
-        width:100% !important
+        width: 100% !important
         a
           margin-right 5px
-        
+
 </style>
 
