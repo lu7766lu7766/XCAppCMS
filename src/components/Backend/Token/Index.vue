@@ -59,7 +59,7 @@
     }
   }
 </script>
-<style lang="stylus" scope>
+<style lang="stylus" scoped>
   .token
     &-btn
       padding:0 15px
