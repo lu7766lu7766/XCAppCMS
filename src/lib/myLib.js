@@ -1,8 +1,8 @@
 import qs from 'qs'
 import store from 'src/store'
-import { getCurrentHost, POST, PUT } from 'src/config/api'
+import { hosts, POST, PUT, getCurrentTarget } from 'src/config/api'
 
-var hostConf = getCurrentHost()
+var hostConf = hosts[getCurrentTarget()]
 var apiPrefix = hostConf.api
   ? (hostConf.api + '.')
   : ''

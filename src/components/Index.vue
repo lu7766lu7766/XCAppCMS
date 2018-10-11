@@ -83,7 +83,7 @@
           <ul class="nav">
             <j-menu v-for="(node, index) in menus" :key="index" :node="node" />
             <li>
-              <a href="javascript:;window.open('https://hackmd.io/bZ8ZfevuR4idz5QyqgZRVg', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500')"
+              <a href="javascript:;window.open('https://hackmd.io/s/S1BT9O4q7', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500')"
                  target="">
                 <i class="fas fa-external-link-square-alt" />
                 <span>串接说明</span>

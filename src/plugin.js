@@ -1,6 +1,6 @@
 // import Loader from 'lib/Loader'
 import { createApiBody, roopParse } from 'lib/myLib'
-import APIConf, { GET, POST, PUT, DELETE, SuccessCodes, UnLoginCode, getCurrentHost } from 'src/config/api'
+import APIConf, { GET, POST, PUT, DELETE, SuccessCodes, UnLoginCode, getCurrentTarget } from 'src/config/api'
 import Middleware, { mapping as MiddleMapping } from 'src/middleware'
 import store from 'src/store'
 import { LoginType } from 'src/store/module/login'
@@ -42,8 +42,9 @@ const install = (Vue, options) =>
     if (!conf) throw `${key} this api is not assign in project`
 
     const {special} = conf
-    if (special) specialProccess(special, data)
-
+    console.log(special, data)
+    if (special) await specialProccess(special, data)
+    console.log(special, data)
     const method = conf.method ||
       (_.startsWith(key, GET)
           ? GET
@@ -56,7 +57,6 @@ const install = (Vue, options) =>
                 : GET
       )
     // console.log(method, conf)
-
     var res = await axios(createApiBody(method, conf.uri, _.merge(_.pickBy(data), conf.data), conf.header))
 
     // middleware
@@ -124,12 +124,13 @@ export default {
  * @param key special key
  * @param data source request body
  */
-function specialProccess(key, data) {
+async function specialProccess(key, data) {
   switch (key)
   {
     case 'login':
-      const hostConf = getCurrentHost()
-      _.assign(data, hostConf.login)
+      const target = getCurrentTarget()
+      var passwordRes = await axios.get('/assets/config/passport.json')
+      _.assign(data, passwordRes.data[target])
       break
   }
 }
