@@ -16,10 +16,10 @@
     <div>
       <div class="form-group row m-b-15">
         <label class="col-md-2 col-form-label">TOKEN</label>
-        <div class="col-md-9 m-b-15">
+        <div class="col-sm m-b-15 token-textarea">
           <textarea class="form-control" rows="10" ref="copyTarget">{{ token }}</textarea>
         </div>
-        <div class="col-md-1 m-b-15 align-self-end">
+        <div class="width-100 m-b-15 align-self-end token-btn">
           <a class="btn btn-warning width-70 m-t-5 text-white" @click="getToken()">产生</a>
           <a class="btn btn-grey width-70 m-t-5 text-white"
              @click="copyToken()"
@@ -59,3 +59,17 @@
     }
   }
 </script>
+<style lang="stylus" scope>
+  .token
+    &-btn
+      padding:0 15px
+      @media all and (min-width: 768px) and (max-width: 1445px)
+        a
+          width:100% !important
+      @media all and (max-width: 575px)
+        width:100% !important
+        a
+          margin-right 5px
+        
+</style>
+
