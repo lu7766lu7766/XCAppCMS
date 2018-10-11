@@ -33,6 +33,12 @@
             <option v-for="(name, key) in AppMobileDeviceConf" :key="key" :value="key">{{ name }}</option>
           </select>
         </div>
+        <div class="form-group m-r-10 width-100">
+          <select class="form-control" v-model="seachData.status">
+            <option value="">状态</option>
+            <option v-for="(name, key) in AppStatusConf" :key="key" :value="key">{{ name }}</option>
+          </select>
+        </div>
         <div class="form-group m-r-10">
           <input type="text"
                  class="form-control"
@@ -159,7 +165,8 @@
       seachData: {
         category: '',
         mobile_device: '',
-        name: ''
+        name: '',
+        status: ''
       }
     }),
     methods: {
