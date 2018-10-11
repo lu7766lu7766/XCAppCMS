@@ -1,8 +1,5 @@
 <template>
   <list-container title="个人设定">
-    <template slot="header">
-      <custom-breadcrumb :breadcrumb="[{name:'edit-profile', display_name:'个人设定'}]" />
-    </template>
 
     <request-result :requestResult="requestResult" />
 

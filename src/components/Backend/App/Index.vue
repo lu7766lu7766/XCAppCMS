@@ -1,9 +1,5 @@
 <template>
-  <list-container title="APP管理">
-
-    <template slot="header">
-      <node-breadcrumb />
-    </template>
+  <list-container>
 
     <template slot="detail">
       <detail :data.sync="data"

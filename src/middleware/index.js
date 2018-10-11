@@ -3,7 +3,8 @@ export const mapping = {
   'account': require('./Account'),
   'message': require('./Message'),
   'app': require('./App'),
-  'permission': require('./Permission')
+  'permission': require('./Permission'),
+  'webLink': require('./WebLink')
 }
 
 class Middleware

@@ -1,7 +1,8 @@
 <template>
   <div id="content" class="content">
 
-    <slot name="header"></slot>
+    <slot name="header" v-if="$slots.header"></slot>
+    <node-breadcrumb v-else />
 
     <!-- begin panel -->
     <div class="panel panel-inverse" style="clear:both;">

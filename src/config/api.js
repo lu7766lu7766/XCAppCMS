@@ -122,6 +122,47 @@ export default {
   'putRoleNodes': {
     method: 'post',
     uri: '/role/node/configure'
+  },
+  // link-category
+  'getLinkCategoryList': {
+    method: 'post',
+    uri: '/web_link/category',
+    middleware: ['dataList']
+  },
+  'postLinkCategory': {
+    uri: '/web_link/category/store'
+  },
+  'putLinkCategory': {
+    uri: '/web_link/category'
+  },
+  'deleteLinkCategoryList': {
+    uri: '/web_link/category'
+  },
+  'getLinkCategoryTotal': {
+    method: 'post',
+    uri: '/web_link/category/total'
+  },
+  // web-link
+  'getWebLinkList': {
+    method: 'post',
+    uri: '/web_link',
+    middleware: ['webLink']
+  },
+  'postWebLink': {
+    uri: '/web_link/store'
+  },
+  'putWebLink': {
+    uri: '/web_link'
+  },
+  'deleteWebLinkList': {
+    uri: '/web_link'
+  },
+  'getWebLinkTotal': {
+    method: 'post',
+    uri: '/web_link/total'
+  },
+  'getWebLinkOptions': {
+    uri: '/web_link/options'
   }
 }
 

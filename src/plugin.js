@@ -42,9 +42,8 @@ const install = (Vue, options) =>
     if (!conf) throw `${key} this api is not assign in project`
 
     const {special} = conf
-    console.log(special, data)
     if (special) await specialProccess(special, data)
-    console.log(special, data)
+
     const method = conf.method ||
       (_.startsWith(key, GET)
           ? GET

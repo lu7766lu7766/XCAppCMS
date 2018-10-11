@@ -49,6 +49,23 @@ export default [
         path: 'edit-profile',
         name: 'edit-profile',
         component: () => import('@/Backend/Profile/Index')
+      },
+      {
+        path: 'web-link',
+        name: 'web-link',
+        component: () => import('@/Backend/WebLink/Index'),
+        children: [
+          {
+            path: 'link-category',
+            name: 'link-category',
+            component: () => import('@/Backend/WebLink/LinkCategory/Index')
+          },
+          {
+            path: 'link-manage',
+            name: 'link-manage',
+            component: () => import('@/Backend/WebLink/LinkManage/Index')
+          }
+        ]
       }
     ]
   },

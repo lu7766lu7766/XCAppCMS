@@ -1,10 +1,6 @@
 <template>
   <list-container title="产生令牌">
 
-    <template slot="header">
-      <custom-breadcrumb :breadcrumb="[{name:'person-token-generate', display_name:'产生令牌'}]" />
-    </template>
-
     <div class="note note-warning col-md-12 m-b-25 get-note">
       <div class="note-icon"><i class="fa fa-info-circle"></i></div>
       <div class="note-content">

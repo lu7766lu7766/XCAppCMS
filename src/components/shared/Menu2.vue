@@ -13,7 +13,6 @@
       <i v-if="MenuCodeRouteNameMap[node.code]" :class="MenuCodeRouteNameMap[node.code].icon" />
       <span>{{ node.display_name }}</span>
     </a>
-
     <ul class="sub-menu" v-if="node.children">
       <j-menu v-for="(subNode, index) in node.children" :key="index" :node="subNode" :level="level+1" />
     </ul>

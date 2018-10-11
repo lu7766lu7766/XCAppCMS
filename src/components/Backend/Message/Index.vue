@@ -1,9 +1,5 @@
 <template>
-  <list-container title="讯息推播">
-
-    <template slot="header">
-      <node-breadcrumb />
-    </template>
+  <list-container>
 
     <template slot="detail">
       <detail :data.sync="data" :topics="topics" @post="post" @put="put" :method="method" />
@@ -113,7 +109,7 @@
         })
       },
       mDeleteDatas() {
-        this.deleteDatas('deleteAppList')
+        this.deleteDatas('deleteMessageList')
       },
       pushMessage(id) {
         this.$callApi('pushMessage', {id})

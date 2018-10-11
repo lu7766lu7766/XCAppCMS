@@ -3,6 +3,10 @@
     "name": "sys-setting",
     "icon": "fa fa-th-large"
   },
+  "ROLE_SETTING": {
+    "name": "role-list",
+    "icon": ""
+  },
   "ACC_ST": {
     "name": "account-list",
     "icon": ""
@@ -15,12 +19,16 @@
     "name": "message-list",
     "icon": "fa fa-bell"
   },
-  "ROLE_SETTING": {
-    "name": "role-list",
+  "WEB_LINK_MG": {
+    "name": "web-link",
+    "icon": "fa fa-link"
+  },
+  "WEB_LINK_CATEGORY": {
+    "name": "link-category",
     "icon": ""
   },
-  "WEB_LINK_MG": {
-    "name": "",
-    "icon": "fa fa-link"
+  "WEB_LINK": {
+    "name": "link-manage",
+    "icon": ""
   }
 }

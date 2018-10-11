@@ -3,8 +3,9 @@
 
     <template slot="detail">
       <detail :data.sync="data"
-              :status="status"
-              :roles="roles"
+              :WebLinkEnableConf="WebLinkEnableConf"
+              :categorys="categorys"
+              :topics="topics"
               @post="post"
               @put="put"
               :method="method" />
@@ -18,24 +19,13 @@
         <delete-btn @click="mDeleteDatas()"></delete-btn>
       </div>
       <div class="col-sm-9 form-inline justify-content-end panel-search">
-        <div class="form-group width-100 m-r-10">
 
-          <select class="form-control"
-                  v-model="seachData.role_id">
-            <option value="">全部</option>
-            <option v-for="(role_id, name) in roles"
-                    :key="role_id"
-                    :value="role_id">
-              {{ name }}
-            </option>
-          </select>
-        </div>
         <div class="form-group m-r-10">
 
           <input type="text"
                  class="form-control"
                  placeholder="关键字"
-                 v-model="seachData.account"
+                 v-model="seachData.name"
                  @keyup.13="getSearchData()" />
         </div>
         <search-btn @click="getSearchData()"></search-btn>
@@ -53,11 +43,11 @@
             </div>
           </th>
           <th class="width-30">#</th>
-          <th>帐号</th>
-          <th>暱称</th>
-          <th>角色名称</th>
+          <th>图片</th>
+          <th>名称</th>
+          <th>类别</th>
           <th class="width-100">状态</th>
-          <th>最后登入IP</th>
+          <th>网址</th>
           <th class="width-100">操作</th>
         </tr>
         </thead>
@@ -71,16 +61,16 @@
             </div>
           </td>
           <td>{{ d.id }}</td>
-          <td>{{ d.account }}</td>
-          <td>{{ d.display_name }}</td>
-          <td>{{ _.map(d.roles, 'display_name').join(', ') }}</td>
+          <td></td>
+          <td>{{ d.name }}</td>
+          <td>{{ d.category.name }}</td>
           <td>
             <i v-if="d.status == 'enable'"
                class="ion-checkmark fa-lg fa-fw text-green"></i>
             <i v-else-if="d.status == 'disable'"
                class="ion-close-round fa-lg fa-fw text-danger"></i>
           </td>
-          <td>{{ d.login_ip }}</td>
+          <td>{{ d.url_link }}</td>
           <td class="action">
             <update-btn @click="setData(d)"></update-btn>
           </td>
@@ -104,58 +94,66 @@
       detail: require('./Detail.vue').default
     },
     data: () => ({
-      model: {
-        account: '',
-        password: '',
-        confirm_password: '',
-        display_name: '',
-        roles: [],
-        status: 'enable'
+      WebLinkEnableConf: {
+        enable: '启用',
+        disable: '关闭'
       },
-      roles: {},
-      status: {},
+      model: {
+        name: '',
+        category_id: '',
+        url_link: '',
+        status: 'enable',
+        app_management: []
+      },
       seachData: {
-        account: '',
-        role_id: ''
-      }
+        name: ''
+      },
+      categorys: [],
+      topics: []
     }),
     methods: {
       async mGetList() {
-        var res = await this.getList('getMemberList')
+        var res = await this.getList('getWebLinkList')
         if (res.success)
         {
-          this.datas = res.data.account_list
-          this.roles = res.data.role_menu
-          this.status = res.data.status_menu
+          this.datas = res.data
         }
       },
       async mGetTotal() {
-        var res = await this.getTotal('getMemberTotal')
+        var res = await this.getTotal('getWebLinkTotal')
         if (res.success)
         {
-          this.paginate.total = res.data.total
+          this.paginate.total = res.data
+        }
+      },
+      async dataInit() {
+        var res = await this.$callApi('getWebLinkOptions')
+        if (res.success)
+        {
+          this.topics = res.data.app_list
+          this.categorys = res.data.category
         }
       },
       post() {
-        this.mRequestProccess('postMember')
+        this.mRequestProccess('postWebLink')
       },
       put() {
-        this.mRequestProccess('putMember')
+        this.mRequestProccess('putWebLink')
       },
       async mRequestProccess(key) {
         const data = this.data
         return await this.requestProccess(key, {
           id: data.id,
-          account: data.account,
-          password: data.password,
-          confirm_password: data.confirm_password,
-          display_name: data.display_name,
-          role_id: _.map(data.roles, 'id'),
-          status: data.status
+          name: data.name,
+          status: data.status,
+          category_id: data.category_id,
+          url_link: data.url_link,
+          app_id: _.map(data.app_management, 'id'),
+          image_id: ''
         })
       },
       mDeleteDatas() {
-        this.deleteDatas('deleteMemberList')
+        this.deleteDatas('deleteWebLinkList')
       }
     }
   }

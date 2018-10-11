@@ -1,10 +1,6 @@
 <template>
   <list-container>
 
-    <template slot="header">
-      <node-breadcrumb />
-    </template>
-
     <template slot="detail">
       <detail :data.sync="data"
               :RoleEnableConf="RoleEnableConf"
@@ -107,9 +103,6 @@
           name: data.display_name,
           enable: data.enable
         })
-      },
-      mDeleteDatas() {
-        this.deleteDatas('deleteAppList')
       },
       async getRoleNodes(id) {
         var res = await this.$callApi('getRoleNodes', {id})

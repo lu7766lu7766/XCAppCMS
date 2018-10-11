@@ -3,8 +3,7 @@
 
     <template slot="detail">
       <detail :data.sync="data"
-              :status="status"
-              :roles="roles"
+              :LinkCategoryEnableConf="LinkCategoryEnableConf"
               @post="post"
               @put="put"
               :method="method" />
@@ -12,30 +11,17 @@
 
     <request-result :requestResult="requestResult" />
 
-    <div class="row m-b-20">
+    <div class="row form-group">
       <div class="col-sm-3">
         <create-btn @click="setData()"></create-btn>
         <delete-btn @click="mDeleteDatas()"></delete-btn>
       </div>
       <div class="col-sm-9 form-inline justify-content-end panel-search">
-        <div class="form-group width-100 m-r-10">
-
-          <select class="form-control"
-                  v-model="seachData.role_id">
-            <option value="">全部</option>
-            <option v-for="(role_id, name) in roles"
-                    :key="role_id"
-                    :value="role_id">
-              {{ name }}
-            </option>
-          </select>
-        </div>
         <div class="form-group m-r-10">
-
           <input type="text"
                  class="form-control"
                  placeholder="关键字"
-                 v-model="seachData.account"
+                 v-model="seachData.name"
                  @keyup.13="getSearchData()" />
         </div>
         <search-btn @click="getSearchData()"></search-btn>
@@ -53,16 +39,13 @@
             </div>
           </th>
           <th class="width-30">#</th>
-          <th>帐号</th>
-          <th>暱称</th>
-          <th>角色名称</th>
+          <th>圖片</th>
+          <th>名稱</th>
           <th class="width-100">状态</th>
-          <th>最后登入IP</th>
-          <th class="width-100">操作</th>
+          <th class="width-200">操作</th>
         </tr>
         </thead>
         <tbody>
-
         <tr v-for="(d, index) in datas" :key="index">
           <td>
             <div class="checkbox check-box">
@@ -71,21 +54,17 @@
             </div>
           </td>
           <td>{{ d.id }}</td>
-          <td>{{ d.account }}</td>
-          <td>{{ d.display_name }}</td>
-          <td>{{ _.map(d.roles, 'display_name').join(', ') }}</td>
+          <td></td>
+          <td>{{ d.name }}</td>
           <td>
-            <i v-if="d.status == 'enable'"
-               class="ion-checkmark fa-lg fa-fw text-green"></i>
-            <i v-else-if="d.status == 'disable'"
-               class="ion-close-round fa-lg fa-fw text-danger"></i>
+            <i v-if="d.status == 'enable'" class="ion-checkmark fa-lg fa-fw text-green"></i>
+            <i v-else-if="d.status == 'disable'" class="ion-close-round fa-lg fa-fw text-danger"></i>
           </td>
-          <td>{{ d.login_ip }}</td>
           <td class="action">
             <update-btn @click="setData(d)"></update-btn>
+            <delete-btn @click="mDeleteDatas()"></delete-btn>
           </td>
         </tr>
-
         </tbody>
       </table>
     </div>
@@ -97,65 +76,59 @@
 
 <script>
   import ListMixins from 'mixins/common/List'
+  import IndexMixins from 'mixins/common/Index'
+  import { getChildren, proccessSubNode } from 'src/store/module/node'
 
   export default {
-    mixins: [ListMixins],
+    mixins: [ListMixins, IndexMixins],
     components: {
-      detail: require('./Detail.vue').default
+      detail: require('./Detail').default
     },
     data: () => ({
-      model: {
-        account: '',
-        password: '',
-        confirm_password: '',
-        display_name: '',
-        roles: [],
-        status: 'enable'
+      LinkCategoryEnableConf: {
+        enable: '启用',
+        disable: '关闭'
       },
-      roles: {},
-      status: {},
+      model: {
+        name: '',
+        status: 'enable',
+        image_id: ''
+      },
       seachData: {
-        account: '',
-        role_id: ''
+        name: ''
       }
     }),
     methods: {
       async mGetList() {
-        var res = await this.getList('getMemberList')
+        var res = await this.getList('getLinkCategoryList')
         if (res.success)
         {
-          this.datas = res.data.account_list
-          this.roles = res.data.role_menu
-          this.status = res.data.status_menu
+          this.datas = res.data
         }
       },
       async mGetTotal() {
-        var res = await this.getTotal('getMemberTotal')
+        var res = await this.getTotal('getLinkCategoryTotal')
         if (res.success)
         {
-          this.paginate.total = res.data.total
+          this.paginate.total = res.data
         }
       },
       post() {
-        this.mRequestProccess('postMember')
+        this.mRequestProccess('postLinkCategory')
       },
       put() {
-        this.mRequestProccess('putMember')
+        this.mRequestProccess('putLinkCategory')
       },
       async mRequestProccess(key) {
         const data = this.data
         return await this.requestProccess(key, {
           id: data.id,
-          account: data.account,
-          password: data.password,
-          confirm_password: data.confirm_password,
-          display_name: data.display_name,
-          role_id: _.map(data.roles, 'id'),
+          name: data.name,
           status: data.status
         })
       },
       mDeleteDatas() {
-        this.deleteDatas('deleteMemberList')
+        this.deleteDatas('deleteLinkCategoryList')
       }
     }
   }
