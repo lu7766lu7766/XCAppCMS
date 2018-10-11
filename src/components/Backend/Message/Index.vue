@@ -111,8 +111,8 @@
       mDeleteDatas() {
         this.deleteDatas('deleteMessageList')
       },
-      pushMessage(id) {
-        this.$callApi('pushMessage', {id})
+      async pushMessage(id) {
+        var res = await this.$callApi('pushMessage', {id})
         this.requestResult = this.getRequestResult(res.success, '推播')
       }
     }
