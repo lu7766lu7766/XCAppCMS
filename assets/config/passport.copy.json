@@ -1,15 +1,17 @@
 {
+  "//": "key referance file /config/api.js hosts variable",
+  "///": "different machine need different connect info",
   "test": {
-    "client_id": "6513efb7-5fb6-4349-bd25-bbe2bf39c55c",
-    "client_secret": "fx2QgCS2YjeldZf9btrtxDE3udSlxzDquQVjTP0V"
+    "client_id": "",
+    "client_secret": ""
   },
   "rc": {
-    "client_id": "15393d1d-c0ba-42dc-9a04-b79655769ee7",
-    "client_secret": "jiP9Zalt0Vbt7hv7M6KmgwVbiy5m2gJO5EKIAmRL"
+    "client_id": "",
+    "client_secret": ""
   },
   "stable": {
-    "client_id": "f0f6030c-38e8-4f4a-9e5b-29635ad1bcc7",
-    "client_secret": "3uZoEbCFdacdFikZCzKZatGjTM1VoKfSjlutxgPE"
+    "client_id": "",
+    "client_secret": ""
   },
   "local": {
     "client_id": "",
