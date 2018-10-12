@@ -5,12 +5,10 @@ export default {
     var res = this.res
     if (res.success)
     {
-      res.data = _.mapValues(res.data, data =>
+      res.data = _.map(res.data, data =>
       {
-        return {
-          checked: false,
-          ...data
-        }
+        data.checked = false
+        return data
       })
     }
   }

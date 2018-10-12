@@ -74,7 +74,7 @@ export default {
       })
       if (res.success)
       {
-        this.mGetList()
+        this.getSearchData()
       }
       return res
     },
@@ -90,7 +90,7 @@ export default {
       })
       if (res.success)
       {
-        this.mGetList()
+        this.getSearchData()
       }
       return res
     },
@@ -129,14 +129,16 @@ export default {
      */
     async requestProccess(key, data = {}) {
       const res = await this.$callApi(key, data)
+      const isPost = this.method == 'post'
       if (res.success)
       {
-        // this.datas[res.data.id] = res.data
-        this.mGetList()
+        isPost
+          ? this.getSearchData()
+          : this.mGetList()
       }
-      let message = (this.method == 'post'
+      let message = isPost
         ? '新增'
-        : '更新')
+        : '更新'
       this.requestResult = this.getRequestResult(res.success, message)
       return res
     },
@@ -183,6 +185,13 @@ export default {
       return _.remove(_.map(this.datas, data => (data.checked
         ? data.id
         : '')))
+    },
+    /**
+     * field #
+     * start index
+     */
+    startIndex() {
+      return (this.paginate.page - 1) * this.paginate.perpage + 1
     }
   },
   created() {

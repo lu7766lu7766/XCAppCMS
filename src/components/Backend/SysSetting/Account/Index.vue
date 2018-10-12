@@ -70,7 +70,7 @@
               <label :for="'checkbox_'+d.id" class="m-b-0">&nbsp;</label>
             </div>
           </td>
-          <td>{{ d.id }}</td>
+          <td>{{ startIndex + index }}</td>
           <td>{{ d.account }}</td>
           <td>{{ d.display_name }}</td>
           <td>{{ _.map(d.roles, 'display_name').join(', ') }}</td>
@@ -124,6 +124,7 @@
         var res = await this.getList('getMemberList')
         if (res.success)
         {
+
           this.datas = res.data.account_list
           this.roles = res.data.role_menu
           this.status = res.data.status_menu

@@ -30,7 +30,7 @@
         </thead>
         <tbody>
         <tr v-for="(d, index) in datas" :key="index">
-          <td>{{ d.id }}</td>
+          <td>{{ startIndex + index }}</td>
           <td>{{ d.display_name }}</td>
           <td>
             <i v-if="d.enable == 'Y'" class="ion-checkmark fa-lg fa-fw text-green"></i>

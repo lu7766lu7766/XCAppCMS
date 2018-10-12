@@ -39,7 +39,7 @@
               <label :for="'checkbox_'+d.id">&nbsp;</label>
             </div>
           </td>
-          <td>{{ d.id }}</td>
+          <td>{{ startIndex + index }}</td>
           <td>{{ d.content }}</td>
           <td>{{ _.map(d.app_managements, 'name').join(', ') }}</td>
           <td class="action">

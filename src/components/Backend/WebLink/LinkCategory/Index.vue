@@ -53,7 +53,7 @@
               <label :for="'checkbox_'+d.id" class="m-b-0">&nbsp;</label>
             </div>
           </td>
-          <td>{{ d.id }}</td>
+          <td>{{ startIndex + index }}</td>
           <td></td>
           <td>{{ d.name }}</td>
           <td>

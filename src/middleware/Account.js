@@ -5,14 +5,11 @@ export default {
     var res = this.res
     if (res.success)
     {
-      res.data.account_list = _.mapValues(res.data.account_list, data =>
+      res.data.account_list = _.map(res.data.account_list, data =>
       {
-        return {
-          checked: false,
-          password: '',
-          confirm_password: '',
-          ...data
-        }
+        data.checked = false
+        data.password = data.confirm_password = ''
+        return data
       })
     }
   }

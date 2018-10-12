@@ -79,7 +79,7 @@
               <label :for="'checkbox_'+d.id">&nbsp;</label>
             </div>
           </td>
-          <td>{{ d.id }}</td>
+          <td>{{ startIndex + index }}</td>
           <td>{{ d.code }}</td>
           <td>{{ d.name }}</td>
           <td>{{ AppCategoryConf[d.category] }}</td>
