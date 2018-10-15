@@ -14,7 +14,7 @@
     </form>
 
     <template slot="modal-footer" class="modal-footer">
-      <button type="button" class="btn btn-primary2" @click="$emit('ok'); close()">储存</button>
+      <button type="button" class="btn btn-primary2" @click="$emit('putRoleNodes'); close()">储存</button>
       <button type="button" class="btn btn-secondary" @click="close()">取消</button>
     </template>
 
@@ -35,9 +35,6 @@
       JPermission: require('@/shared/Permission1').default
     },
     methods: {
-      ok() {
-        this.$emit('putRoleNodes')
-      },
       close() {
         this.$root.$emit('bv::hide::modal', 'modalPermission')
       }
