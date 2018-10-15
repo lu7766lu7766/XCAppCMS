@@ -31,9 +31,14 @@ export default [
         ]
       },
       {
-        path: 'app',
-        name: 'app-list',
-        component: () => import('@/Backend/App/Index')
+        path: 'app-manage',
+        name: 'app-manage-list',
+        component: () => import('@/Backend/App/Manage')
+      },
+      {
+        path: 'app-setting',
+        name: 'app-setting-list',
+        component: () => import('@/Backend/App/Setting')
       },
       {
         path: 'message',

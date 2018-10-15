@@ -4,6 +4,7 @@ export default {
     method: 'get',
     uri: '/web_test'
   },
+
   // login
   'doLogin': {
     method: 'post',
@@ -17,35 +18,55 @@ export default {
     method: 'post',
     uri: '/passport/token/personal/generate'
   },
+
   // menu
   'getMyNodes': {
     uri: '/node/map'
   },
-  // app
-  'getAppList': {
+
+  // app manage
+  'getAppManageList': {
     method: 'post',
     uri: '/app_management',
     middleware: ['app']
   },
-  // 'getAppDetail': {
-  //   uri: '/app_management/data_manipulation/{id}'
-  // },
-  'postAppDetail': {
+  'postAppManage': {
     uri: '/app_management/data_manipulation'
   },
-  'putAppDetail': {
+  'putAppManage': {
     uri: '/app_management/data_manipulation'
   },
-  'deleteAppList': {
+  'deleteAppManageList': {
     uri: '/app_management/data_manipulation'
   },
-  'getAppOption': {
-    uri: '/app_management/options'
-  },
-  'getAppTotal': {
+  'getAppManageTotal': {
     method: 'post',
     uri: '/app_management/total'
   },
+  // app common
+  'getAppOption': {
+    uri: '/app_management/options'
+  },
+  // app setting
+  'getAppSettingList': {
+    method: 'post',
+    uri: '/app_setting',
+    middleware: ['app']
+  },
+  'postAppSetting': {
+    uri: '/app_setting/data_manipulation'
+  },
+  'putAppSetting': {
+    uri: '/app_setting/data_manipulation'
+  },
+  'deleteAppSettingList': {
+    uri: '/app_setting/data_manipulation'
+  },
+  'getAppSettingTotal': {
+    method: 'post',
+    uri: '/app_setting/total'
+  },
+
   // message 
   'getMessageList': {
     method: 'post',
@@ -71,6 +92,7 @@ export default {
     method: 'post',
     uri: '/pushnotification/message/push'
   },
+
   // account 
   'getMemberList': {
     method: 'post',
@@ -90,12 +112,15 @@ export default {
   'deleteMemberList': {
     uri: '/account/maintain'
   },
+
+  // profile
   'getAccount': {
     uri: '/account/self'
   },
   'putAccount': {
     uri: '/account/self'
   },
+
   // roles
   'getRoleList': {
     method: 'post',
@@ -123,6 +148,7 @@ export default {
     method: 'post',
     uri: '/role/node/configure'
   },
+
   // link-category
   'getLinkCategoryList': {
     method: 'post',
@@ -142,6 +168,7 @@ export default {
     method: 'post',
     uri: '/web_link/category/total'
   },
+
   // web-link
   'getWebLinkList': {
     method: 'post',

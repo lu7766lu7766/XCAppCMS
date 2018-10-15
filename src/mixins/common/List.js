@@ -3,6 +3,11 @@ import RequestResultMixins from 'mixins/common/RequestResult'
 
 export default {
   mixins: [PaginateMixins, RequestResultMixins],
+  props: {
+    apiKey: {
+      type: String
+    }
+  },
   data: () => ({
     /**
      * means what is doing now
@@ -192,6 +197,24 @@ export default {
      */
     startIndex() {
       return (this.paginate.page - 1) * this.paginate.perpage + 1
+    },
+    /**
+     * if has api key
+     */
+    getApiKey() {
+      return `get${this.apiKey}List`
+    },
+    getTotalApiKey() {
+      return `get${this.apiKey}Total`
+    },
+    postApiKey() {
+      return `post${this.apiKey}`
+    },
+    putApiKey() {
+      return `put${this.apiKey}`
+    },
+    deleteApiKey() {
+      return `delete${this.apiKey}List`
     }
   },
   created() {

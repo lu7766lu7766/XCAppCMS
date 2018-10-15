@@ -175,24 +175,24 @@
     }),
     methods: {
       async mGetList() {
-        var res = await this.getList('getAppList')
+        var res = await this.getList(this.getApiKey)
         if (res.success)
         {
           this.datas = res.data
         }
       },
       async mGetTotal() {
-        var res = await this.getTotal('getAppTotal')
+        var res = await this.getTotal(this.getTotalApiKey)
         if (res.success)
         {
           this.paginate.total = res.data
         }
       },
       post() {
-        this.mRequestProccess('postAppDetail')
+        this.mRequestProccess(this.postApiKey)
       },
       put() {
-        this.mRequestProccess('putAppDetail')
+        this.mRequestProccess(this.putApiKey)
       },
       async mRequestProccess(key) {
         const data = this.data
@@ -215,7 +215,7 @@
         })
       },
       mDeleteDatas() {
-        this.deleteDatas('deleteAppList')
+        this.deleteDatas(this.deleteApiKey)
       }
     }
   }
