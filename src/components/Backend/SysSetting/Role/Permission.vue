@@ -1,10 +1,7 @@
 <template>
-
-  <b-modal id="modalPermission" size="lg" ok-title="储存" cancel-title="取消" @ok="ok">
-
-    <div slot="modal-header">
-      <h5 class="modal-title">權限</h5>
-    </div>
+  <b-modal id="modalPermission"
+           size="lg"
+           title="權限">
 
     <form class="form-horizontal form-bordered form-editor">
 
@@ -15,6 +12,11 @@
         </ul>
       </div>
     </form>
+
+    <template slot="modal-footer" class="modal-footer">
+      <button type="button" class="btn btn-primary2" @click="$emit('ok'); close()">储存</button>
+      <button type="button" class="btn btn-secondary" @click="close()">取消</button>
+    </template>
 
   </b-modal>
 </template>
@@ -35,6 +37,9 @@
     methods: {
       ok() {
         this.$emit('putRoleNodes')
+      },
+      close() {
+        this.$root.$emit('bv::hide::modal', 'modalPermission')
       }
     },
     computed: {
