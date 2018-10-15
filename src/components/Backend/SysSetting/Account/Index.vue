@@ -104,6 +104,8 @@
       detail: require('./Detail.vue').default
     },
     data: () => ({
+      roles: {},
+      status: {},
       model: {
         account: '',
         password: '',
@@ -112,8 +114,6 @@
         roles: [],
         status: 'enable'
       },
-      roles: {},
-      status: {},
       seachData: {
         account: '',
         role_id: ''

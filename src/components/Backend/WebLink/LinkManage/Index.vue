@@ -87,6 +87,7 @@
 
 <script>
   import ListMixins from 'mixins/common/List'
+  import EnableConf from 'src/config/HouseEnable'
 
   export default {
     mixins: [ListMixins],
@@ -94,10 +95,9 @@
       detail: require('./Detail.vue').default
     },
     data: () => ({
-      WebLinkEnableConf: {
-        enable: '启用',
-        disable: '关闭'
-      },
+      WebLinkEnableConf: EnableConf,
+      categorys: [],
+      topics: [],
       model: {
         name: '',
         category_id: '',
@@ -107,9 +107,7 @@
       },
       seachData: {
         name: ''
-      },
-      categorys: [],
-      topics: []
+      }
     }),
     methods: {
       async mGetList() {

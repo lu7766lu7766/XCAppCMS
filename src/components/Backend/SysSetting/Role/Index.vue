@@ -56,6 +56,7 @@
   import ListMixins from 'mixins/common/List'
   import IndexMixins from 'mixins/common/Index'
   import { getChildren, proccessSubNode } from 'src/store/module/node'
+  import EnableConf from 'src/config/EdEnable'
 
   export default {
     mixins: [ListMixins, IndexMixins],
@@ -64,10 +65,7 @@
       permission: require('./Permission').default
     },
     data: () => ({
-      RoleEnableConf: {
-        Y: '开启',
-        N: '关闭'
-      },
+      RoleEnableConf: EnableConf,
       model: {
         display_name: '',
         enable: 'N'

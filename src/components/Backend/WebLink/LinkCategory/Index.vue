@@ -77,7 +77,7 @@
 <script>
   import ListMixins from 'mixins/common/List'
   import IndexMixins from 'mixins/common/Index'
-  import { getChildren, proccessSubNode } from 'src/store/module/node'
+  import EnableConf from 'src/config/HouseEnable'
 
   export default {
     mixins: [ListMixins, IndexMixins],
@@ -85,10 +85,7 @@
       detail: require('./Detail').default
     },
     data: () => ({
-      LinkCategoryEnableConf: {
-        enable: '启用',
-        disable: '关闭'
-      },
+      LinkCategoryEnableConf: EnableConf,
       model: {
         name: '',
         status: 'enable',

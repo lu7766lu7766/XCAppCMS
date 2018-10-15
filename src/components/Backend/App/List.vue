@@ -119,6 +119,7 @@
 
 <script>
   import ListMixins from 'mixins/common/List'
+  import SwitchConf from 'src/config/FunnySwitch'
 
   export default {
     mixins: [ListMixins],
@@ -126,29 +127,11 @@
       detail: require('./Detail.vue').default
     },
     data: () => ({
-      AppStatusConf: {
-        unpublished: '未上架',
-        verifying: '审核中',
-        published: '已上架',
-        removed: '已下架'
-      },
-      AppCategoryConf: {
-        lottery: '彩票',
-        futures: '期货',
-        sports: '体育'
-      },
-      AppUpdateSwitchConf: {
-        on: '开启',
-        off: '关闭'
-      },
-      AppRedirectSwitchConf: {
-        on: '开启',
-        off: '关闭'
-      },
-      AppMobileDeviceConf: {
-        ios: 'IOS',
-        android: 'ANDROID'
-      },
+      AppStatusConf: {},
+      AppCategoryConf: {},
+      AppMobileDeviceConf: {},
+      AppUpdateSwitchConf: SwitchConf,
+      AppRedirectSwitchConf: SwitchConf,
       model: {
         id: '',
         code: '',
@@ -186,6 +169,15 @@
         if (res.success)
         {
           this.paginate.total = res.data
+        }
+      },
+      async dataInit() {
+        var res = await this.$callApi('getAppOption')
+        if (res.success)
+        {
+          this.AppCategoryConf = res.data.category
+          this.AppMobileDeviceConf = res.data.device
+          this.AppStatusConf = res.data.status
         }
       },
       post() {

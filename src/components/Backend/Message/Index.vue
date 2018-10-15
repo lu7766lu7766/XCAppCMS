@@ -66,11 +66,11 @@
       detail: require('./Detail.vue').default
     },
     data: () => ({
+      topics: [],
       model: {
         content: '',
         app_managements: []
-      },
-      topics: []
+      }
     }),
     methods: {
       async mGetList() {
