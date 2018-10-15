@@ -93,7 +93,7 @@
             </span>
           </td>
           <td>
-            {{ AppStatusConf(d.status) }}
+            {{ AppStatusConf[d.status] }}
           </td>
           <td>
             <i v-if="d.redirect_switch == 'on'" class="ion-checkmark fa-lg fa-fw text-green"></i>
