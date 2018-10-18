@@ -65,6 +65,7 @@
           <th>名称</th>
           <th>类别</th>
           <th>裝置</th>
+          <th>归属</th>
           <th class="width-100">状态</th>
           <th class="width-100">跳转开关</th>
           <th class="width-100">更新开关</th>
@@ -91,6 +92,9 @@
             <span class="bg-grey app-ic" v-else-if="d.mobile_device == 'ios'">
               <i class="fab fa-apple fa-lg text-white"></i>
             </span>
+          </td>
+          <td>
+            {{ d.account_info.display_name }}
           </td>
           <td>
             {{ AppStatusConf[d.status] }}

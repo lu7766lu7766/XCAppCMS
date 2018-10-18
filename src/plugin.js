@@ -1,5 +1,5 @@
 // import Loader from 'lib/Loader'
-import { createApiBody, roopParse } from 'lib/myLib'
+import { createApiBody, roopParse, createUploaderBody } from 'lib/myLib'
 import APIConf, { GET, POST, PUT, DELETE, SuccessCodes, UnLoginCode, getCurrentTarget } from 'src/config/api'
 import Middleware, { mapping as MiddleMapping } from 'src/middleware'
 import store from 'src/store'
@@ -94,6 +94,43 @@ const install = (Vue, options) =>
     return res
   }
 
+  /**
+   *
+   * @param key
+   * @param files {key1: file1, key2: file2}
+   * @returns {Promise<*>}
+   */
+  Vue.prototype.$uploadFiles = async (key, files) =>
+  {
+    const conf = APIConf[key]
+    if (!conf) throw `${key} this api is not assign in project`
+
+    const method = conf.method || POST
+
+    console.log(createUploaderBody(method, conf.uri, files))
+    var res = await axios(createUploaderBody(method, conf.uri, files))
+
+    const app = new Middleware
+    app.use(function (next)
+    {
+      res = res.data
+
+      res.success = SuccessCodes.indexOf(res.code) > -1
+
+      if (res.code === UnLoginCode)
+      { // 401 無認證 直接登出
+        store.commit(LoginType.clearAccessToken)
+      }
+      res = {success: res.success, code: 500, data: {}}
+      this.res = res
+      next()
+    })
+    // start middleware
+    app.go(function () {})
+
+    return res
+  }
+
   // shared components
   assignComponent('list-container', require('@/shared/Container/List'))
   assignComponent('detail-container', require('@/shared/Container/Detail'))
@@ -111,6 +148,7 @@ const install = (Vue, options) =>
   assignComponent('search-btn', require('@/shared/Button/Search'))
 
   assignComponent('multi-select', require('vue-multiselect'))
+  assignComponent('file-uploader', require('@/shared/FileAutoUploader'))
 }
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 

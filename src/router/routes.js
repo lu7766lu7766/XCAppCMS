@@ -71,6 +71,24 @@ export default [
             component: () => import('@/Backend/WebLink/LinkManage/Index')
           }
         ]
+      },
+      ,
+      {
+        path: 'news',
+        name: 'news',
+        component: () => import('@/Backend/WebLink/Index'),
+        children: [
+          {
+            path: 'category',
+            name: 'news-category',
+            component: () => import('@/Backend/News/Category/Index')
+          },
+          {
+            path: 'manage',
+            name: 'news-manage',
+            component: () => import('@/Backend/News/Manage/Index')
+          }
+        ]
       }
     ]
   },

@@ -34,5 +34,17 @@
   "APP_SETTING": {
     "name": "app-setting-list",
     "icon": "fas fa-cog"
+  },
+  "//NEWS": {
+    "name": "news",
+    "icon": "fa fa-newspaper"
+  },
+  "//NEW_TYPE": {
+    "name": "news-category",
+    "icon": ""
+  },
+  "//NEW_MG": {
+    "name": "news-manage",
+    "icon": ""
   }
 }

@@ -190,7 +190,36 @@ export default {
   },
   'getWebLinkOptions': {
     uri: '/web_link/options'
-  }
+  },
+
+  // news category
+  'getNewsCategoryList': {
+    method: 'post',
+    uri: '/news/category'
+  },
+  'postNewsCategory': {
+    uri: '/news/category/maintain'
+  },
+  'putNewsCategory': {
+    uri: '/news/category/maintain'
+  },
+  'deleteNewsCategoryList': {
+    uri: '/news/category/maintain'
+  },
+  'getNewsCategoryTotal': {
+    method: 'post',
+    uri: '/news/category/total'
+  },
+  'uploadNewsCategoryImage': {
+    method: 'post',
+    uri: '/news/category/upload'
+  },
+
+  // news
+  'getNewsList': {},
+  'postNews': {},
+  'putNews': {},
+  'deleteNewsList': {}
 }
 
 export const GET = 'get'

@@ -6,7 +6,7 @@ var hostConf = hosts[getCurrentTarget()]
 var apiPrefix = hostConf.api
   ? (hostConf.api + '.')
   : ''
-var apiHost = `//${apiPrefix}${hostConf.host}`
+export var apiHost = `//${apiPrefix}${hostConf.host}`
 
 /**
  * create api request body
@@ -17,14 +17,8 @@ var apiHost = `//${apiPrefix}${hostConf.host}`
  * @returns {{url: string, headers, method: string, responseType: string, withCredentials: boolean}}
  */
 export function createApiBody(method = 'get', uri = '', data = {}, header = {}) {
-  let apiHeader = {}
-  // apiHeader['Content-Type'] = 'application/json'
-  const access = store.state.Login.access
-  if (access)
-  {
-    apiHeader['Authorization'] = access.token_type + ' ' + access.access_token
-  }
-  apiHeader = _.merge(apiHeader, header)
+
+  let apiHeader = _.merge(getApiHeader(), header)
 
   let res = {
     url: apiHost + replaceMatchData(uri, data), //.replace(/\/{[\w]+}/g, ''),
@@ -95,3 +89,38 @@ export function roopParse(val) {
   }
 }
 
+/**
+ * create file upload request body
+ * @param uri
+ * @param files
+ * @param method
+ * @returns {{url: string, headers, method: string, responseType: string, withCredentials: boolean}}
+ */
+export function createUploaderBody(method, uri, files) {
+
+  let formData = new FormData()
+
+  _.forEach(files, (file, key) =>
+  {
+    formData.append(key, file)
+  })
+
+  return {
+    url: apiHost + uri,
+    headers: getApiHeader(),
+    method,
+    data: formData,
+    responseType: 'json',
+    withCredentials: true
+  }
+}
+
+function getApiHeader() {
+  let apiHeader = {}
+  const access = store.state.Login.access
+  if (access)
+  {
+    apiHeader['Authorization'] = access.token_type + ' ' + access.access_token
+  }
+  return apiHeader
+}
