@@ -93,7 +93,6 @@
               <i class="fab fa-apple fa-lg text-white"></i>
             </span>
           </td>
-          <td></td>
           <td>
             {{ d.account_info.display_name }}
           </td>
