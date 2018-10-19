@@ -14,6 +14,9 @@ export default {
       this.$emit('update:data', newValue)
     }
   },
+  provide() {
+    return {validator: this.$validator}
+  },
   methods: {
     async ok() {
       var validateResult = await this.$validator.validateAll()
@@ -28,7 +31,10 @@ export default {
       this.$emit(this.method, this.data)
     },
     show() {
-      this.$validator.validateAll()
+      this.$nextTick(() =>
+      {
+        this.$validator.validateAll()
+      })
     }
   },
   computed: {

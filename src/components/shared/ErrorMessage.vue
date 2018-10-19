@@ -1,20 +1,21 @@
 <template>
   <span class="parsley-errors-list filled"
-        v-show="thisErrors.has(inputName)">
-    {{ thisErrors.first(inputName) }}
+        v-show="errors.has(inputName)">
+    {{ errors.first(inputName) }}
   </span>
 </template>
 
 <script>
   export default {
     props: {
-      thisErrors: {
-        type: Object,
-        required: true
-      },
       inputName: {
         type: String,
         required: true
+      }
+    },
+    inject: {
+      $validator: {
+        from: 'validator'
       }
     }
   }

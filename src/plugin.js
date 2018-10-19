@@ -107,26 +107,20 @@ const install = (Vue, options) =>
 
     const method = conf.method || POST
 
-    console.log(createUploaderBody(method, conf.uri, files))
     var res = await axios(createUploaderBody(method, conf.uri, files))
 
-    const app = new Middleware
-    app.use(function (next)
+    res = res.data
+
+    res.success = SuccessCodes.indexOf(res.code) > -1
+
+    if (!res.success)
     {
-      res = res.data
-
-      res.success = SuccessCodes.indexOf(res.code) > -1
-
       if (res.code === UnLoginCode)
       { // 401 無認證 直接登出
         store.commit(LoginType.clearAccessToken)
       }
       res = {success: res.success, code: 500, data: {}}
-      this.res = res
-      next()
-    })
-    // start middleware
-    app.go(function () {})
+    }
 
     return res
   }
@@ -148,7 +142,8 @@ const install = (Vue, options) =>
   assignComponent('search-btn', require('@/shared/Button/Search'))
 
   assignComponent('multi-select', require('vue-multiselect'))
-  assignComponent('file-uploader', require('@/shared/FileAutoUploader'))
+
+  assignComponent('file-uploader', require('@/shared/Form/FileUploader'))
 }
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 

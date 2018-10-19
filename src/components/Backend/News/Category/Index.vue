@@ -88,7 +88,9 @@
       model: {
         name: '',
         status: '1',
-        image: ''
+        image: {
+          file_name: ''
+        }
       },
       seachData: {
         search: ''
@@ -118,8 +120,8 @@
       async mRequestProccess(key) {
         const data = this.data
         return await this.requestProccess(key, {
-          id: data.id,
           name: data.name,
+          image_id: data.image.id,
           status: data.status
         })
       },

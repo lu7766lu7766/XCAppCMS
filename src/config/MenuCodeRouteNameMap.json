@@ -35,15 +35,15 @@
     "name": "app-setting-list",
     "icon": "fas fa-cog"
   },
-  "//NEWS": {
+  "NEWS": {
     "name": "news",
     "icon": "fa fa-newspaper"
   },
-  "//NEW_TYPE": {
+  "NEW_TYPE": {
     "name": "news-category",
     "icon": ""
   },
-  "//NEW_MG": {
+  "NEW_MG": {
     "name": "news-manage",
     "icon": ""
   }

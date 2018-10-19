@@ -11,25 +11,19 @@
                name="name"
                v-validate="'required'"
                v-model="data.name" />
-        <error-message :thisErrors="errors"
-                       inputName="name">
-        </error-message>
+        <error-message inputName="name"></error-message>
+
       </div>
     </div>
 
     <div class="form-group row">
       <label class="col-md-2 col-form-label">图片</label>
       <div class="col-md-10">
-        <!--<span v-if="data.image_id"></span>-->
-        <!--<file-auto-uploader target="/news/category/upload" :data.sync="data.image" />-->
-        <!--<input type="text"-->
-        <!--class="form-control hide"-->
-        <!--name="image_id"-->
-        <!--v-validate="'required'"-->
-        <!--v-model="data.image" />-->
-        <!--<error-message :thisErrors="errors"-->
-        <!--inputName="name">-->
-        <!--</error-message>-->
+        <file-uploader type="image"
+                       apiKey="uploadNewsCategoryImage"
+                       :data.sync="data.image"
+                       validate="required"
+                       inputName="file" />
       </div>
     </div>
 
@@ -49,10 +43,8 @@
 
 <script>
   import DetailMixins from 'mixins/common/Detail'
-  import FileAutoUploader from 'src/components/shared/FileAutoUploader'
 
   export default {
-    components: {FileAutoUploader},
     mixins: [DetailMixins],
     props: {
       NewsCategoryStatusConf: {
