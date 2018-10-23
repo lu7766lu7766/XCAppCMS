@@ -170,6 +170,7 @@
           > th
             border-top: 1px solid #b6c2c9 !important
             padding: 8px 10px
+            font-weight: 700;
       > tbody
         > tr
           > td
@@ -227,6 +228,11 @@
           &:focus, &:hover
             background: #f59c1a
             border-color: #f59c1a
+  
+  .badge
+    padding: 3px 7px
+    border-radius: 10px
+    line-height: 1.25
 
 
 </style>
