@@ -1,16 +1,19 @@
 <template>
-  <section v-if="data">
-    <span v-if="data[dataKey]">{{ data[dataKey] }}</span>
-    <input type="file"
-           class="form-control"
-           :accept="accept"
-           @change="fileChange" />
-    <input type="text"
-           class="form-control hide"
-           :name="inputName"
-           v-validate="validate"
-           v-model="data[dataKey]" />
-    <error-message :inputName="inputName"></error-message>
+  <section>
+    <span v-if="data">{{ data }}</span>
+    <div class="input-group">
+      <input type="file"
+             class="custom-file-input"
+             :accept="accept"
+             @change="fileChange" />
+      <label class="custom-file-label"></label>
+      <input type="text"
+             class="form-control hide"
+             :name="inputName"
+             v-validate="validate"
+             v-model="data" />
+      <error-message :inputName="inputName"></error-message>
+    </div>
   </section>
 </template>
 
@@ -18,7 +21,7 @@
   export default {
     props: {
       data: {
-        type: Object | String,
+        type: String,
         require: true
       },
       validate: {
@@ -28,14 +31,6 @@
       inputName: {
         type: String,
         default: ''
-      },
-      apiKey: {
-        type: String,
-        required: true
-      },
-      dataKey: {
-        type: String,
-        default: 'files_name'
       },
       type: {
         type: String,
@@ -51,18 +46,11 @@
       async fileChange(e) {
         if (e.target.files.length)
         {
-          var res = await this.$uploadFiles(this.apiKey, {
-            image: e.target.files[0]
-          })
-          if (res.success)
+          await this.$emit('upload', e.target.files[0])
+          this.$nextTick(() =>
           {
-            this.$emit('update:data', res.data)
-            this.$nextTick(() =>
-            {
-              this.$validator.validateAll()
-            })
-          }
-          // e.target.value = ''
+            this.$validator.validateAll()
+          })
         }
       }
     },
@@ -81,3 +69,13 @@
     }
   }
 </script>
+
+<style lang="stylus" scoped>
+  .custom-file-label, .custom-file-input
+    height 34px
+
+  .custom-file-input ~ .custom-file-label::after
+    content "上传"
+    line-height 20px
+    height 32px
+</style>

@@ -3,7 +3,8 @@
 
     <template slot="detail">
       <detail :data.sync="data"
-              :WebLinkEnableConf="WebLinkEnableConf"
+              :NewsStatusConf="DerekConf"
+              :NewsPollingConf="DerekConf"
               :categorys="categorys"
               :topics="topics"
               @post="post"
@@ -46,8 +47,9 @@
           <th>图片</th>
           <th>名称</th>
           <th>类别</th>
+          <th class="width-100">轮播</th>
           <th class="width-100">状态</th>
-          <th>网址</th>
+          <th>发布时间</th>
           <th class="width-100">操作</th>
         </tr>
         </thead>
@@ -65,9 +67,15 @@
           <td>{{ d.name }}</td>
           <td>{{ d.category.name }}</td>
           <td>
-            <i v-if="d.status == 'enable'"
+            <i v-if="d.polling == '1'"
                class="ion-checkmark fa-lg fa-fw text-green"></i>
-            <i v-else-if="d.status == 'disable'"
+            <i v-else-if="d.status == '0'"
+               class="ion-close-round fa-lg fa-fw text-danger"></i>
+          </td>
+          <td>
+            <i v-if="d.status == '1'"
+               class="ion-checkmark fa-lg fa-fw text-green"></i>
+            <i v-else-if="d.status == '0'"
                class="ion-close-round fa-lg fa-fw text-danger"></i>
           </td>
           <td>{{ d.url_link }}</td>
@@ -87,7 +95,7 @@
 
 <script>
   import ListMixins from 'mixins/common/List'
-  import EnableConf from 'src/config/HouseEnable'
+  import DerekConf from 'src/config/DerekStatus'
 
   export default {
     mixins: [ListMixins],
@@ -95,15 +103,19 @@
       detail: require('./Detail.vue').default
     },
     data: () => ({
-      WebLinkEnableConf: EnableConf,
+      DerekConf: DerekConf,
       categorys: [],
       topics: [],
       model: {
         name: '',
         category_id: '',
-        url_link: '',
-        status: 'enable',
-        app_management: []
+        publish_time: '',
+        content: '',
+        status: '1',
+        topic_id: '',
+        cover_image: {},
+        upload: [],
+        polling: '1'
       },
       seachData: {
         name: ''
@@ -111,32 +123,38 @@
     }),
     methods: {
       async mGetList() {
-        var res = await this.getList('getWebLinkList')
+        var res = await this.getList('getNewsList')
         if (res.success)
         {
           this.datas = res.data
         }
       },
       async mGetTotal() {
-        var res = await this.getTotal('getWebLinkTotal')
+        var res = await this.getTotal('getNewsTotal')
         if (res.success)
         {
           this.paginate.total = res.data
         }
       },
       async dataInit() {
-        var res = await this.$callApi('getWebLinkOptions')
-        if (res.success)
+        var {0: topicRes, 1: categoryRes} = await axios.all([
+          this.$callApi('getNewsTopics'),
+          this.$callApi('getNewsCategorys')
+        ])
+        if (topicRes.success)
         {
-          this.topics = res.data.app_list
-          this.categorys = res.data.category
+          this.topics = topicRes.data
+        }
+        if (categoryRes.success)
+        {
+          this.categorys = categoryRes.data
         }
       },
       post() {
-        this.mRequestProccess('postWebLink')
+        this.mRequestProccess('postNews')
       },
       put() {
-        this.mRequestProccess('putWebLink')
+        this.mRequestProccess('putNews')
       },
       async mRequestProccess(key) {
         const data = this.data
@@ -151,7 +169,7 @@
         })
       },
       mDeleteDatas() {
-        this.deleteDatas('deleteWebLinkList')
+        this.deleteDatas('deleteNewsManageList')
       }
     }
   }

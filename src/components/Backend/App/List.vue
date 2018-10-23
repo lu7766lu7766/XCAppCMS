@@ -97,7 +97,11 @@
             {{ d.account_info.display_name }}
           </td>
           <td>
-            {{ AppStatusConf[d.status] }}
+            <span class="badge badge-green" v-if="d.status == 'published'">{{ AppStatusConf[d.status] }}</span>
+            <span class="badge badge-secondary"
+                  v-else-if="d.status == 'unpublished'">{{ AppStatusConf[d.status] }}</span>
+            <span class="badge badge-info" v-else-if="d.status == 'verifying'">{{ AppStatusConf[d.status] }}</span>
+            <span class="badge badge-danger" v-else-if="d.status == 'removed'">{{ AppStatusConf[d.status] }}</span>
           </td>
           <td>
             <i v-if="d.redirect_switch == 'on'" class="ion-checkmark fa-lg fa-fw text-green"></i>

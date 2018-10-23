@@ -216,10 +216,33 @@ export default {
   },
 
   // news
-  'getNewsList': {},
-  'postNews': {},
-  'putNews': {},
-  'deleteNewsList': {}
+  'getNewsList': {
+    method: 'post',
+    uri: '/news/management'
+  },
+  'postNews': {
+    uri: '/news/management/maintain'
+  },
+  'putNews': {
+    uri: '/news/management/maintain'
+  },
+  'deleteNewsList': {
+    uri: '/news/management/maintain'
+  },
+  'getNewsTotal': {
+    method: 'post',
+    uri: '/news/management/total'
+  },
+  'getNewsTopics': {
+    uri: '/news/management/topic'
+  },
+  'getNewsCategorys': {
+    uri: '/news/management'
+  },
+  'uploadNewsImage': {
+    method: 'post',
+    uri: '/news/category/upload'
+  }
 }
 
 export const GET = 'get'

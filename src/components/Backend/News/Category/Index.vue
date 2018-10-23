@@ -54,7 +54,9 @@
             </div>
           </td>
           <td>{{ startIndex + index }}</td>
-          <td></td>
+          <td>
+            <img :src="d.used[0].files_url[0]" height="75" />
+          </td>
           <td>{{ d.name }}</td>
           <td>
             <i v-if="d.status == 'enable'" class="ion-checkmark fa-lg fa-fw text-green"></i>

@@ -19,11 +19,12 @@
     <div class="form-group row">
       <label class="col-md-2 col-form-label">图片</label>
       <div class="col-md-10">
-        <file-uploader type="image"
-                       apiKey="uploadNewsCategoryImage"
-                       :data.sync="data.image"
-                       validate="required"
-                       inputName="file" />
+        <file-uploader
+            type="image"
+            validate="required"
+            inputName="file"
+            :data="getImageProp(data).files_name"
+            @upload="upload" />
       </div>
     </div>
 
@@ -50,6 +51,24 @@
       NewsCategoryStatusConf: {
         type: Object,
         required: true
+      }
+    },
+    methods: {
+      async upload(file) {
+        var res = await this.$uploadFiles('uploadNewsCategoryImage', {
+          image: file
+        })
+        if (res.success)
+        {
+          this.data.image = res.data
+        }
+      },
+      getImageProp(data) {
+        return data.image
+          ? data.image
+          : data.used
+            ? data.used[0]
+            : {}
       }
     }
   }
