@@ -184,7 +184,7 @@
           this.paginate.total = res.data
         }
       },
-      async dataInit() {
+      async mDataInit() {
         var res = await this.$callApi('getAppOption')
         if (res.success)
         {

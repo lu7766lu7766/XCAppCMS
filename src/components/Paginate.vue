@@ -3,9 +3,11 @@
     <ul class="pagination pagination-box m-b-0 m-t-10">
 
       <li class="paginate_item previous"
-          :class="disabled = page === 1"
-          @click="page === 1 ? '' : pageChange(page - 1)">
-        <a href="#" aria-controls="data-table-default"><<</a>
+          :class="{
+            disabled: page === 1
+          }"
+          @click="page === 1 ? '' : pageChange(1)">
+        <a href="javascript:;" class="page-link">«</a>
       </li>
 
       <li class="paginate_item"
@@ -13,13 +15,15 @@
           :key="p"
           :class="{active : p === page}"
           @click="p === page ? '' : pageChange(p)">
-        <a href="#" aria-controls="data-table-default">{{ p }}</a>
+        <a href="javascript:void(0)" class="page-link">{{ p }}</a>
       </li>
 
       <li class="paginate_item next"
-          :class="disabled = page === lastPage"
-          @click="page === lastPage ? '' : pageChange(page + 1)">
-        <a href="#" aria-controls="data-table-default">>></a>
+          :class="{
+            disabled: page === lastPage
+          }"
+          @click="page === lastPage ? '' : pageChange(lastPage)">
+        <a href="javascript:;" class="page-link">»</a>
       </li>
 
     </ul>
@@ -66,7 +70,6 @@
       li
         a
           padding 6px 11px
-          color: #6c757d
           border-color: #dee2e6
           width 32px
           height 32px

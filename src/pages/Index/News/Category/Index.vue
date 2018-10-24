@@ -55,7 +55,7 @@
           </td>
           <td>{{ startIndex + index }}</td>
           <td>
-            <img :src="d.used[0].files_url[0]" height="75" />
+            <img :src="d.used[0].files_url[0]" height="60" />
           </td>
           <td>{{ d.name }}</td>
           <td>

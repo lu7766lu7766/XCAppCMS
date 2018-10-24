@@ -122,12 +122,13 @@ export default {
       return await this.$callApi(key, _.assign({}, data, this.seachData))
     },
     getNewPageData() {
+      this.dataInit()
       this.mGetList()
       this.mGetTotal()
-      this.dataInit()
       this.mDataInit()
     },
     getSearchData() {
+      this.dataInit()
       this.mGetList()
       this.mGetTotal()
     },

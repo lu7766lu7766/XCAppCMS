@@ -145,7 +145,7 @@
           name: 'login'
         })
       },
-      dataInit() {
+      mDataInit() {
         axios.all([this.getMyNodes(), this.getAccount()]).then(() =>
         {
           this.$nextTick(() =>
@@ -156,7 +156,7 @@
       }
     },
     mounted() {
-      this.dataInit()
+      this.mDataInit()
     }
   }
 </script>

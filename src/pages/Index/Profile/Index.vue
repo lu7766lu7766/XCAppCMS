@@ -71,7 +71,7 @@
       }
     }),
     methods: {
-      dataInit() {
+      mDataInit() {
         this.data.display_name = this.account.display_name
       },
       async put() {
@@ -86,7 +86,7 @@
       }
     },
     mounted() {
-      this.dataInit()
+      this.mDataInit()
     }
   }
 </script>
