@@ -87,7 +87,7 @@
           this.paginate.total = res.data.count
         }
       },
-      async dataInit() {
+      async mDataInit() {
         var res = await this.$callApi('getMessageTopic')
         if (res.success)
         {

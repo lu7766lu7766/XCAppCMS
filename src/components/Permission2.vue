@@ -23,7 +23,7 @@
   export default {
     mixins: [PermisiionMixins],
     components: {
-      JPermission: require('@/shared/Permission2').default
+      JPermission: require('@/Permission1').default
     }
   }
 </script>

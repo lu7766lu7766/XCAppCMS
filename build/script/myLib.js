@@ -2,6 +2,8 @@ var path = require('path')
   , level = require('level')
   , s3sync = require('jac-s3-sync-aws')
   , readdirp = require('readdirp')
+  , moment = require('moment')
+  , es = require('event-stream')
 
 var resolve = (dir) =>
 {
@@ -46,6 +48,9 @@ module.exports = {
       }
     })
 
-    files.pipe(uploader)
+    files.pipe(uploader).pipe(es.wait(function (err, body)
+    {
+      console.log(moment().format('YYYY-MM-DD HH:mm:ss'))
+    }))
   }
 }

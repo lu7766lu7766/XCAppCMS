@@ -1,6 +1,7 @@
 var webpack = require('webpack')
 var path = require('path')
-var resolve = (dir) => {
+var resolve = (dir) =>
+{
   return path.join(__dirname, dir)
 }
 
@@ -16,6 +17,7 @@ module.exports = {
       module: resolve('src/store/module'),
       resource: resolve('resource'),
       '@': resolve('src/components'),
+      'pages': resolve('src/pages'),
       config: resolve('src/config/index.build.js')
     }
   },

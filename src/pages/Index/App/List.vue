@@ -8,6 +8,7 @@
               :AppRedirectSwitchConf="AppRedirectSwitchConf"
               :AppMobileDeviceConf="AppMobileDeviceConf"
               :AppCategoryConf="AppCategoryConf"
+              :AppPushConf="AppPushConf"
               @post="post"
               @put="put"
               :method="method" />
@@ -64,6 +65,7 @@
           <th>代码</th>
           <th>名称</th>
           <th>类别</th>
+          <th>推播通道</th>
           <th>裝置</th>
           <th>归属</th>
           <th class="width-100">状态</th>
@@ -85,6 +87,7 @@
           <td>{{ d.code }}</td>
           <td>{{ d.name }}</td>
           <td>{{ AppCategoryConf[d.category] }}</td>
+          <td>{{ AppPushConf[d.push_path] }}</td>
           <td>
             <span class="bg-lime app-ic" v-if="d.mobile_device == 'android'">
               <i class="fab fa-android fa-lg text-white"></i>
@@ -138,6 +141,7 @@
       AppStatusConf: {},
       AppCategoryConf: {},
       AppMobileDeviceConf: {},
+      AppPushConf: {},
       AppUpdateSwitchConf: SwitchConf,
       AppRedirectSwitchConf: SwitchConf,
       model: {
@@ -145,6 +149,7 @@
         code: '',
         name: '',
         category: 'futures',
+        push_path: 'aws',
         mobile_device: 'ios',
         redirect_switch: 'off',
         redirect_url: null,
@@ -155,7 +160,7 @@
         wechat_id: '',
         customer_service: '',
         status: 'unpublished',
-        topic_id: ''
+        topic_id: {}
       },
       seachData: {
         category: '',
@@ -186,6 +191,7 @@
           this.AppCategoryConf = res.data.category
           this.AppMobileDeviceConf = res.data.device
           this.AppStatusConf = res.data.status
+          this.AppPushConf = res.data.push_path
         }
       },
       post() {
@@ -196,6 +202,7 @@
       },
       async mRequestProccess(key) {
         const data = this.data
+        console.log(_.pickBy(data.topic_id))
         return await this.requestProccess(key, {
           id: data.id,
           code: data.code,
@@ -211,7 +218,8 @@
           wechat_id: data.wechat_id,
           customer_service: data.customer_service,
           status: data.status,
-          topic_id: data.topic_id
+          topic_id: _.pickBy(data.topic_id),
+          push_path: data.push_path
         })
       },
       mDeleteDatas() {

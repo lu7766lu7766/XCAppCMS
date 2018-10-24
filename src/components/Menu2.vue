@@ -26,7 +26,7 @@
   export default {
     mixins: [MenuMixins],
     components: {
-      JMenu: require('@/shared/Menu1').default
+      JMenu: require('@/Menu1').default
     }
   }
 </script>

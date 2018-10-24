@@ -1,6 +1,7 @@
 body {
-    font-family: 'Microsoft JhengHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-    font-size: 13px !important;
+    font-size: 12px !important;
+    font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    color: #707478 !important;
     background: #d9e0e7 !important;
 }
 

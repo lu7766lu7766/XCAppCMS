@@ -115,7 +115,7 @@
         topic_id: '',
         cover_image: {},
         upload: [],
-        polling: '1'
+        polling: '0'
       },
       seachData: {
         name: ''
@@ -133,10 +133,10 @@
         var res = await this.getTotal('getNewsTotal')
         if (res.success)
         {
-          this.paginate.total = res.data
+          this.paginate.total = res.data.total
         }
       },
-      async dataInit() {
+      async mDataInit() {
         var {0: topicRes, 1: categoryRes} = await axios.all([
           this.$callApi('getNewsTopics'),
           this.$callApi('getNewsCategorys')

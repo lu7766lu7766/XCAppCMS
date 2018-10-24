@@ -32,7 +32,7 @@
       }
     },
     components: {
-      JPermission: require('@/shared/Permission1').default
+      JPermission: require('@/Permission1').default
     },
     methods: {
       close() {

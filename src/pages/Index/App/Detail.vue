@@ -47,6 +47,17 @@
     </div>
 
     <div class="form-group row">
+      <label class="col-md-2 col-form-label">推播通道</label>
+      <div class="col-md-10">
+        <div class="form-check form-check-inline" v-for="(name, conf) in AppPushConf" :key="name">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" :value="conf" v-model="data.push_path">{{ name }}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
       <label class="col-md-2 col-form-label">裝置</label>
       <div class="col-md-10">
         <div class="form-check form-check-inline" v-for="(name, key) in AppMobileDeviceConf" :key="key">
@@ -165,12 +176,30 @@
       </div>
     </div>
 
-    <div class="form-group row">
-      <label class="col-md-2 col-form-label">Topic ID</label>
-      <div class="col-md-10">
-        <input type="text" class="form-control" v-model="data.topic_id" />
+    <template v-if="data.push_path === 'aws'">
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label">Topic ID</label>
+        <div class="col-md-10">
+          <input type="text" class="form-control" v-model="data.topic_id.topic" />
+        </div>
       </div>
-    </div>
+    </template>
+
+    <template v-else-if="data.push_path === 'aurora'">
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label">AppKey</label>
+        <div class="col-md-10">
+          <input type="text" class="form-control" v-model="data.topic_id.app_key" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label">MasterSecret</label>
+        <div class="col-md-10">
+          <input type="text" class="form-control" v-model="data.topic_id.secret" />
+        </div>
+      </div>
+    </template>
 
   </detail-container>
 </template>
@@ -181,6 +210,10 @@
   export default {
     mixins: [DetailMixins],
     props: {
+      AppPushConf: {
+        type: Object,
+        required: true
+      },
       AppStatusConf: {
         type: Object,
         required: true

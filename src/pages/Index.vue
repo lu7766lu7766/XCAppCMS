@@ -133,7 +133,7 @@
     },
     mixins: [CheckLoginMixins, IndexMixins],
     components: {
-      JMenu: require('@/shared/Menu1').default
+      JMenu: require('@/Menu1').default
     },
     data: () => ({
       isShowMenu: true
@@ -170,7 +170,7 @@
           > th
             border-top: 1px solid #b6c2c9 !important
             padding: 8px 10px
-            font-weight: 700;
+            font-weight: bolder;
       > tbody
         > tr
           > td
@@ -228,7 +228,7 @@
           &:focus, &:hover
             background: #f59c1a
             border-color: #f59c1a
-  
+
   .badge
     padding: 3px 7px
     border-radius: 10px

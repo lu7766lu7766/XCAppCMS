@@ -43,13 +43,17 @@ export default {
      * get some data not relative data list
      * like total or option...
      */
-    dataInit() { },
-    mGetList() { },
+    dataInit() {
+      this.paginate.page = 1
+      this.data = _.cloneDeep(this.model)
+    },
+    mDataInit() {},
+    mGetList() {},
     mGetTotal() {},
-    post() { },
-    put() { },
-    mRequestProccess() { },
-    mDeleteDatas() { },
+    post() {},
+    put() {},
+    mRequestProccess() {},
+    mDeleteDatas() {},
     //
     /**
      * delete confirm
@@ -121,6 +125,7 @@ export default {
       this.mGetList()
       this.mGetTotal()
       this.dataInit()
+      this.mDataInit()
     },
     getSearchData() {
       this.mGetList()

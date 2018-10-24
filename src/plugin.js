@@ -126,24 +126,24 @@ const install = (Vue, options) =>
   }
 
   // shared components
-  assignComponent('list-container', require('@/shared/Container/List'))
-  assignComponent('detail-container', require('@/shared/Container/Detail'))
-  assignComponent('paginate', require('@/shared/Paginate'))
-  assignComponent('alert', require('@/shared/Alert'))
-  assignComponent('request-result', require('@/shared/RequestResult'))
-  assignComponent('error-message', require('@/shared/ErrorMessage'))
-  assignComponent('node-breadcrumb', require('@/shared/Breadcrumb/Node'))
-  assignComponent('custom-breadcrumb', require('@/shared/Breadcrumb/Custom'))
+  assignComponent('list-container', require('@/Container/List'))
+  assignComponent('detail-container', require('@/Container/Detail'))
+  assignComponent('paginate', require('@/Paginate'))
+  assignComponent('alert', require('@/Alert'))
+  assignComponent('request-result', require('@/RequestResult'))
+  assignComponent('error-message', require('@/ErrorMessage'))
+  assignComponent('node-breadcrumb', require('@/Breadcrumb/Node'))
+  assignComponent('custom-breadcrumb', require('@/Breadcrumb/Custom'))
 
-  assignComponent('create-btn', require('@/shared/Button/Create'))
-  assignComponent('update-btn', require('@/shared/Button/Update'))
-  assignComponent('delete-btn', require('@/shared/Button/Delete'))
-  assignComponent('permission-btn', require('@/shared/Button/Permission'))
-  assignComponent('search-btn', require('@/shared/Button/Search'))
+  assignComponent('create-btn', require('@/Button/Create'))
+  assignComponent('update-btn', require('@/Button/Update'))
+  assignComponent('delete-btn', require('@/Button/Delete'))
+  assignComponent('permission-btn', require('@/Button/Permission'))
+  assignComponent('search-btn', require('@/Button/Search'))
 
   assignComponent('multi-select', require('vue-multiselect'))
 
-  assignComponent('file-uploader', require('@/shared/Form/FileUploader'))
+  assignComponent('file-uploader', require('@/Form/FileUploader'))
 }
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 

@@ -24,7 +24,7 @@
             validate="required"
             inputName="file"
             :data="getImageProp(data).files_name"
-            @upload="upload" />
+            @upload="upload"></file-uploader>
       </div>
     </div>
 

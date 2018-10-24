@@ -124,7 +124,7 @@
           this.paginate.total = res.data
         }
       },
-      async dataInit() {
+      async mDataInit() {
         var res = await this.$callApi('getWebLinkOptions')
         if (res.success)
         {

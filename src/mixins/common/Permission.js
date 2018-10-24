@@ -16,7 +16,7 @@ export default {
     }
   },
   components: {
-    crud: require('@/shared/CRUD').default
+    crud: require('@/CRUD').default
   },
   data: () => ({
     MenuCodeRouteNameMap
