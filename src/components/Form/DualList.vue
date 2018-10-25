@@ -184,24 +184,25 @@
   }
 
   .push-app-box .btn i {
-    font-family: 'Font Awesome\ 5 Free';
-    font-style: normal;
+    display inline-block;
+    vertical-align middle;
+    margin: 0 1px
   }
 
   .push-app-box .glyphicon-arrow-right:before {
-    content: "\f061";
+    content: "";
+    width: 11px;
+    height: 13px;
+    background: url(/resource/img/right-arrow.png) no-repeat right center / cover;
+    display: block;
   }
 
   .push-app-box .glyphicon-arrow-left:before {
-    content: "\f060";
-  }
-
-  .push-app-box .glyphicon-arrow-up::before {
-    content: "\f062";
-  }
-
-  .push-app-box .glyphicon-arrow-down::before {
-    content: "\f063";
+    content: "";
+    width: 11px;
+    height: 13px;
+    background: url(/resource/img/left-arrow.png) no-repeat left center / cover;
+    display: block;
   }
 
   /* 彈跳推播確認 */
