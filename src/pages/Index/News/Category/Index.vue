@@ -49,7 +49,10 @@
         <tr v-for="(d, index) in datas" :key="index">
           <td>
             <div class="checkbox check-box">
-              <input type="checkbox" :id="'checkbox_'+d.id" v-model="d.checked">
+              <input type="checkbox"
+                     :id="'checkbox_'+d.id"
+                     v-model="d.checked"
+                     :disabled="!d.can_delete">
               <label :for="'checkbox_'+d.id" class="m-b-0">&nbsp;</label>
             </div>
           </td>
