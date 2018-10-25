@@ -35,7 +35,7 @@
     "name": "app-setting-list",
     "icon": "fas fa-cog"
   },
-  "//NEWS": {
+  "NEWS": {
     "name": "news",
     "icon": "fa fa-newspaper"
   },

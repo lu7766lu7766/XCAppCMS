@@ -22,7 +22,7 @@
         <select class="form-control"
                 name="category"
                 v-validate="'required'"
-                v-model="data.category">
+                v-model="data.category_id">
           <option v-for="(category, index) in categorys" :key="index" :value="category.id">{{ category.name }}</option>
         </select>
         <error-message inputName="category" />
@@ -32,16 +32,14 @@
     <div class="form-group row">
       <label class="col-md-2 col-form-label">发布时间</label>
       <div class="col-md-10">
-        <div class="input-group date"
-             data-date-format="yyyy-mm-dd"
-             data-date-start-date="Date.default">
-          <input type="text"
-                 class="form-control"
-                 name="publish_time"
-                 v-validate="'required'"
-                 v-model="data.publish_time">
-          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-        </div>
+        <date-picker
+            type="datetime"
+            width="100%"
+            input-class="form-control"
+            name="publish_time"
+            v-validate="'required'"
+            format="YYYY/MM/DD HH:mm:ss"
+            v-model="data.publish_time" />
         <error-message inputName="publish_time" />
       </div>
     </div>
@@ -49,15 +47,14 @@
     <div class="form-group row">
       <label class="col-md-2 col-form-label">内容</label>
       <div class="col-md-10">
-        <textarea class="form-control"
-                  name="content"
-                  rows="5"
-                  v-validate="'required'"
-                  v-model="data.content">
-          </textarea>
-        <error-message :thisErrors="errors"
-                       inputName="content">
-        </error-message>
+        <vue-editor
+            name="content"
+            v-validate="'required'"
+            v-model="data.content"
+            useCustomImageHandler
+            @imageAdded="handleImageAdded">
+        </vue-editor>
+        <error-message inputName="content" />
       </div>
     </div>
 
@@ -68,8 +65,8 @@
             type="image"
             validate="required"
             inputName="cover_image"
-            :data="getImageProp(data).files_name"
-            @upload="upload"></file-uploader>
+            :data="data.cover_image.files_name"
+            @upload="uploadCoverImage"></file-uploader>
       </div>
     </div>
 
@@ -101,7 +98,7 @@
 
         <div class="form-check form-check-inline">
           <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" v-model="isAllChecked" />全部
+            <input type="checkbox" class="form-check-input" name="topics" v-model="isAllChecked" />全部
           </label>
         </div>
 
@@ -109,13 +106,15 @@
           <label class="form-check-label">
             <input type="checkbox"
                    class="form-check-input"
+                   name="topics"
                    v-validate="'required'"
-                   v-model="data.topic_id"
-                   :value="topic.id" />
+                   :value="topic.id"
+                   v-model="data.topic_id" />
             {{ topic.name }}
           </label>
         </div>
 
+        <error-message inputName="content" />
       </div>
     </div>
 
@@ -146,15 +145,27 @@
       }
     },
     methods: {
-      async upload(file) {
-
+      async uploadCoverImage(file) {
+        var res = await this.$uploadFiles('uploadNewsImage', {
+          upload_file: file
+        })
+        if (res.success)
+        {
+          this.data.used.push(res.data)
+          this.data.cover_image = res.data
+        }
       },
-      getImageProp(data) {
-        return data.cover_image
-          ? data.cover_image
-          : data.used
-            ? data.used[0]
-            : {}
+      async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+        var res = await this.$uploadFiles('uploadNewsImage', {
+          upload_file: file
+        })
+        if (res.success)
+        {
+          let url = res.data.files_url[0]
+          Editor.insertEmbed(cursorLocation, 'image', url)
+          resetUploader()
+          this.data.used.push(res.data)
+        }
       }
     },
     computed: {
@@ -163,7 +174,8 @@
           this.data.topic_id = newValue
             ? _.map(this.topics, 'id')
             : []
-        },
+        }
+        ,
         get() {
           return this.data.topic_id && this.data.topic_id.length == this.topics.length
         }

@@ -125,6 +125,16 @@ const install = (Vue, options) =>
     return res
   }
 
+  /**
+   * php unit time to js time format
+   */
+  // Vue.filter('format', function (time, format)
+  // {
+  //   return moment(time * 1000).format(format)
+  // })
+  // Vue.prototype.$filters = Vue.options.filters
+
+
   // shared components
   assignComponent('list-container', require('@/Container/List'))
   assignComponent('detail-container', require('@/Container/Detail'))
@@ -144,6 +154,9 @@ const install = (Vue, options) =>
   assignComponent('multi-select', require('vue-multiselect'))
 
   assignComponent('file-uploader', require('@/Form/FileUploader'))
+
+  assignComponent('date-picker', require('vue2-datepicker'))
+  Vue.component('vue-editor', require('vue2-editor').VueEditor)
 }
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 

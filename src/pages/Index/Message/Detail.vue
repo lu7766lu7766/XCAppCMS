@@ -13,9 +13,7 @@
                     v-validate="'required'"
                     v-model="data.content">
           </textarea>
-        <error-message :thisErrors="errors"
-                       inputName="content">
-        </error-message>
+        <error-message inputName="content" />
       </div>
     </div>
 

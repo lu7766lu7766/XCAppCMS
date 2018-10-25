@@ -11,9 +11,7 @@
                name="name"
                v-validate="'required'"
                v-model="data.name" />
-        <error-message :thisErrors="errors"
-                       inputName="name">
-        </error-message>
+        <error-message inputName="name" />
       </div>
     </div>
 

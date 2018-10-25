@@ -63,22 +63,27 @@
             </div>
           </td>
           <td>{{ startIndex + index }}</td>
-          <td></td>
+          <td>
+            <img :src="d.cover_image.files_url[0]"
+                 height="60"
+                 v-if="d.used[0]" />
+          </td>
           <td>{{ d.name }}</td>
-          <td>{{ d.category.name }}</td>
+          <td>{{ getCategpruName(d.category_id) }}</td>
           <td>
-            <i v-if="d.polling == '1'"
+            <i v-if="d.polling == 'Y'"
                class="ion-checkmark fa-lg fa-fw text-green"></i>
-            <i v-else-if="d.status == '0'"
+            <i v-else-if="d.polling == 'N'"
                class="ion-close-round fa-lg fa-fw text-danger"></i>
           </td>
           <td>
-            <i v-if="d.status == '1'"
+            <i v-if="d.status == 'Y'"
                class="ion-checkmark fa-lg fa-fw text-green"></i>
-            <i v-else-if="d.status == '0'"
+            <i v-else-if="d.status == 'N'"
                class="ion-close-round fa-lg fa-fw text-danger"></i>
           </td>
-          <td>{{ d.url_link }}</td>
+          <td>{{ moment(d.publish_time).format('YYYY/MM/DD HH:mm:ss') }}
+          </td>
           <td class="action">
             <update-btn @click="setData(d)"></update-btn>
           </td>
@@ -111,11 +116,11 @@
         category_id: '',
         publish_time: '',
         content: '',
-        status: '1',
-        topic_id: '',
+        status: 'Y',
+        topic_id: [],
         cover_image: {},
-        upload: [],
-        polling: '0'
+        used: [],
+        polling: 'N'
       },
       seachData: {
         name: ''
@@ -161,15 +166,25 @@
         return await this.requestProccess(key, {
           id: data.id,
           name: data.name,
-          status: data.status,
           category_id: data.category_id,
-          url_link: data.url_link,
-          app_id: _.map(data.app_management, 'id'),
-          image_id: ''
+          publish_time: moment(data.publish_time).format('YYYY/MM/DD HH:mm:ss'),
+          content: data.content,
+          status: data.status,
+          topic_id: data.topic_id,
+          cover_image_id: data.cover_image.id,
+          upload_id: _.map(data.used, 'id'),
+          polling: data.polling
         })
       },
       mDeleteDatas() {
-        this.deleteDatas('deleteNewsManageList')
+        this.deleteDatas('deleteNewsList')
+      },
+      //
+      getCategpruName(id) {
+        const category = _.find(this.categorys, {id})
+        return category
+          ? category.name
+          : ''
       }
     }
   }

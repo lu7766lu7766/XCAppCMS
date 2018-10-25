@@ -12,11 +12,10 @@
                name="code"
                v-validate="'required'"
                v-model="data.code">
-        <error-message :thisErrors="errors"
-                       inputName="code">
-        </error-message>
+        <error-message inputName="code" />
       </div>
     </div>
+
     <div class="form-group row">
       <label class="col-md-2 col-form-label">名称</label>
       <div class="col-md-10">
@@ -25,9 +24,7 @@
                name="name"
                v-validate="'required'"
                v-model="data.name">
-        <error-message :thisErrors="errors"
-                       inputName="name">
-        </error-message>
+        <error-message inputName="name" />
       </div>
     </div>
 
@@ -40,11 +37,28 @@
                 v-model="data.category">
           <option v-for="(name, conf) in AppCategoryConf" :key="name" :value="conf">{{ name }}</option>
         </select>
-        <error-message :thisErrors="errors"
-                       inputName="category">
-        </error-message>
+        <error-message inputName="category" />
       </div>
     </div>
+
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">APP版本</label>
+      <div class="col-md-10">
+        <input type="text"
+               class="form-control"
+               v-model="data.app_version">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-2 col-form-label">APP网址</label>
+      <div class="col-md-10">
+        <input type="text"
+               class="form-control"
+               v-model="data.app_url">
+      </div>
+    </div>
+
 
     <div class="form-group row">
       <label class="col-md-2 col-form-label">推播通道</label>

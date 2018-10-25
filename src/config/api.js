@@ -195,7 +195,8 @@ export default {
   // news category
   'getNewsCategoryList': {
     method: 'post',
-    uri: '/news/category'
+    uri: '/news/category',
+    middleware: ['dataList']
   },
   'postNewsCategory': {
     uri: '/news/category/maintain'
@@ -218,7 +219,8 @@ export default {
   // news
   'getNewsList': {
     method: 'post',
-    uri: '/news/management'
+    uri: '/news/management',
+    middleware: ['news']
   },
   'postNews': {
     uri: '/news/management/maintain'
@@ -241,7 +243,7 @@ export default {
   },
   'uploadNewsImage': {
     method: 'post',
-    uri: '/news/category/upload'
+    uri: '/news/management/upload'
   }
 }
 

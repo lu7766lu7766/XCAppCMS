@@ -11,9 +11,7 @@
                name="name"
                v-validate="'required'"
                v-model="data.name" />
-        <error-message :thisErrors="errors"
-                       inputName="name">
-        </error-message>
+        <error-message inputName="name" />
       </div>
     </div>
 
@@ -26,9 +24,7 @@
                 v-model="data.category_id">
           <option v-for="(category, index) in categorys" :key="index" :value="category.id">{{ category.name }}</option>
         </select>
-        <error-message :thisErrors="errors"
-                       inputName="category">
-        </error-message>
+        <error-message inputName="category" />
       </div>
     </div>
 
@@ -40,9 +36,7 @@
                name="url_link"
                v-validate="'required'"
                v-model="data.url_link" />
-        <error-message :thisErrors="errors"
-                       inputName="url_link">
-        </error-message>
+        <error-message inputName="url_link" />
       </div>
     </div>
 

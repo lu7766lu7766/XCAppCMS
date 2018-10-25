@@ -64,6 +64,7 @@
           <th class="width-30">#</th>
           <th>代码</th>
           <th>名称</th>
+          <th>APP版本</th>
           <th>类别</th>
           <th>推播通道</th>
           <th>裝置</th>
@@ -86,6 +87,7 @@
           <td>{{ startIndex + index }}</td>
           <td>{{ d.code }}</td>
           <td>{{ d.name }}</td>
+          <td>{{ d.app_version }}</td>
           <td>{{ AppCategoryConf[d.category] }}</td>
           <td>{{ AppPushConf[d.push_path] }}</td>
           <td>
@@ -148,6 +150,8 @@
         id: '',
         code: '',
         name: '',
+        app_version: '',
+        app_url: '',
         category: 'futures',
         push_path: 'aws',
         mobile_device: 'ios',
@@ -219,7 +223,9 @@
           customer_service: data.customer_service,
           status: data.status,
           topic_id: _.pickBy(data.topic_id),
-          push_path: data.push_path
+          push_path: data.push_path,
+          app_version: data.app_version,
+          app_url: data.app_url
         })
       },
       mDeleteDatas() {

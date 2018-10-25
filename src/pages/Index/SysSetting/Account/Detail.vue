@@ -12,9 +12,7 @@
                v-validate="'required|min:4|max:32'"
                v-model="data.account"
                :readonly="method == 'put'" />
-        <error-message :thisErrors="errors"
-                       inputName="account">
-        </error-message>
+        <error-message inputName="account" />
       </div>
     </div>
 
@@ -27,9 +25,7 @@
                v-validate="method === 'post' ? 'required|min:4|max:32' : ''"
                v-model="data.password"
                placeholder="长度至少4码" />
-        <error-message :thisErrors="errors"
-                       inputName="password">
-        </error-message>
+        <error-message inputName="password" />
       </div>
     </div>
 
@@ -42,9 +38,7 @@
                v-validate="method === 'post' ? {required: true, min: 4, max: 32, is: data.password} : ''"
                v-model="data.confirm_password"
                placeholder="请与密码相同" />
-        <error-message :thisErrors="errors"
-                       inputName="confirm_password">
-        </error-message>
+        <error-message inputName="confirm_password" />
       </div>
     </div>
 
@@ -79,9 +73,7 @@
                       label="display_name"
                       track-by="id"
                       placeholder="请选择角色"></multi-select>
-        <error-message :thisErrors="errors"
-                       inputName="roles">
-        </error-message>
+        <error-message inputName="roles" />
       </div>
     </div>
 
