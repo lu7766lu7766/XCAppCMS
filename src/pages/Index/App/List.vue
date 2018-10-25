@@ -206,7 +206,6 @@
       },
       async mRequestProccess(key) {
         const data = this.data
-        console.log(_.pickBy(data.topic_id))
         return await this.requestProccess(key, {
           id: data.id,
           code: data.code,

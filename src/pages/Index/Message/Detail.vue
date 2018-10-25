@@ -21,18 +21,19 @@
       <label class="col-md-2 col-form-label">发布APP</label>
       <div class="col-md-10">
 
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" v-model="isAllChecked" />全部
-          </label>
-        </div>
+        <!--<div class="form-check form-check-inline">-->
+        <!--<label class="form-check-label">-->
+        <!--<input type="checkbox" class="form-check-input" v-model="isAllChecked" />全部-->
+        <!--</label>-->
+        <!--</div>-->
 
-        <div class="form-check form-check-inline" v-for="(topic, index) in topics" :key="index">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" v-model="data.app_managements" :value="topic" />
-            {{ topic.name }}
-          </label>
-        </div>
+        <!--<div class="form-check form-check-inline" v-for="(topic, index) in topics" :key="index">-->
+        <!--<label class="form-check-label">-->
+        <!--<input type="checkbox" class="form-check-input" v-model="data.app_managements" :value="topic" />-->
+        <!--{{ topic.name }}-->
+        <!--</label>-->
+        <!--</div>-->
+        <dual-list :options="topics" v-model="data.app_managements" />
 
       </div>
     </div>
@@ -42,8 +43,10 @@
 
 <script>
   import DetailMixins from 'mixins/common/Detail'
+  import DualList from 'src/components/Form/DualList'
 
   export default {
+    components: {DualList},
     mixins: [DetailMixins],
     props: {
       topics: {

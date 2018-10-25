@@ -152,6 +152,7 @@ const install = (Vue, options) =>
   assignComponent('search-btn', require('@/Button/Search'))
 
   assignComponent('multi-select', require('vue-multiselect'))
+  assignComponent('dual-list', require('@/Form/DualList'))
 
   assignComponent('file-uploader', require('@/Form/FileUploader'))
 

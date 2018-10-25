@@ -21,6 +21,7 @@
     "uResource": "node build/script/upload_resource.js",
     "uResource:rc": "yarn uResource -rc",
     "uResource:stable": "yarn uResource -stable",
+    "uResource:all": "yarn uResource && yarn uResource -rc && yarn uResource -stable",
     "//////": "測試",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e"
