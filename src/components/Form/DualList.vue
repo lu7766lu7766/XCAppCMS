@@ -120,7 +120,6 @@
           return this.filterOption == '' ||
             ((x[this.textAttr] + '').indexOf(this.filterOption) > -1)
         })
-
       },
       /**
        * 過濾完的已選取項目

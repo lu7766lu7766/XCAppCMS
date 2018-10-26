@@ -95,17 +95,19 @@
         }
       },
       async post() {
+        var isPush = await this.isPushMessageContinue()
         var res = await this.mRequestProccess('postMessage')
-        if (res.success)
+        if (res.success && isPush)
         {
-          this.confirmPushMessage()
+          this.pushMessage(res.data.id)
         }
       },
       async put() {
+        var isPush = await this.isPushMessageContinue()
         var res = await this.mRequestProccess('putMessage')
-        if (res.success)
+        if (res.success && isPush)
         {
-          this.confirmPushMessage(res.data.id)
+          this.pushMessage(res.data.id)
         }
       },
       async mRequestProccess(key) {
@@ -119,18 +121,15 @@
       mDeleteDatas() {
         this.deleteDatas('deleteMessageList')
       },
-      async confirmPushMessage(id) {
-        if (!!(await this.$swal({
+      async isPushMessageContinue() {
+        return !!(await this.$swal({
           text: '是否一并推播讯息',
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: '是',
           cancelButtonText: '否',
           reverseButtons: true
-        })).value)
-        {
-          this.pushMessage(id)
-        }
+        })).value
       },
       async pushMessage(id) {
         var res = await this.$callApi('pushMessage', {id})
