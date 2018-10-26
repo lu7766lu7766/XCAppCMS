@@ -92,7 +92,7 @@
       NewsCategoryStatusConf: StatusConf,
       model: {
         name: '',
-        status: '1',
+        status: 'Y',
         image: {
           file_name: ''
         }

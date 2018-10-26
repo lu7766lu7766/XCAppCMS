@@ -2,7 +2,11 @@
   <list-container>
 
     <template slot="detail">
-      <detail :data.sync="data" :topics="topics" @post="post" @put="put" :method="method" />
+      <detail :data.sync="data"
+              :topics="myTopics"
+              @post="post"
+              @put="put"
+              :method="method" />
     </template>
 
     <request-result :requestResult="requestResult" />
@@ -59,6 +63,7 @@
 
 <script>
   import ListMixins from 'mixins/common/List'
+  import DeviceConf from 'src/config/Device'
 
   export default {
     mixins: [ListMixins],
@@ -134,6 +139,15 @@
       async pushMessage(id) {
         var res = await this.$callApi('pushMessage', {id})
         this.requestResult = this.getRequestResult(res.success, '推播')
+      }
+    },
+    computed: {
+      myTopics() {
+        return _.map(_.cloneDeep(this.topics), topic =>
+        {
+          topic.name = `(${DeviceConf[topic.mobile_device]})${topic.name}`
+          return topic
+        })
       }
     }
   }
