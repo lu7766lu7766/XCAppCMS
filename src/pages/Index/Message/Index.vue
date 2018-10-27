@@ -137,8 +137,12 @@
         })).value
       },
       async pushMessage(id) {
-        var res = await this.$callApi('pushMessage', {id})
-        this.requestResult = this.getRequestResult(res.success, '推播')
+        var isPush = await this.isPushMessageContinue()
+        if (isPush)
+        {
+          var res = await this.$callApi('pushMessage', {id})
+          this.requestResult = this.getRequestResult(res.success, '推播')
+        }
       }
     },
     computed: {
