@@ -92,10 +92,7 @@
       NewsCategoryStatusConf: StatusConf,
       model: {
         name: '',
-        status: 'Y',
-        image: {
-          file_name: ''
-        }
+        status: 'Y'
       },
       seachData: {
         search: ''
@@ -125,8 +122,11 @@
       async mRequestProccess(key) {
         const data = this.data
         return await this.requestProccess(key, {
+          id: data.id,
           name: data.name,
-          image_id: data.image.id,
+          image_id: data.used[0]
+            ? data.used[0].id
+            : '',
           status: data.status
         })
       },

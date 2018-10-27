@@ -60,15 +60,13 @@
         })
         if (res.success)
         {
-          this.data.image = res.data
+          this.data.used = [res.data]
         }
       },
       getImageProp(data) {
-        return data.image
-          ? data.image
-          : data.used
-            ? data.used[0]
-            : {}
+        return data.used
+          ? data.used[0]
+          : {}
       }
     }
   }
