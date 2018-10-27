@@ -57,10 +57,10 @@ const install = (Vue, options) =>
       )
     // console.log(method, conf)
     var res = await axios(createApiBody(method, conf.uri, _.merge(_.pickBy(data), conf.data), conf.header))
-    
-    // middleware
 
+    // middleware
     const app = new Middleware
+    
     app.use(function (next)
     {
       res = res.data

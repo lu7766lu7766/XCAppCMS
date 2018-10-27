@@ -78,11 +78,18 @@ export function roopParse(val) {
   }
   else
   {
-    try
+    if (typeof val === 'string' && _.includes(val.substr(0, 2), '{', '['))
     {
-      return JSON.parse(val)
+      try
+      {
+        return JSON.parse(val)
+      }
+      catch (err)
+      {
+        return val
+      }
     }
-    catch (err)
+    else
     {
       return val
     }
