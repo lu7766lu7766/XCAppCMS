@@ -112,6 +112,7 @@
       categorys: [],
       topics: [],
       model: {
+        app_management: [],
         name: '',
         category_id: '',
         publish_time: '',
@@ -170,7 +171,7 @@
           publish_time: moment(data.publish_time).format('YYYY/MM/DD HH:mm:ss'),
           content: data.content,
           status: data.status,
-          topic_id: data.topic_id,
+          topic_id: _.map(data.app_management, 'id'),
           cover_image_id: data.cover_image.id,
           upload_id: _.map(data.used, 'id'),
           polling: data.polling

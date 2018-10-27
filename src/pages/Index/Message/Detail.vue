@@ -41,18 +41,6 @@
         type: Array,
         required: true
       }
-    },
-    computed: {
-      isAllChecked: {
-        set(newValue) {
-          this.data.app_managements = newValue
-            ? this.topics
-            : []
-        },
-        get() {
-          return this.data.app_managements && this.data.app_managements.length == this.topics.length
-        }
-      }
     }
   }
 </script>

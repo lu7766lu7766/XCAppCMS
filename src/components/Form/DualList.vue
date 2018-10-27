@@ -7,7 +7,10 @@
                 class="form-control"
                 name="doublebox_helper1"
                 style="height: 102px;">
-          <option v-for="(val, index) in filterUnselectedOptions" :key="index" :value="val" @click="add(index)">
+          <option v-for="(val, index) in filterUnselectedOptions"
+                  :key="index"
+                  :value="val"
+                  @click="add(index)">
             {{ val[textAttr] }}
           </option>
         </select></div>
@@ -34,7 +37,10 @@
                 class="form-control"
                 name="doublebox_helper2"
                 style="height: 102px;">
-          <option v-for="(val, index) in filterSelectedOptions" :key="index" :value="val" @click="del(index)">
+          <option v-for="(val, index) in filterSelectedOptions"
+                  :key="index"
+                  :value="val"
+                  @click="del(index)">
             {{ val[textAttr] }}
           </option>
         </select>
@@ -80,7 +86,7 @@
         this.value.push(this.filterUnselectedOptions.slice(index, index + 1)[0])
       },
       del(index) {
-        this.value.splice(_.findIndex(this.value, {name: this.filterSelectedOptions[index].name}), 1)
+        this.value.splice(_.findIndex(this.value, {id: this.filterSelectedOptions[index].id}), 1)
       },
       addAll() {
         while (this.filterUnselectedOptions.length)
@@ -97,13 +103,27 @@
     },
     computed: {
       /**
+       * 以選曲項目
+       */
+      selectedOptions() {
+        return _.reduce(this.options, (result, option) =>
+        {
+          // 不存在於現有屬性中，才加入未選取項目
+          if (_.some(this.value, x => x.id == option.id))
+          {
+            result.push(option)
+          }
+          return result
+        }, [])
+      },
+      /**
        * 未選取項目
        */
       unselectedOptions() {
         return _.reduce(this.options, (result, option) =>
         {
           // 不存在於現有屬性中，才加入未選取項目
-          if (!_.some(this.value, x => x.name == option.name))
+          if (!_.some(this.value, x => x.id == option.id))
           {
             result.push(option)
           }
@@ -126,7 +146,7 @@
        * @returns {Array}
        */
       filterSelectedOptions() {
-        return _.filter(this.value, x =>
+        return _.filter(this.selectedOptions, x =>
         {
           return this.filterValue == '' ||
             ((x[this.textAttr] + '').indexOf(this.filterValue) > -1)

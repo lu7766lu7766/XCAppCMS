@@ -96,25 +96,28 @@
       <label class="col-md-2 col-form-label">发布APP</label>
       <div class="col-md-10">
 
-        <div class="form-check form-check-inline">
-          <label class="form-check-label">
-            <input type="checkbox" class="form-check-input" name="topics" v-model="isAllChecked" />全部
-          </label>
-        </div>
+        <!--<div class="form-check form-check-inline">-->
+        <!--<label class="form-check-label">-->
+        <!--<input type="checkbox" class="form-check-input" name="topics" v-model="isAllChecked" />全部-->
+        <!--</label>-->
+        <!--</div>-->
 
-        <div class="form-check form-check-inline" v-for="(topic, index) in topics" :key="index">
-          <label class="form-check-label">
-            <input type="checkbox"
-                   class="form-check-input"
-                   name="topics"
-                   v-validate="'required'"
-                   :value="topic.id"
-                   v-model="data.topic_id" />
-            {{ topic.name }}
-          </label>
-        </div>
+        <!--<div class="form-check form-check-inline" v-for="(topic, index) in topics" :key="index">-->
+        <!--<label class="form-check-label">-->
+        <!--<input type="checkbox"-->
+        <!--class="form-check-input"-->
+        <!--name="topics"-->
+        <!--v-validate="'required'"-->
+        <!--:value="topic.id"-->
+        <!--v-model="data.topic_id" />-->
+        <!--{{ topic.name }}-->
+        <!--</label>-->
+        <!--</div>-->
 
-        <error-message inputName="content" />
+        <!--<error-message inputName="content" />-->
+
+        <dual-list :options="topics" v-model="data.app_management" />
+
       </div>
     </div>
 
@@ -169,17 +172,17 @@
       }
     },
     computed: {
-      isAllChecked: {
-        set(newValue) {
-          this.data.topic_id = newValue
-            ? _.map(this.topics, 'id')
-            : []
-        }
-        ,
-        get() {
-          return this.data.topic_id && this.data.topic_id.length == this.topics.length
-        }
-      }
+      // isAllChecked: {
+      //   set(newValue) {
+      //     this.data.topic_id = newValue
+      //       ? _.map(this.topics, 'id')
+      //       : []
+      //   }
+      //   ,
+      //   get() {
+      //     return this.data.topic_id && this.data.topic_id.length == this.topics.length
+      //   }
+      // }
     }
   }
 </script>
