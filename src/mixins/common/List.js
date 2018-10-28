@@ -75,32 +75,28 @@ export default {
      * @param {*} key
      */
     async deleteDatas(key) {
-      var confirmResult = await this.deleteConfirm()
-      if (!confirmResult) return
-
-      var res = await this.$callApi(key, {
+      return await this.handleDeleteData(key, {
         id: this.dataCheckedIDs
       })
-      if (res.success)
-      {
-        this.getSearchData()
-      }
-      return res
     },
     /**
      *
      */
     async deleteData(key, data) {
+      return await this.handleDeleteData(key, {
+        id: data.id
+      })
+    },
+    async handleDeleteData(key, request) {
       var confirmResult = await this.deleteConfirm()
       if (!confirmResult) return
 
-      var res = await this.$callApi(key, {
-        id: data.id
-      })
+      var res = await this.$callApi(key, request)
       if (res.success)
       {
         this.getSearchData()
       }
+      this.requestResult = this.getRequestResult(res.success, '删除')
       return res
     },
     /**
