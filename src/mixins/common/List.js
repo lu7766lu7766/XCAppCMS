@@ -183,10 +183,18 @@ export default {
      */
     isAllChecked: {
       set(newValue) {
-        _.forEach(this.datas, data => { data.checked = newValue })
+        _.forEach(this.datas, data =>
+        {
+          data.checked = (typeof data.can_delete == 'undefined' || data.can_delete)
+            ? newValue
+            : false
+        })
       },
       get() {
-        return !_.some(this.datas, {checked: false})
+        return !_.some(this.datas, data =>
+        {
+          return (typeof data.can_delete == 'undefined' || data.can_delete) && data.checked == false
+        })
       }
     },
     /**

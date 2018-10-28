@@ -67,7 +67,6 @@
           </td>
           <td class="action">
             <update-btn @click="setData(d)"></update-btn>
-            <delete-btn @click="mDeleteDatas()"></delete-btn>
           </td>
         </tr>
         </tbody>
