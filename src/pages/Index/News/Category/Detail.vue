@@ -23,7 +23,7 @@
             type="image"
             validate="required"
             inputName="file"
-            :data="getImageProp(data).files_name"
+            :data="data.used[0].files_name"
             @upload="upload"></file-uploader>
       </div>
     </div>
@@ -62,11 +62,6 @@
         {
           this.data.used = [res.data]
         }
-      },
-      getImageProp(data) {
-        return data.used
-          ? data.used[0]
-          : {}
       }
     }
   }

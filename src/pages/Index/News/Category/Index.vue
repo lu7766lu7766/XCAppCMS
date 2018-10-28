@@ -91,7 +91,8 @@
       NewsCategoryStatusConf: StatusConf,
       model: {
         name: '',
-        status: 'Y'
+        status: 'Y',
+        used: [{}]
       },
       seachData: {
         search: ''
