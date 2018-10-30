@@ -164,6 +164,7 @@
       },
       async mRequestProccess(key) {
         const data = this.data
+        this.clearUnusedImage(data)
         return await this.requestProccess(key, {
           id: data.id,
           name: data.name,
@@ -181,6 +182,21 @@
         this.deleteDatas('deleteNewsList')
       },
       //
+      /**
+       * filter unused image
+       * @param ref data
+       */
+      clearUnusedImage(data) {
+        var newFiles = []
+        _.forEach(data.used, file =>
+        {
+          if (data.content.indexOf(file.files_name) > -1 || data.cover_image.files_name == file.files_name)
+          {
+            newFiles.push(file)
+          }
+        })
+        data.used = newFiles
+      },
       getCategpruName(id) {
         const category = _.find(this.categorys, {id})
         return category

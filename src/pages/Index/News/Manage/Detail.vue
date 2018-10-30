@@ -154,6 +154,16 @@
         })
         if (res.success)
         {
+          let index
+          while (true)
+          {
+            index = _.findIndex(this.data.used, file =>
+            {
+              return file.file_used[0].cover == 'Y'
+            })
+            if (index == -1) break
+            this.data.used.splice(index, 1)
+          }
           this.data.used.push(res.data)
           this.data.cover_image = res.data
         }
