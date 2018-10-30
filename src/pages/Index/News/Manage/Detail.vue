@@ -161,8 +161,7 @@
         })
         if (res.success)
         {
-          let url = res.data.files_url[0]
-          Editor.insertEmbed(cursorLocation, 'image', url)
+          Editor.insertEmbed(cursorLocation, 'image', this.$imgUrl(res.data.files_url[0]))
           resetUploader()
           this.data.used.push(res.data)
         }

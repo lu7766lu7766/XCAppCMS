@@ -58,7 +58,7 @@
           </td>
           <td>{{ startIndex + index }}</td>
           <td>
-            <img :src="d.used[0].files_url[0]" height="60" />
+            <img :src="$imgUrl(d.used[0].files_url[0])" height="60" />
           </td>
           <td>{{ d.name }}</td>
           <td>
@@ -67,7 +67,6 @@
           </td>
           <td class="action">
             <update-btn @click="setData(d)"></update-btn>
-            <delete-btn @click="mDeleteDatas()"></delete-btn>
           </td>
         </tr>
         </tbody>

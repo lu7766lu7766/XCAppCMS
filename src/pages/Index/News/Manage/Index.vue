@@ -64,7 +64,7 @@
           </td>
           <td>{{ startIndex + index }}</td>
           <td>
-            <img :src="d.cover_image.files_url[0]"
+            <img :src="$imgUrl(d.cover_image.files_url[0])"
                  height="60"
                  v-if="d.used[0]" />
           </td>

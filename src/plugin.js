@@ -5,6 +5,7 @@ import Middleware, { mapping as MiddleMapping } from 'src/middleware'
 import store from 'src/store'
 import { LoginType } from 'src/store/module/login'
 import Vue from 'vue'
+import { apiHost } from 'lib/myLib'
 
 const install = (Vue, options) =>
 {
@@ -13,6 +14,17 @@ const install = (Vue, options) =>
   Vue.prototype._ = _
   Vue.prototype.moment = moment
 
+  Vue.prototype.$imgUrl = path =>
+  {
+    if (path.indexOf('http') > -1)
+    {
+      return path
+    }
+    else
+    {
+      return apiHost + path
+    }
+  }
   /**
    * copy selector's text
    * @param selector dom element
@@ -57,7 +69,7 @@ const install = (Vue, options) =>
       )
     // console.log(method, conf)
     var res = await axios(createApiBody(method, conf.uri, _.merge(_.pickBy(data), conf.data), conf.header))
-    
+
     // middleware
 
     const app = new Middleware
