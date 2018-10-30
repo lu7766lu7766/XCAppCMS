@@ -159,7 +159,7 @@
           {
             index = _.findIndex(this.data.used, file =>
             {
-              return file.file_used[0].cover == 'Y'
+              return file.file_used && file.file_used[0].cover == 'Y'
             })
             if (index == -1) break
             this.data.used.splice(index, 1)
