@@ -75,32 +75,28 @@ export default {
      * @param {*} key
      */
     async deleteDatas(key) {
-      var confirmResult = await this.deleteConfirm()
-      if (!confirmResult) return
-
-      var res = await this.$callApi(key, {
+      return await this.handleDeleteData(key, {
         id: this.dataCheckedIDs
       })
-      if (res.success)
-      {
-        this.getSearchData()
-      }
-      return res
     },
     /**
      *
      */
     async deleteData(key, data) {
+      return await this.handleDeleteData(key, {
+        id: data.id
+      })
+    },
+    async handleDeleteData(key, request) {
       var confirmResult = await this.deleteConfirm()
       if (!confirmResult) return
 
-      var res = await this.$callApi(key, {
-        id: data.id
-      })
+      var res = await this.$callApi(key, request)
       if (res.success)
       {
         this.getSearchData()
       }
+      this.requestResult = this.getRequestResult(res.success, '删除')
       return res
     },
     /**
@@ -183,10 +179,18 @@ export default {
      */
     isAllChecked: {
       set(newValue) {
-        _.forEach(this.datas, data => { data.checked = newValue })
+        _.forEach(this.datas, data =>
+        {
+          data.checked = (typeof data.can_delete == 'undefined' || data.can_delete)
+            ? newValue
+            : false
+        })
       },
       get() {
-        return !_.some(this.datas, {checked: false})
+        return !_.some(this.datas, data =>
+        {
+          return (typeof data.can_delete == 'undefined' || data.can_delete) && data.checked == false
+        })
       }
     },
     /**
