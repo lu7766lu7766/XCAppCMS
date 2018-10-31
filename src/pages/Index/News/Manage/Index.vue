@@ -106,6 +106,7 @@
 <script>
   import ListMixins from 'mixins/common/List'
   import DerekConf from 'src/config/DerekStatus'
+  import DeviceConf from 'src/config/Device'
 
   export default {
     mixins: [ListMixins],
@@ -155,6 +156,10 @@
         ])
         if (topicRes.success)
         {
+          _.forEach(topicRes.data, data =>
+          {
+            data.name = `(${DeviceConf[data.mobile_device]})${data.name}`
+          })
           this.topics = topicRes.data
         }
         if (categoryRes.success)

@@ -104,7 +104,7 @@
         var res = await this.mRequestProccess('postMessage')
         if (res.success && isPush)
         {
-          this.pushMessage(res.data.id)
+          this.handlePushMessage(res.data.id)
         }
       },
       async put() {
@@ -112,7 +112,7 @@
         var res = await this.mRequestProccess('putMessage')
         if (res.success && isPush)
         {
-          this.pushMessage(res.data.id)
+          this.handlePushMessage(res.data.id)
         }
       },
       async mRequestProccess(key) {
@@ -126,9 +126,34 @@
       mDeleteDatas() {
         this.deleteDatas('deleteMessageList')
       },
+      /**
+       * 一併推播確認
+       */
       async isPushMessageContinue() {
+        return await this.confirmMessage('是否一并推播讯息')
+      },
+      /**
+       * 推播確認
+       */
+      async isPushMessage() {
+        return await this.confirmMessage('是否推播讯息')
+      },
+      /**
+       * 點擊推播按鈕
+       */
+      async pushMessage(id) {
+        var isPush = await this.isPushMessage()
+        if (isPush)
+        {
+          this.handlePushMessage(id)
+        }
+      },
+      /**
+       * 確認視窗
+       */
+      async confirmMessage(message) {
         return !!(await this.$swal({
-          text: '是否一并推播讯息',
+          text: message,
           type: 'warning',
           showCancelButton: true,
           confirmButtonText: '是',
@@ -136,13 +161,13 @@
           reverseButtons: true
         })).value
       },
-      async pushMessage(id) {
-        var isPush = await this.isPushMessageContinue()
-        if (isPush)
-        {
-          var res = await this.$callApi('pushMessage', {id})
-          this.requestResult = this.getRequestResult(res.success, '推播')
-        }
+      /**
+       * 處理推播行為
+       * @param id
+       */
+      async handlePushMessage(id) {
+        var res = await this.$callApi('pushMessage', {id})
+        this.requestResult = this.getRequestResult(res.success, '推播')
       }
     },
     computed: {
