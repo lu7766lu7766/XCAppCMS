@@ -20,13 +20,18 @@
         <delete-btn @click="mDeleteDatas()"></delete-btn>
       </div>
       <div class="col-sm-9 form-inline justify-content-end panel-search">
-
+        <div class="form-group m-r-10 width-100">
+          <select class="form-control" v-model="seachData.category_id">
+            <option value="">新闻分类</option>
+            <option v-for="(category, index) in categorys" :key="index" :value="category.id">{{ category.name }}
+            </option>
+          </select>
+        </div>
         <div class="form-group m-r-10">
-
           <input type="text"
                  class="form-control"
                  placeholder="关键字"
-                 v-model="seachData.name"
+                 v-model="seachData.search"
                  @keyup.13="getSearchData()" />
         </div>
         <search-btn @click="getSearchData()"></search-btn>
@@ -124,7 +129,8 @@
         polling: 'N'
       },
       seachData: {
-        name: ''
+        category_id: '',
+        search: ''
       }
     }),
     methods: {

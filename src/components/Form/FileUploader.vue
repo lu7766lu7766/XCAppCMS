@@ -47,6 +47,7 @@
         if (e.target.files.length)
         {
           await this.$emit('upload', e.target.files[0])
+          e.target.value = ''
           this.$nextTick(() =>
           {
             this.$validator.validateAll()
